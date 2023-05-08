@@ -2,7 +2,7 @@
 //  String+Extension.swift
 //  SupermarketListApp
 //
-//  Created by PremierSoft on 03/05/23.
+//  Created by Rodrigo Ventura on 03/05/23.
 //
 
 import Foundation

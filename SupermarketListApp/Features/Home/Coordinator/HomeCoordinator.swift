@@ -18,10 +18,12 @@ final class HomeCoordinator: Coordinator {
     func start() {}
     
     func newSuperMarketList(listTitle: String) {
-        let controller = UINavigationController(rootViewController: CategoriesViewController(listTitle: listTitle))
-        controller.modalPresentationStyle = .overFullScreen
-        controller.hidesBottomBarWhenPushed = true
-        
-        self.navigationController.present(controller, animated: true)
+        let shoppingCoordinator = ShoppingListCoordinator(navigationController: navigationController)
+        let controller = ShoppingListViewController(listTitle: listTitle)
+        let shoppingViewModel = ShoppingListViewModel()
+        shoppingViewModel.coordinator = shoppingCoordinator
+        controller.viewModel = shoppingViewModel
+        childCoordinators.append(shoppingCoordinator)
+        self.navigationController.pushViewController(controller, animated: true)
     }
 }

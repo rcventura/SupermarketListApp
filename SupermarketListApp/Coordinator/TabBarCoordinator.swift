@@ -48,7 +48,6 @@ final class TabBarCoordinator: Coordinator {
             homeViewModel.coordinator = homeCoordinator
             controller.viewModel = homeViewModel
             childCoordinators.append(homeCoordinator)
-            homeCoordinator.start()
             navController.pushViewController(controller, animated: true)
             
         case .favorite:

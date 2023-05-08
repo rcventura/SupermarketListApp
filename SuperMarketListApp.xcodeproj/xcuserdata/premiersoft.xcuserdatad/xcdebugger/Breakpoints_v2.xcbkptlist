@@ -3,4 +3,70 @@
    uuid = "DC1C77E0-9C78-41C2-9704-73614FB36FFD"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0943AAF3-841A-4507-98A4-C2615109DCBC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SupermarketListApp/Features/ShoppingList/Coordinator/ShoppingListCoordinator.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "openCategoriesController()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0943AAF3-841A-4507-98A4-C2615109DCBC - 3bffdb1f1557c42b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SupermarketListApp.ShoppingListCoordinator.openCategoriesController() -&gt; ()"
+                  moduleName = "SupermarketListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/premiersoft/Apps/SupermarketListApp/SupermarketListApp/Features/ShoppingList/Coordinator/ShoppingListCoordinator.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  uuid = "0943AAF3-841A-4507-98A4-C2615109DCBC - 3bffdb1f1557c42b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SupermarketListApp.ShoppingListCoordinator.openCategoriesController() -&gt; ()"
+                  moduleName = "SupermarketListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/premiersoft/Apps/SupermarketListApp/SupermarketListApp/Features/ShoppingList/Coordinator/ShoppingListCoordinator.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7870D468-3C66-4020-9FEC-B58FBD79BC10"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SupermarketListApp/Features/ShoppingList/ShoppingListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "cancelList()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

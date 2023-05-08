@@ -10,7 +10,7 @@ import UIKit
 final class HomeView: UIView {
     
     lazy var tableView = UITableView()
-    private var listascriadas: [String] = []
+    private var listascriadas: [String] = [] // MODIFICAR PARA VIEWMODEL NO FUTURO
     private let emptyView = UIView()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
