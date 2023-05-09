@@ -23,7 +23,7 @@ class TabBarCoordinator: Coordinator {
     func start() {
         let pages: [TabBarNames] = [.home, .favorite, .profile]
         for tabbar in pages {
-            getTabController(tabbar)
+            let _ = getTabController(tabbar)
         }
         
         tabBarController.setViewControllers(self.controllers, animated: true)
