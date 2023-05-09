@@ -48,7 +48,6 @@ extension LoginViewController {
         default:
             viewModel.authLogin(email: email, password: password)
         }
-        
     }
 }
 

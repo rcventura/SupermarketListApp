@@ -15,15 +15,18 @@ final class HomeCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
-    func start() {}
+    func start() {
+        let controller = HomeViewController()
+        let homeViewModel = HomeViewModel()
+        homeViewModel.coordinator = self
+        controller.viewModel = homeViewModel
+        self.navigationController.pushViewController(controller, animated: true)
+    }
     
     func newSuperMarketList(listTitle: String) {
         let shoppingCoordinator = ShoppingListCoordinator(navigationController: navigationController)
-        let controller = ShoppingListViewController(listTitle: listTitle)
-        let shoppingViewModel = ShoppingListViewModel()
-        shoppingViewModel.coordinator = shoppingCoordinator
-        controller.viewModel = shoppingViewModel
+        shoppingCoordinator.listTitle = listTitle
         childCoordinators.append(shoppingCoordinator)
-        self.navigationController.pushViewController(controller, animated: true)
+        shoppingCoordinator.start()
     }
 }

@@ -10,12 +10,20 @@ import UIKit
 final class ShoppingListCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    var listTitle = String()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
-    func start() {}
+    func start() {
+        let controller = ShoppingListViewController(listTitle: listTitle)
+        let shoppingViewModel = ShoppingListViewModel()
+        controller.hidesBottomBarWhenPushed = true
+        controller.viewModel = shoppingViewModel
+        shoppingViewModel.coordinator = self
+        self.navigationController.pushViewController(controller, animated: true)
+    }
     
     func openCategoriesController() {
         let controller = UINavigationController(rootViewController: CategoriesViewController())

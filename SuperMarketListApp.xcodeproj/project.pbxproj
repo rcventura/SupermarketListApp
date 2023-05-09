@@ -40,6 +40,9 @@
 		858E163629D470D000E2DBDE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858E163529D470D000E2DBDE /* HomeViewController.swift */; };
 		858E163829D4718000E2DBDE /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858E163729D4718000E2DBDE /* HomeCoordinator.swift */; };
 		858E163A29D4721100E2DBDE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858E163929D4721100E2DBDE /* HomeViewModel.swift */; };
+		85918A3C2A08A30E00905261 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85918A3B2A08A30E00905261 /* CategoriesCollectionViewCell.swift */; };
+		85918A3E2A0A170500905261 /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85918A3D2A0A170500905261 /* FavoriteCoordinator.swift */; };
+		85918A402A0A227600905261 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85918A3F2A0A227600905261 /* ProfileCoordinator.swift */; };
 		85AB30E429D4C3EE007F4CA8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 85AB30E329D4C3EE007F4CA8 /* FirebaseAuth */; };
 		85ADBA5929E4C52A00CED171 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ADBA5829E4C52A00CED171 /* ShoppingListView.swift */; };
 		85ADBA5B29E4C67A00CED171 /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ADBA5A29E4C67A00CED171 /* ShoppingListViewController.swift */; };
@@ -106,6 +109,9 @@
 		858E163529D470D000E2DBDE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		858E163729D4718000E2DBDE /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		858E163929D4721100E2DBDE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		85918A3B2A08A30E00905261 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		85918A3D2A0A170500905261 /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
+		85918A3F2A0A227600905261 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		85ADBA5829E4C52A00CED171 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
 		85ADBA5A29E4C67A00CED171 /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		85E231C829D4C66A003DB40F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -323,6 +329,7 @@
 			children = (
 				854A23542A035E3800BE3461 /* CategoriesViewController.swift */,
 				85E3FD442A05489700AB5369 /* CategoriesView.swift */,
+				85918A3B2A08A30E00905261 /* CategoriesCollectionViewCell.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -371,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				85FEE26829DCAC2E00099594 /* FavoriteViewController.swift */,
+				85918A3D2A0A170500905261 /* FavoriteCoordinator.swift */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -379,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				85FEE26629DCABE500099594 /* ProfileViewController.swift */,
+				85918A3F2A0A227600905261 /* ProfileCoordinator.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -539,10 +548,12 @@
 				854A21EC29D3FD3100B17653 /* Coordinator.swift in Sources */,
 				854A220729D3FE5800B17653 /* SuperMarketTextField.swift in Sources */,
 				854A220229D3FE5800B17653 /* SuperMarketColor.swift in Sources */,
+				85918A402A0A227600905261 /* ProfileCoordinator.swift in Sources */,
 				854A21B529D3FC5400B17653 /* AppDelegate.swift in Sources */,
 				854A23502A035BE400BE3461 /* ShoppingListCoordinator.swift in Sources */,
 				858E162B29D4609900E2DBDE /* LoginView.swift in Sources */,
 				854A23522A035D4900BE3461 /* ShoppingListViewModel.swift in Sources */,
+				85918A3C2A08A30E00905261 /* CategoriesCollectionViewCell.swift in Sources */,
 				854A21B729D3FC5400B17653 /* SceneDelegate.swift in Sources */,
 				854A220A29D3FE5800B17653 /* SuperMarketButton.swift in Sources */,
 				85ADBA5929E4C52A00CED171 /* ShoppingListView.swift in Sources */,
@@ -550,6 +561,7 @@
 				854A21BF29D3FC5400B17653 /* SupermarketListApp.xcdatamodeld in Sources */,
 				854A220129D3FE5800B17653 /* UIColor+Extension.swift in Sources */,
 				858E162E29D46F8100E2DBDE /* LoginViewModel.swift in Sources */,
+				85918A3E2A0A170500905261 /* FavoriteCoordinator.swift in Sources */,
 				85FEE26929DCAC2E00099594 /* FavoriteViewController.swift in Sources */,
 				85FEE26729DCABE500099594 /* ProfileViewController.swift in Sources */,
 				854A220929D3FE5800B17653 /* IdentifieCell.swift in Sources */,

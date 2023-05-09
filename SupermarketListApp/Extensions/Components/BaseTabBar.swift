@@ -10,7 +10,7 @@ import UIKit
 enum TabBarNames: Int {
     case home
     case favorite
-    case account
+    case profile
     
     init?(index: Int) {
         switch index {
@@ -19,7 +19,7 @@ enum TabBarNames: Int {
         case 1:
             self = .favorite
         case 2:
-            self = .account
+            self = .profile
         default:
             return nil
         }
@@ -31,7 +31,7 @@ enum TabBarNames: Int {
             return "Inicio"
         case .favorite:
             return "Favoritos"
-        case .account:
+        case .profile:
             return "Perfil"
         }
     }
@@ -43,7 +43,7 @@ enum TabBarNames: Int {
             imageName = "house"
         case .favorite:
             imageName = "heart"
-        case .account:
+        case .profile:
             imageName = "person"
         }
         return UIImage(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
@@ -55,7 +55,7 @@ enum TabBarNames: Int {
             return 0
         case .favorite:
             return 1
-        case .account:
+        case .profile:
             return 2
         }
     }

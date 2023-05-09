@@ -7,32 +7,30 @@
 
 import UIKit
 
-final class TabBarCoordinator: Coordinator {
+class TabBarCoordinator: Coordinator {
+    var tabBarController: UITabBarController
     var childCoordinators: [Coordinator] = []
-    var navigationController: UINavigationController
-    var tabBarController = UITabBarController()
+    var controllers: [UINavigationController] = []
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-
-    func start() {
-        let pages: [TabBarNames] = [.home, .favorite, .account]
-        let controllers: [UINavigationController] = pages.map({ getTabController($0) })
-        prepareTabBarController(withTabControllers: controllers)
+    init(tabBarController: UITabBarController) {
+        self.tabBarController = tabBarController
     }
     
     deinit {
         print("TabCoordinator deinit")
     }
     
-    private func prepareTabBarController(withTabControllers tabControllers: [UIViewController]) {
-        tabBarController.setViewControllers(tabControllers, animated: true)
-        tabBarController.selectedIndex = TabBarNames.home.rawValue
+    func start() {
+        let pages: [TabBarNames] = [.home, .favorite, .profile]
+        for tabbar in pages {
+            getTabController(tabbar)
+        }
+        
+        tabBarController.setViewControllers(self.controllers, animated: true)
         tabBarController.tabBar.isTranslucent = false
+        tabBarController.selectedIndex = TabBarNames.home.rawValue
         tabBarController.tabBar.backgroundColor = SuperMarketColor.blue_E4EBF0
         tabBarController.tabBar.tintColor = SuperMarketColor.blue_4180AB
-        navigationController.viewControllers = [tabBarController]
     }
       
     private func getTabController(_ page: TabBarNames) -> UINavigationController {
@@ -42,21 +40,23 @@ final class TabBarCoordinator: Coordinator {
                                                      tag: page.pageOrderNumber())
         switch page {
         case .home:
-            let homeCoordinator = HomeCoordinator(navigationController: navigationController)
-            let controller = HomeViewController()
-            let homeViewModel = HomeViewModel()
-            homeViewModel.coordinator = homeCoordinator
-            controller.viewModel = homeViewModel
-            childCoordinators.append(homeCoordinator)
-            navController.pushViewController(controller, animated: true)
-            
+            let coordinator = HomeCoordinator(navigationController: navController)
+            childCoordinators.append(coordinator)
+            controllers.append(coordinator.navigationController)
+            coordinator.navigationController.tabBarItem = navController.tabBarItem
+            coordinator.start()
         case .favorite:
-            let controller = FavoriteViewController()
-            navController.pushViewController(controller, animated: true)
-            
-        case .account:
-            let controller = ProfileViewController()
-            navController.pushViewController(controller, animated: true)
+            let coordinator = FavoriteCoordinator(navigationController: navController)
+            childCoordinators.append(coordinator)
+            controllers.append(coordinator.navigationController)
+            coordinator.navigationController.tabBarItem = navController.tabBarItem
+            coordinator.start()
+        case .profile:
+            let coordinator = ProfileCoordinator(navigationController: navController)
+            childCoordinators.append(coordinator)
+            controllers.append(coordinator.navigationController)
+            coordinator.navigationController.tabBarItem = navController.tabBarItem
+            coordinator.start()
         }
         return navController
     }
