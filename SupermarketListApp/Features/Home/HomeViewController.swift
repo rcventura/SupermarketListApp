@@ -19,6 +19,11 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         addLayout()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        addLayout()
+    }
 }
 
 extension HomeViewController {
@@ -47,6 +52,10 @@ extension HomeViewController {
         title = "Principal"
         
         navigationItem.hidesBackButton = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(createNewMarketList))
+        
+        let iconImage = UIImage(systemName: "plus.circle")?.withRenderingMode(.alwaysTemplate)
+        let trashIcon = UIBarButtonItem(image: iconImage, style: .plain, target: self, action: #selector(createNewMarketList))
+        navigationItem.rightBarButtonItem = trashIcon
+        navigationController?.navigationBar.tintColor = .blue.withAlphaComponent(0.5)
     }
 }
