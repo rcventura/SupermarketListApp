@@ -10,7 +10,7 @@ import UIKit
 class TabBarCoordinator: Coordinator {
     var tabBarController: UITabBarController
     var childCoordinators: [Coordinator] = []
-    var controllers: [UINavigationController] = []
+    var navigationController: [UINavigationController] = []
     
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
@@ -21,41 +21,35 @@ class TabBarCoordinator: Coordinator {
     }
     
     func start() {
-        let pages: [TabBarNames] = [.home, .favorite, .profile]
-        let _ = pages.map({ getTabController($0) })
-        
-        tabBarController.setViewControllers(self.controllers, animated: true)
+        let pages: [TabBarItems] = [.home, .favorite, .profile]
+        self.navigationController = pages.map({ getTabController($0) })
+        configTabBarController()
+    }
+    
+    private func configTabBarController() {
+        tabBarController.setViewControllers(self.navigationController, animated: true)
+        tabBarController.selectedIndex = TabBarItems.home.rawValue
         tabBarController.tabBar.isTranslucent = false
-        tabBarController.selectedIndex = TabBarNames.home.rawValue
         tabBarController.tabBar.backgroundColor = SuperMarketColor.blue_E4EBF0
         tabBarController.tabBar.tintColor = SuperMarketColor.blue_4180AB
     }
       
-    private func getTabController(_ page: TabBarNames) -> UINavigationController {
+    private func getTabController(_ page: TabBarItems) -> UINavigationController  {
         let navController = UINavigationController()
+        let coordinator: Coordinator
         navController.tabBarItem = UITabBarItem.init(title: page.setTabBarItemsTitle(),
                                                      image: page.setTabBarItemsImage(),
                                                      tag: page.pageOrderNumber())
         switch page {
         case .home:
-            let coordinator = HomeCoordinator(navigationController: navController)
-            childCoordinators.append(coordinator)
-            controllers.append(coordinator.navigationController)
-            coordinator.navigationController.tabBarItem = navController.tabBarItem
-            coordinator.start()
+            coordinator = HomeCoordinator(navigationController: navController)
         case .favorite:
-            let coordinator = FavoriteCoordinator(navigationController: navController)
-            childCoordinators.append(coordinator)
-            controllers.append(coordinator.navigationController)
-            coordinator.navigationController.tabBarItem = navController.tabBarItem
-            coordinator.start()
+            coordinator = FavoriteCoordinator(navigationController: navController)
         case .profile:
-            let coordinator = ProfileCoordinator(navigationController: navController)
-            childCoordinators.append(coordinator)
-            controllers.append(coordinator.navigationController)
-            coordinator.navigationController.tabBarItem = navController.tabBarItem
-            coordinator.start()
+            coordinator = ProfileCoordinator(navigationController: navController)
         }
+        childCoordinators.append(coordinator)
+        coordinator.start()
         return navController
     }
 }

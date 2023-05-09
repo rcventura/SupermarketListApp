@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum TabBarNames: Int {
+enum TabBarItems: Int {
     case home
     case favorite
     case profile

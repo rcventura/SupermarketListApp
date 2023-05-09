@@ -20,7 +20,7 @@ final class HomeCoordinator: Coordinator {
         let homeViewModel = HomeViewModel()
         homeViewModel.coordinator = self
         controller.viewModel = homeViewModel
-        self.navigationController.setViewControllers([controller], animated: true)
+        self.navigationController.setViewControllers([controller], animated: false)
     }
     
     func newSuperMarketList(listTitle: String) {
