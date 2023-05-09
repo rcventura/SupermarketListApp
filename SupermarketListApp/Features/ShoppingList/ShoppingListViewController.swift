@@ -60,7 +60,7 @@ extension ShoppingListViewController {
         let iconImage = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate)
         let trashIcon = UIBarButtonItem(image: iconImage, style: .plain, target: self, action: #selector(cancelList))
         navigationItem.rightBarButtonItem = trashIcon
-        navigationController?.navigationBar.tintColor = .red
+        navigationController?.navigationBar.tintColor = .red.withAlphaComponent(0.5)
     }
 }
 

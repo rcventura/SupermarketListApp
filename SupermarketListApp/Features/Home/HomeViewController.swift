@@ -50,9 +50,7 @@ extension HomeViewController {
 extension HomeViewController {
     private func addLayout() {
         title = "Principal"
-        
         navigationItem.hidesBackButton = true
-        
         let iconImage = UIImage(systemName: "plus.circle")?.withRenderingMode(.alwaysTemplate)
         let trashIcon = UIBarButtonItem(image: iconImage, style: .plain, target: self, action: #selector(createNewMarketList))
         navigationItem.rightBarButtonItem = trashIcon
