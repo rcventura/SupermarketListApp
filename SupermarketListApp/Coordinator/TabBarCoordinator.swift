@@ -22,9 +22,7 @@ class TabBarCoordinator: Coordinator {
     
     func start() {
         let pages: [TabBarNames] = [.home, .favorite, .profile]
-        for tabbar in pages {
-            let _ = getTabController(tabbar)
-        }
+        let _ = pages.map({ getTabController($0) })
         
         tabBarController.setViewControllers(self.controllers, animated: true)
         tabBarController.tabBar.isTranslucent = false
