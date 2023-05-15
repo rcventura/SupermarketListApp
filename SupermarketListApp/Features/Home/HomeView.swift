@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 final class HomeView: UIView {
     
     lazy var tableView = UITableView()
@@ -14,6 +15,7 @@ final class HomeView: UIView {
     private let emptyView = UIView()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
+    let name = "Rodrigo"
     
     init() {
         super.init(frame: .zero)
