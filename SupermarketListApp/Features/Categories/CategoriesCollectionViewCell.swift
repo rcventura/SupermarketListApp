@@ -2,7 +2,7 @@
 //  CategoriesCollectionViewCell.swift
 //  SupermarketListApp
 //
-//  Created by PremierSoft on 08/05/23.
+//  Created by Rodrigo Ventura on 08/05/23.
 //
 
 import UIKit
@@ -27,6 +27,7 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         
         categoryImage.contentMode = .scaleAspectFill
         categoryImage.translatesAutoresizingMaskIntoConstraints = false
+        categoryImage.image = UIImage(named: "imageteste")
         
         NSLayoutConstraint.activate([
             categoryImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -39,17 +40,14 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     func addCategoryTitle() {
         addSubview(categoryTitle)
         
-        categoryTitle.text = "Limpeza"
         categoryTitle.translatesAutoresizingMaskIntoConstraints = false
+        categoryTitle.numberOfLines = 0
+        categoryTitle.textAlignment = .center
         
         NSLayoutConstraint.activate([
             categoryTitle.topAnchor.constraint(equalTo: categoryImage.bottomAnchor, constant: 5),
-            categoryTitle.centerXAnchor.constraint(equalTo: categoryImage.centerXAnchor)
+            categoryTitle.centerXAnchor.constraint(equalTo: categoryImage.centerXAnchor),
+            categoryTitle.trailingAnchor.constraint(equalTo: categoryImage.trailingAnchor),
         ])
     }
-    
-    func setup() {
-        categoryImage.image = UIImage(named: "imageteste")
-    }
-    
 }

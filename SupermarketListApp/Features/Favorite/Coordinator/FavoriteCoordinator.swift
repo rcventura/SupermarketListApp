@@ -2,7 +2,7 @@
 //  FavoriteCoordinator.swift
 //  SupermarketListApp
 //
-//  Created by PremierSoft on 09/05/23.
+//  Created by Rodrigo Ventura on 09/05/23.
 //
 
 import UIKit
@@ -18,9 +18,6 @@ final class FavoriteCoordinator: Coordinator {
     
     func start() {
         let controller = FavoriteViewController()
-//        let homeViewModel = HomeViewModel()
-//        homeViewModel.coordinator = self
-//        controller.viewModel = homeViewModel
         self.navigationController.setViewControllers([controller], animated: false)
     }
     

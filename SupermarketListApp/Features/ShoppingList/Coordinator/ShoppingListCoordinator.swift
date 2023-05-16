@@ -26,8 +26,8 @@ final class ShoppingListCoordinator: Coordinator {
     }
     
     func openCategoriesController() {
-        let controller = UINavigationController(rootViewController: CategoriesViewController())
-        controller.hidesBottomBarWhenPushed = true
-        self.navigationController.present(controller, animated: true)
+        let coordinator = CategoriesCoordinator(navigationController: navigationController)
+        childCoordinators.append(coordinator)
+        coordinator.start()
     }
 }
