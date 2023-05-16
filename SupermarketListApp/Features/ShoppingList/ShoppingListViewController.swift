@@ -53,8 +53,37 @@ extension ShoppingListViewController {
 }
 
 extension ShoppingListViewController {
+    private func delegates() {
+        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
+    }
+}
+
+extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if viewModel.listascriadas.count == 0 {
+            mainView.addEmptyTitle()
+            mainView.addEmptyMessage()
+            mainView.addOpenCategotyList()
+            
+        }
+        return viewModel.listascriadas.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        if let cell = cell as? UITableViewCell {
+            cell.textLabel?.text = "oi"
+        }
+        return cell
+    }
+}
+
+extension ShoppingListViewController {
     private func addLayout() {
         actionComponentsView()
+        delegates()
         title = "Lista de Compras"
         navigationItem.hidesBackButton = true
         let iconImage = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate)

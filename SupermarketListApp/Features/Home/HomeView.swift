@@ -11,11 +11,9 @@ import UIKit
 final class HomeView: UIView {
     
     lazy var tableView = UITableView()
-    private var listascriadas: [String] = [] // MODIFICAR PARA VIEWMODEL NO FUTURO
     private let emptyView = UIView()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
-    let name = "Rodrigo"
     
     init() {
         super.init(frame: .zero)
@@ -65,8 +63,6 @@ extension HomeView {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         tableView.backgroundView = emptyView
@@ -82,29 +78,9 @@ extension HomeView {
     }
 }
 
-extension HomeView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if listascriadas.count == 0 {
-            addEmptyTitle()
-            addEmptyMessage()
-        }
-        return listascriadas.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = "oi"
-        }
-        return cell
-    }
-}
-
 extension HomeView {
     private func addLayout() {
         backgroundColor =  SuperMarketColor.blue_BDD1DE
-        
         addTableView()
     }
 }

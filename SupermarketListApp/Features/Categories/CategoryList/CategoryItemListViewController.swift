@@ -50,6 +50,10 @@ extension CategoryItemListViewController {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
     }
+    
+    @objc private func backViewController() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension CategoryItemListViewController: CategoryItemListViewModelDelegate {
@@ -78,5 +82,7 @@ extension CategoryItemListViewController {
     private func addLayout() {
         delegates()
         title = "Items"
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Voltar", style: .plain, target: self, action: #selector(backViewController))
     }
 }

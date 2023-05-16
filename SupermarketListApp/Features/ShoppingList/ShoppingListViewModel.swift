@@ -9,6 +9,7 @@ import Foundation
 
 final class ShoppingListViewModel {
     weak var coordinator: ShoppingListCoordinator?
+    var listascriadas: [String] = []
 }
 
 extension ShoppingListViewModel {

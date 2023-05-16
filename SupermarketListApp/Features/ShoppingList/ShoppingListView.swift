@@ -12,7 +12,6 @@ class ShoppingListView: UIView {
     let nameCategoryLabel = UILabel()
     let categoryTitle = UILabel()
     var tableView = UITableView()
-    private var listascriadas: [String] = [] // MODIFICAR PARA VIEWMODEL NO FUTURO
     private let emptyView = UIView()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
@@ -108,8 +107,6 @@ extension ShoppingListView {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         tableView.backgroundView = emptyView
@@ -132,27 +129,6 @@ extension ShoppingListView {
             saveListButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             saveListButton.heightAnchor.constraint(equalToConstant: 45)
         ])
-    }
-}
-
-extension ShoppingListView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if listascriadas.count == 0 {
-            addEmptyTitle()
-            addEmptyMessage()
-            addOpenCategotyList()
-            
-        }
-        return listascriadas.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = "oi"
-        }
-        return cell
     }
 }
 

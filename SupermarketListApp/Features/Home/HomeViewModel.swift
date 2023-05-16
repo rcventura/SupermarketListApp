@@ -10,6 +10,7 @@ import Foundation
 final class HomeViewModel {
     
     weak var coordinator: HomeCoordinator?
+    var listascriadas: [String] = []
     
 }
 

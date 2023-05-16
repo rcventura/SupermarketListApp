@@ -8,6 +8,7 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
+    
     private let mainView: HomeView = .init()
     var viewModel =  HomeViewModel()
     
@@ -48,7 +49,34 @@ extension HomeViewController {
 }
 
 extension HomeViewController {
+    private func delegates() {
+        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
+    }
+}
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if viewModel.listascriadas.count == 0 {
+            self.mainView.addEmptyTitle()
+            self.mainView.addEmptyMessage()
+        }
+        return viewModel.listascriadas.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        if let cell = cell as? UITableViewCell {
+            cell.textLabel?.text = "oi"
+        }
+        return cell
+    }
+}
+
+extension HomeViewController {
     private func addLayout() {
+        delegates()
         title = "Principal"
         navigationItem.hidesBackButton = true
         let iconImage = UIImage(systemName: "plus.circle")?.withRenderingMode(.alwaysTemplate)
