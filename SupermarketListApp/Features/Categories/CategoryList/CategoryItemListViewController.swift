@@ -16,7 +16,6 @@ final class CategoryItemListViewController: UIViewController {
     
     override func loadView() {
         view = mainView
-        
     }
     
     init(categoryId: Int) {
@@ -78,6 +77,6 @@ extension CategoryItemListViewController: UITableViewDelegate, UITableViewDataSo
 extension CategoryItemListViewController {
     private func addLayout() {
         delegates()
-        title = "AAA"
+        title = "Items"
     }
 }
