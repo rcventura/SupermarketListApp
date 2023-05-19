@@ -30,7 +30,7 @@ extension CategoryItemListView {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CategoryItemListTableViewCell.self, forCellReuseIdentifier: CategoryItemListTableViewCell.reuseId)
         tableView.allowsMultipleSelection = true
         
         NSLayoutConstraint.activate([
@@ -44,7 +44,6 @@ extension CategoryItemListView {
         addSubview(itemsAdded)
         
         itemsAdded.translatesAutoresizingMaskIntoConstraints = false
-        itemsAdded.text = "Items adicionados: "
         
         NSLayoutConstraint.activate([
             itemsAdded.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),

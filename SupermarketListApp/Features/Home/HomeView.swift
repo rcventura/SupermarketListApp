@@ -14,6 +14,7 @@ final class HomeView: UIView {
     private let emptyView = UIView()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
+    let createNewMarketListButton = SuperMarketButton()
     
     init() {
         super.init(frame: .zero)
@@ -57,17 +58,27 @@ extension HomeView {
         ])
     }
     
-    
+    func addNewListButton() {
+        emptyView.addSubview(createNewMarketListButton)
+        createNewMarketListButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let config = UIImage.SymbolConfiguration(textStyle: .largeTitle)
+        createNewMarketListButton.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
+        
+        NSLayoutConstraint.activate([
+            createNewMarketListButton.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 20),
+            createNewMarketListButton.centerXAnchor.constraint(equalTo: messageLabel.centerXAnchor),
+
+        ])
+    }
+        
     private func addTableView() {
         addSubview(tableView)
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         tableView.backgroundColor = .white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
         tableView.backgroundView = emptyView
-        tableView.separatorStyle = .none
-        tableView.isScrollEnabled = false
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),

@@ -16,7 +16,7 @@ class ShoppingListView: UIView {
     private let emptyView = UIView()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
-    let openCategotyList = SuperMarketButton()
+    let categoryListButton = SuperMarketButton()
     let saveButton = SuperMarketButton(title: "Salvar Lista", enabledBackgroundColor: SuperMarketColor.gray_AFAFAF, disabledBackgroundColor: SuperMarketColor.gray_6F737E)
     
     init() {
@@ -109,16 +109,16 @@ extension ShoppingListView {
         ])
     }
     
-    func addOpenCategotyList() {
-        emptyView.addSubview(openCategotyList)
-        openCategotyList.translatesAutoresizingMaskIntoConstraints = false
+    func addCategoryListButton() {
+        emptyView.addSubview(categoryListButton)
+        categoryListButton.translatesAutoresizingMaskIntoConstraints = false
         
         let config = UIImage.SymbolConfiguration(textStyle: .largeTitle)
-        openCategotyList.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
+        categoryListButton.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
         
         NSLayoutConstraint.activate([
-            openCategotyList.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 20),
-            openCategotyList.centerXAnchor.constraint(equalTo: messageLabel.centerXAnchor),
+            categoryListButton.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 20),
+            categoryListButton.centerXAnchor.constraint(equalTo: messageLabel.centerXAnchor),
 
         ])
     }
@@ -129,7 +129,6 @@ extension ShoppingListView {
         
         tableView.backgroundColor = .white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
         tableView.backgroundView = emptyView
         
         NSLayoutConstraint.activate([

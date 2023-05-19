@@ -59,12 +59,17 @@ extension CategoryItemListViewController {
     }
     
     @objc private func addItems() {
+        viewModel.itemsAdd.forEach { item in
+            Helper.shared.itemsAdded.append(item)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
     private func updateLayout() {
-        mainView.itemsquantity.text = Helper.shared.itemsAdded.count == 0 ? "0" : "\(Helper.shared.itemsAdded.count)"
-        mainView.saveButton.isEnabled = !(Helper.shared.itemsAdded.count == 0)
+        let arrayCount = viewModel.itemsAdd.count
+        mainView.itemsAdded.text = arrayCount <= 1 ? "Item selecionado: " : "Items selecionados: "
+        mainView.itemsquantity.text = arrayCount == 0 ? "0" : "\(arrayCount)"
+        mainView.saveButton.isEnabled = !(arrayCount == 0)
     }
 }
 
@@ -80,22 +85,22 @@ extension CategoryItemListViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CategoryItemListTableViewCell.reuseId, for: indexPath)
         
-        if let cell = cell as? UITableViewCell {
+        if let cell = cell as? CategoryItemListTableViewCell {
             cell.textLabel?.text = viewModel.itemsCategory[indexPath.row]
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Helper.shared.itemsAdded.append(viewModel.itemsCategory[indexPath.row])
+        viewModel.itemsAdd.append(viewModel.itemsCategory[indexPath.row])
         updateLayout()
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if let index = Helper.shared.itemsAdded.firstIndex(of: viewModel.itemsCategory[indexPath.row]) {
-            Helper.shared.itemsAdded.remove(at: index)
+        if let index = viewModel.itemsAdd.firstIndex(of: viewModel.itemsCategory[indexPath.row]) {
+            viewModel.itemsAdd.remove(at: index)
             updateLayout()
         }
     }

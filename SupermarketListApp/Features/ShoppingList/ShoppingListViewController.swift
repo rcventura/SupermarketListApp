@@ -31,6 +31,7 @@ class ShoppingListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         updateLayout()
         mainView.tableView.reloadData()
     }
@@ -38,13 +39,35 @@ class ShoppingListViewController: UIViewController {
 
 extension ShoppingListViewController {
     private func actionComponentsView() {
-        mainView.openCategotyList.addTarget(self, action: #selector(openCategoriesController), for: .touchUpInside)
+        mainView.categoryListButton.addTarget(self, action: #selector(openCategoriesController), for: .touchUpInside)
         mainView.newOthersItems.addTarget(self, action: #selector(openCategoriesController), for: .touchUpInside)
+        mainView.saveButton.addTarget(self, action: #selector(saveList), for: .touchUpInside)
     }
     
     @objc private func openCategoriesController() {
         viewModel.openCategoryList()
     }
+    
+    @objc private func saveList() {
+        print(Helper.shared.itemsAdded)
+        guard let title = mainView.categoryTitle.text else { return }
+        
+            Helper.shared.listCreated[title] = Helper.shared.itemsAdded
+        
+        Helper.shared.itemsAdded.removeAll()
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func delegates() {
+        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
+    }
+    
+    private func updateLayout() {
+        mainView.saveButton.isEnabled = !(Helper.shared.itemsAdded.count == 0)
+        mainView.newOthersItems.isHidden = Helper.shared.itemsAdded.count == 0
+    }
+    
 }
 
 extension ShoppingListViewController {
@@ -59,24 +82,12 @@ extension ShoppingListViewController {
     }
 }
 
-extension ShoppingListViewController {
-    private func delegates() {
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
-    }
-    
-    private func updateLayout() {
-        mainView.saveButton.isEnabled = !(Helper.shared.itemsAdded.count == 0)
-        mainView.newOthersItems.isHidden = Helper.shared.itemsAdded.count == 0
-    }
-}
-
 extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if Helper.shared.itemsAdded.count == 0 {
             mainView.addEmptyTitle()
             mainView.addEmptyMessage()
-            mainView.addOpenCategotyList()
+            mainView.addCategoryListButton()
         } else {
             mainView.tableView.backgroundView = .none
         }
