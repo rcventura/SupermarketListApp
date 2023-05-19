@@ -54,6 +54,7 @@
 		85C07B352A129DF500B3CEC4 /* CategoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C07B342A129DF500B3CEC4 /* CategoriesCoordinator.swift */; };
 		85C07B372A12A08800B3CEC4 /* CategoryItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C07B362A12A08800B3CEC4 /* CategoryItemListViewModel.swift */; };
 		85C07B392A13FB8B00B3CEC4 /* CategoryItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C07B382A13FB8B00B3CEC4 /* CategoryItemListView.swift */; };
+		85C07B3E2A15723C00B3CEC4 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C07B3D2A15723C00B3CEC4 /* Helper.swift */; };
 		85E2239029DBCD0F0093AC94 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 85E2238F29DBCD0F0093AC94 /* GoogleSignIn */; };
 		85E2239229DBCD0F0093AC94 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 85E2239129DBCD0F0093AC94 /* GoogleSignInSwift */; };
 		85E231C929D4C66A003DB40F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85E231C829D4C66A003DB40F /* GoogleService-Info.plist */; };
@@ -130,6 +131,7 @@
 		85C07B342A129DF500B3CEC4 /* CategoriesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoordinator.swift; sourceTree = "<group>"; };
 		85C07B362A12A08800B3CEC4 /* CategoryItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemListViewModel.swift; sourceTree = "<group>"; };
 		85C07B382A13FB8B00B3CEC4 /* CategoryItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemListView.swift; sourceTree = "<group>"; };
+		85C07B3D2A15723C00B3CEC4 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		85E231C829D4C66A003DB40F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		85E3FD442A05489700AB5369 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		85FEE26629DCABE500099594 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				854A21F429D3FE5800B17653 /* Image */,
 				854A21F729D3FE5800B17653 /* Components */,
 				854A220029D3FE5800B17653 /* Font */,
+				85C07B3D2A15723C00B3CEC4 /* Helper.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -345,7 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				85C07B332A129DE000B3CEC4 /* Coordinator */,
-				85C07B302A129D6C00B3CEC4 /* CategoryList */,
+				85C07B302A129D6C00B3CEC4 /* CategoryItemsList */,
 				85918A432A12548400905261 /* Model */,
 				85918A3B2A08A30E00905261 /* CategoriesCollectionViewCell.swift */,
 				85E3FD442A05489700AB5369 /* CategoriesView.swift */,
@@ -420,14 +423,14 @@
 			path = ShoppingList;
 			sourceTree = "<group>";
 		};
-		85C07B302A129D6C00B3CEC4 /* CategoryList */ = {
+		85C07B302A129D6C00B3CEC4 /* CategoryItemsList */ = {
 			isa = PBXGroup;
 			children = (
 				85C07B382A13FB8B00B3CEC4 /* CategoryItemListView.swift */,
 				85C07B312A129D9D00B3CEC4 /* CategoryItemListViewController.swift */,
 				85C07B362A12A08800B3CEC4 /* CategoryItemListViewModel.swift */,
 			);
-			path = CategoryList;
+			path = CategoryItemsList;
 			sourceTree = "<group>";
 		};
 		85C07B332A129DE000B3CEC4 /* Coordinator */ = {
@@ -624,6 +627,7 @@
 				858E163A29D4721100E2DBDE /* HomeViewModel.swift in Sources */,
 				85ADBA5B29E4C67A00CED171 /* ShoppingListViewController.swift in Sources */,
 				85C07B352A129DF500B3CEC4 /* CategoriesCoordinator.swift in Sources */,
+				85C07B3E2A15723C00B3CEC4 /* Helper.swift in Sources */,
 				858E163629D470D000E2DBDE /* HomeViewController.swift in Sources */,
 				85E3FD452A05489700AB5369 /* CategoriesView.swift in Sources */,
 				857144692A0290FB00B96C02 /* TabBarCoordinator.swift in Sources */,

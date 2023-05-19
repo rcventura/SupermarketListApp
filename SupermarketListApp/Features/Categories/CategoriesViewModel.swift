@@ -26,5 +26,4 @@ final class CategoriesViewModel {
     func openCategoryItemList(categoryId: Int) {
         self.coordinator?.CategoriesCoordinator(categoryId: categoryId)
     }
-    
 }

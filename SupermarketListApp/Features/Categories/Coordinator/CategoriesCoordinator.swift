@@ -27,4 +27,13 @@ class CategoriesCoordinator: Coordinator {
         let controller = CategoryItemListViewController(categoryId: categoryId)
         self.navigationController.pushViewController(controller, animated: true)
     }
+    
+    func openCategoriesController() {
+        let viewModel = CategoryItemListViewModel()
+        navigationController.popViewController(animated: false)
+        let coordinator = self
+        viewModel.coordinator = self
+        childCoordinators.append(coordinator)
+        coordinator.start()
+    }
 }

@@ -11,7 +11,6 @@ final class CategoryItemListViewController: UIViewController {
     
     let mainView: CategoryItemListView = .init()
     var viewModel = CategoryItemListViewModel()
-    var itemsByCategory: [String] = []
     var categoryId: Int
     
     override func loadView() {
@@ -51,38 +50,63 @@ extension CategoryItemListViewController {
         mainView.tableView.dataSource = self
     }
     
+    private func actionButton() {
+        mainView.saveButton.addTarget(self, action: #selector(addItems), for: .touchUpInside)
+    }
+    
     @objc private func backViewController() {
-        navigationController?.popViewController(animated: true)
+        viewModel.openCategory()
+    }
+    
+    @objc private func addItems() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func updateLayout() {
+        mainView.itemsquantity.text = Helper.shared.itemsAdded.count == 0 ? "0" : "\(Helper.shared.itemsAdded.count)"
+        mainView.saveButton.isEnabled = !(Helper.shared.itemsAdded.count == 0)
     }
 }
 
 extension CategoryItemListViewController: CategoryItemListViewModelDelegate {
     func didSelectCategory() {
-        self.itemsByCategory = viewModel.service.categoryItems
+        viewModel.itemsCategory = viewModel.service.categoryItems
     }
 }
 
 extension CategoryItemListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemsByCategory.count
+        return viewModel.itemsCategory.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = itemsByCategory[indexPath.row]
+            cell.textLabel?.text = viewModel.itemsCategory[indexPath.row]
         }
-        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Helper.shared.itemsAdded.append(viewModel.itemsCategory[indexPath.row])
+        updateLayout()
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let index = Helper.shared.itemsAdded.firstIndex(of: viewModel.itemsCategory[indexPath.row]) {
+            Helper.shared.itemsAdded.remove(at: index)
+            updateLayout()
+        }
     }
 }
 
 extension CategoryItemListViewController {
     private func addLayout() {
+        updateLayout()
         delegates()
+        actionButton()
         title = "Items"
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Voltar", style: .plain, target: self, action: #selector(backViewController))
     }
 }

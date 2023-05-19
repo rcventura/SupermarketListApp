@@ -14,8 +14,8 @@ final class LoginView: UIView {
     let emailTextField = SuperMarketTextField(placeholder: "E-mail")
     let passwordTextField = SuperMarketTextField(placeholder: "Password")
     private let stackView =  UIStackView()
-    let loginButton = SuperMarketButton(title: "Entrar", backgroundColor: SuperMarketColor.blue_066699)
-    let newUserButton = SuperMarketButton(title: "Novo Usuário", backgroundColor: SuperMarketColor.blue_066699)
+    let loginButton = SuperMarketButton(title: "Entrar", enabledBackgroundColor: SuperMarketColor.gray_AFAFAF)
+    let newUserButton = SuperMarketButton(title: "Novo Usuário", enabledBackgroundColor: SuperMarketColor.gray_AFAFAF)
     private let loginWithSocialLabel = UILabel()
     let googleSignInButton = GIDSignInButton()
     
@@ -98,6 +98,7 @@ extension LoginView {
     private func addLoginWithSocialLabel() {
         addSubview(loginWithSocialLabel)
         loginWithSocialLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         loginWithSocialLabel.text = "Ou: "
         loginWithSocialLabel.font = UIFont.systemFont(ofSize: 13)
         
