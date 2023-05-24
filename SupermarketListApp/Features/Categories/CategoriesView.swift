@@ -45,6 +45,6 @@ final class CategoriesView: UIView {
 extension CategoriesView {
     private func addLayout() {
         addCollectionView()
-        backgroundColor = SuperMarketColor.white
+        backgroundColor = SMColor.white
     }
 }

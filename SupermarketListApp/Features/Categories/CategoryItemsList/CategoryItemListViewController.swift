@@ -12,13 +12,15 @@ final class CategoryItemListViewController: UIViewController {
     let mainView: CategoryItemListView = .init()
     var viewModel = CategoryItemListViewModel()
     var categoryId: Int
+    let placeOfCreation: Bool
     
     override func loadView() {
         view = mainView
     }
     
-    init(categoryId: Int) {
+    init(categoryId: Int, placeOfCreation: Bool) {
         self.categoryId = categoryId
+        self.placeOfCreation = placeOfCreation
         super.init(nibName: nil, bundle: nil)
         addLayout()
     }
@@ -60,16 +62,17 @@ extension CategoryItemListViewController {
     
     @objc private func addItems() {
         viewModel.itemsAdd.forEach { item in
-            Helper.shared.itemsAdded.append(item)
+            Helper.shared.itemsAdded[item] = [""]
         }
         self.navigationController?.popViewController(animated: true)
     }
     
     private func updateLayout() {
         let arrayCount = viewModel.itemsAdd.count
-        mainView.itemsAdded.text = arrayCount <= 1 ? "Item selecionado: " : "Items selecionados: "
-        mainView.itemsquantity.text = arrayCount == 0 ? "0" : "\(arrayCount)"
+        mainView.itemsquantity.titleLabel.text = arrayCount <= 1 ? "Item selecionado: " : "Items selecionados: "
+        mainView.itemsquantity.titleValueLabel.text = arrayCount == 0 ? "0" : "\(arrayCount)"
         mainView.saveButton.isEnabled = !(arrayCount == 0)
+        mainView.bottomStackView.isHidden = !(self.placeOfCreation)
     }
 }
 
@@ -85,23 +88,42 @@ extension CategoryItemListViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CategoryItemListTableViewCell.reuseId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryItemListCell", for: indexPath)
         
-        if let cell = cell as? CategoryItemListTableViewCell {
+        if let cell = cell as? UITableViewCell {
+            if !self.placeOfCreation {
+                cell.accessoryType = .disclosureIndicator
+            }
             cell.textLabel?.text = viewModel.itemsCategory[indexPath.row]
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.itemsAdd.append(viewModel.itemsCategory[indexPath.row])
-        updateLayout()
+        let cell = tableView.cellForRow(at: indexPath)
+        switch self.placeOfCreation {
+        case true:
+            cell?.accessoryType = .checkmark
+            viewModel.itemsAdd.append(viewModel.itemsCategory[indexPath.row])
+            updateLayout()
+        default:
+            mainView.tableView.allowsMultipleSelection = false
+            viewModel.openDetailItem(itemSelectedIndex: indexPath , itemSelectedName: viewModel.itemsCategory[indexPath.row])
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if let index = viewModel.itemsAdd.firstIndex(of: viewModel.itemsCategory[indexPath.row]) {
-            viewModel.itemsAdd.remove(at: index)
-            updateLayout()
+        let cell = tableView.cellForRow(at: indexPath)
+        switch self.placeOfCreation {
+        case true:
+            if let index = viewModel.itemsAdd.firstIndex(of: viewModel.itemsCategory[indexPath.row]) {
+                viewModel.itemsAdd.remove(at: index)
+                updateLayout()
+            }
+            cell?.accessoryType = .none
+        default:
+            break
         }
     }
 }

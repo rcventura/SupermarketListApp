@@ -11,9 +11,11 @@ class CategoriesViewController: UIViewController {
     
     let mainView: CategoriesView = .init()
     var viewModel: CategoriesViewModel
+    var placeOfCreation: Bool
     
-    init(viewModel: CategoriesViewModel) {
+    init(viewModel: CategoriesViewModel, placeOfCreation: Bool) {
         self.viewModel = viewModel
+        self.placeOfCreation = placeOfCreation
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,6 +43,10 @@ extension CategoriesViewController {
         mainView.collectionView.delegate = self
         mainView.collectionView.dataSource = self
     }
+    
+    @objc private func backViewController() {
+        dismiss(animated: true)
+    }
 }
 
 extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -56,13 +62,12 @@ extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDa
             cell.categoryTitle.text = categoryName
         }
         return cell
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let categoryId = viewModel.category[indexPath.item].id else { return }
         self.dismiss(animated: false)
-        self.viewModel.openCategoryItemList(categoryId: categoryId)
+        self.viewModel.openCategoryItemList(categoryId: categoryId, placeOfCreation: self.placeOfCreation)
     }
 }
 
@@ -70,6 +75,7 @@ extension CategoriesViewController {
     private func addLayout() {
         delegates()
         title = "Categorias"
-        navigationController?.navigationBar.backgroundColor = SuperMarketColor.blue_BDD1DE
+        navigationController?.navigationBar.backgroundColor = SMColor.blue_BDD1DE
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Fechar", style: .plain, target: self, action: #selector(backViewController))
     }
 }

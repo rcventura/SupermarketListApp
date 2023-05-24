@@ -25,7 +25,6 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         mainView.tableView.reloadData()
         addNavigationRightItem()
-        print("Litas criadas: \(Helper.shared.listCreated)")
     }
 }
 
@@ -45,14 +44,22 @@ extension HomeViewController {
                                actionHandler:  { title in
             guard let title = title else { return }
             if title == ""{
-                self.showSimpleAlert(title: "Atenção", message: "É necessário inserir o nome da lista de compras", customHandler: { _ in
+                self.showSimpleAlert(title: "Atenção", message: "É necessário inserir o nome da lista de compras", customHandler: { _,_  in
                     self.createNewMarketList()
                 })
             } else {
-                self.viewModel.createNewSuperMarketList(listTitle: title)
+                self.showSimpleAlert(title: "Atenção",
+                                     message: "Lista criada de casa?",
+                                     customTitle: "Sim",
+                                     customHandler: { _, placeOfCreation  in
+                    self.viewModel.createNewSuperMarketList(listTitle: title, placeOfCreation: placeOfCreation)
+                },
+                                     cancelTitle: "Não", cancelHandler: { _, placeOfCreation in
+                    self.viewModel.createNewSuperMarketList(listTitle: title, placeOfCreation: placeOfCreation)
+                },cancelTitleStyle: .default)
             }
-        })
-    }
+        }
+    )}
 }
 
 extension HomeViewController {
@@ -70,14 +77,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             self.mainView.addNewListButton()
         }
         else {
-           mainView.tableView.backgroundView = .none
-       }
+            mainView.tableView.backgroundView = .none
+        }
         return Helper.shared.listCreated.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        var titleLists = Array(Helper.shared.listCreated.keys)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewCell", for: indexPath)
+        let titleLists = Array(Helper.shared.listCreated.keys)
         if let cell = cell as? UITableViewCell {
             cell.textLabel?.text = titleLists[indexPath.row]
         }

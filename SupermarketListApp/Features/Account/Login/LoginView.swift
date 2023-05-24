@@ -11,11 +11,11 @@ import GoogleSignInSwift
 
 final class LoginView: UIView {
     
-    let emailTextField = SuperMarketTextField(placeholder: "E-mail")
-    let passwordTextField = SuperMarketTextField(placeholder: "Password")
+    let emailTextField = SMTextField(placeholder: "E-mail")
+    let passwordTextField = SMTextField(placeholder: "Password")
     private let stackView =  UIStackView()
-    let loginButton = SuperMarketButton(title: "Entrar", enabledBackgroundColor: SuperMarketColor.gray_AFAFAF)
-    let newUserButton = SuperMarketButton(title: "Novo Usuário", enabledBackgroundColor: SuperMarketColor.gray_AFAFAF)
+    let loginButton = SMButton(title: "Entrar", enabledBackgroundColor: SMColor.gray_AFAFAF)
+    let newUserButton = SMButton(title: "Novo Usuário", enabledBackgroundColor: SMColor.gray_AFAFAF)
     private let loginWithSocialLabel = UILabel()
     let googleSignInButton = GIDSignInButton()
     
@@ -34,7 +34,7 @@ extension LoginView {
         addSubview(emailTextField)
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         
-        emailTextField.backgroundColor = SuperMarketColor.white_f3f6f5
+        emailTextField.backgroundColor = SMColor.white_f3f6f5
         emailTextField.text = "rcvanalista@gmail.com"
         
         NSLayoutConstraint.activate([
@@ -50,7 +50,7 @@ extension LoginView {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         
         passwordTextField.setSecureField()
-        passwordTextField.backgroundColor = SuperMarketColor.white_f3f6f5
+        passwordTextField.backgroundColor = SMColor.white_f3f6f5
         passwordTextField.text = "123456"
         
         NSLayoutConstraint.activate([
@@ -115,7 +115,7 @@ extension LoginView {
         googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
         
         googleSignInButton.layer.cornerRadius = 5
-        googleSignInButton.backgroundColor = SuperMarketColor.white_f3f6f5
+        googleSignInButton.backgroundColor = SMColor.white_f3f6f5
         
         NSLayoutConstraint.activate([
             googleSignInButton.topAnchor.constraint(equalTo: loginWithSocialLabel.bottomAnchor, constant: 10),
@@ -128,7 +128,7 @@ extension LoginView {
 
 extension LoginView {
     private func setupLayout() {
-        backgroundColor = SuperMarketColor.white
+        backgroundColor = SMColor.white
         addEmailTextField()
         addPasswordTextField()
         addStackView()

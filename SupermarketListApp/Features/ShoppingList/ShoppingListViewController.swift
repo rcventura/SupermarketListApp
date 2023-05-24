@@ -11,9 +11,11 @@ class ShoppingListViewController: UIViewController {
     
     let mainView: ShoppingListView = .init()
     var viewModel = ShoppingListViewModel()
+    let placeOfCreation: Bool
     
-    init(listTitle: String?) {
-        mainView.categoryTitle.text = listTitle?.firstUppercased 
+    init(listTitle: String?, placeOfCreation: Bool) {
+        mainView.categoryTitle.text = listTitle?.firstUppercased
+        self.placeOfCreation = placeOfCreation
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,11 +51,16 @@ extension ShoppingListViewController {
     }
     
     @objc private func saveList() {
-        print(Helper.shared.itemsAdded)
         guard let title = mainView.categoryTitle.text else { return }
+        let keyDictionary = Helper.shared.itemsAdded
+        var itemsArray = [ItemDetailModel]()
         
-            Helper.shared.listCreated[title] = Helper.shared.itemsAdded
-        
+        for (title, value) in keyDictionary {
+            itemsArray.append(ItemDetailModel(title: title,
+                                              value: value))
+        }
+        // REVER ESSE FLUXO DE CIMA
+        Helper.shared.listCreated[title] = itemsArray
         Helper.shared.itemsAdded.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
@@ -66,8 +73,9 @@ extension ShoppingListViewController {
     private func updateLayout() {
         mainView.saveButton.isEnabled = !(Helper.shared.itemsAdded.count == 0)
         mainView.newOthersItems.isHidden = Helper.shared.itemsAdded.count == 0
+        mainView.infoElementsStackView.isHidden = Helper.shared.itemsAdded.count == 0
+        mainView.listItemsCount.titleValueLabel.text = "\(Helper.shared.itemsAdded.count)"
     }
-    
 }
 
 extension ShoppingListViewController {
@@ -75,7 +83,7 @@ extension ShoppingListViewController {
         showSimpleAlert(title: "Atenção",
                         message: "Deseja realmente excluir sua lista?",
                         customTitle: "Cancelar",
-                        cancelTitle: "Sim") { _ in
+                        cancelTitle: "Sim") { _,_ in
             Helper.shared.itemsAdded.removeAll()
             self.navigationController?.popViewController(animated: false)
         }
@@ -95,12 +103,22 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ShoopingListViewCell", for: indexPath)
+        var titleItemList = Array(Helper.shared.itemsAdded.keys)
         
         if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = Helper.shared.itemsAdded[indexPath.row]
+            cell.textLabel?.text = titleItemList[indexPath.row]
+            cell.accessoryType = .disclosureIndicator
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        viewModel.openDetailItem()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
     }
 }
 

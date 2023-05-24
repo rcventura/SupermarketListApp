@@ -23,7 +23,7 @@ final class CategoriesViewModel {
         self.category = self.service.category
     }
     
-    func openCategoryItemList(categoryId: Int) {
-        self.coordinator?.CategoriesCoordinator(categoryId: categoryId)
+    func openCategoryItemList(categoryId: Int, placeOfCreation: Bool) {
+        self.coordinator?.CategoriesCoordinator(categoryId: categoryId, placeOfCreation: placeOfCreation)
     }
 }

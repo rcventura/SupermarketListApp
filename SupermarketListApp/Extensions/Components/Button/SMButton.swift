@@ -7,14 +7,14 @@
 
 import UIKit
 
-class SuperMarketButton: UIButton {
+class SMButton: UIButton {
     
-    init(title: String = "", enabledBackgroundColor: UIColor = SuperMarketColor.white, disabledBackgroundColor: UIColor? = nil) {
+    init(title: String = "", enabledBackgroundColor: UIColor = SMColor.white, disabledBackgroundColor: UIColor? = nil) {
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)
         self.enabledBackgroundColor = enabledBackgroundColor
         self.disabledBackgroundColor = disabledBackgroundColor
-        self.setCornerRadius(cornerRadius: 5)
+        self.setCornerRadius(cornerRadius: 10)
         setup()
     }
     
@@ -22,13 +22,13 @@ class SuperMarketButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var enabledBackgroundColor: UIColor? = SuperMarketColor.blue_066699 {
+    public var enabledBackgroundColor: UIColor? = SMColor.blue_066699 {
         didSet {
             backgroundColor = isEnabled ? enabledBackgroundColor : disabledBackgroundColor
         }
     }
     
-    public var disabledBackgroundColor: UIColor? = SuperMarketColor.blue_066699
+    public var disabledBackgroundColor: UIColor? = SMColor.blue_066699
     
     func setCornerRadius(cornerRadius: CGFloat) {
         self.layer.cornerRadius = cornerRadius

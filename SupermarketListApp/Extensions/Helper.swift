@@ -11,7 +11,7 @@ final class Helper {
         
     static var shared = Helper()
     
-    var itemsAdded: [String] = []
-    var listCreated: [String : [String]] = [:]
-    
+    var categoryItems: [String] = []
+    var itemsAdded: [String : [String]] = [:]
+    var listCreated: [String : [ItemDetailModel]] = [:]
 }

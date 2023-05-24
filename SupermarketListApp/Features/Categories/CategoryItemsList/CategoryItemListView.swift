@@ -10,9 +10,11 @@ import UIKit
 final class CategoryItemListView: UIView {
     
     var tableView = UITableView()
-    let saveButton = SuperMarketButton(title: "Adicionar", enabledBackgroundColor: SuperMarketColor.gray_AFAFAF, disabledBackgroundColor: SuperMarketColor.gray_6F737E)
-    let itemsAdded = UILabel()
-    let itemsquantity = UILabel()
+    let stackView = UIStackView()
+    let bodyStackView = UIStackView()
+    let bottomStackView = UIStackView()
+    let saveButton = SMButton(title: "Adicionar", enabledBackgroundColor: SMColor.gray_AFAFAF, disabledBackgroundColor: SMColor.gray_6F737E)
+    let itemsquantity = SMLabel(title: "")
     
     init() {
         super.init(frame: .zero)
@@ -25,64 +27,75 @@ final class CategoryItemListView: UIView {
 }
 
 extension CategoryItemListView {
-    private func addTableView() {
-        addSubview(tableView)
+    private func addStackView() {
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .white
-        tableView.register(CategoryItemListTableViewCell.self, forCellReuseIdentifier: CategoryItemListTableViewCell.reuseId)
-        tableView.allowsMultipleSelection = true
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
-    private func addItemsAdded() {
-        addSubview(itemsAdded)
-        
-        itemsAdded.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func addBodyStackView() {
+        stackView.addArrangedSubview(bodyStackView)
+        bodyStackView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
-            itemsAdded.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
-            itemsAdded.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            itemsAdded.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            bodyStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
+    }
+    
+    private func addTableView() {
+        bodyStackView.addArrangedSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tableView.backgroundColor = .white
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CategoryItemListCell")
+        tableView.allowsMultipleSelection = true
+
+        NSLayoutConstraint.activate([
+            tableView.widthAnchor.constraint(equalTo: bodyStackView.widthAnchor),
+        ])
+    }
+    
+    private func addBottomStackView() {
+        stackView.addArrangedSubview(bottomStackView)
+        bottomStackView.isLayoutMarginsRelativeArrangement = true
+        
+        bottomStackView.axis = .vertical
+        bottomStackView.distribution = .equalCentering
+        bottomStackView.spacing = 10
+        bottomStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
     }
     
     private func addItemsQuantity() {
-        addSubview(itemsquantity)
-        
-        itemsquantity.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            itemsquantity.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
-            itemsquantity.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
-        ])
+        bottomStackView.addArrangedSubview(itemsquantity)
     }
     
     private func addSaveButton() {
-        addSubview(saveButton)
+        bottomStackView.addArrangedSubview(saveButton)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            saveButton.topAnchor.constraint(equalTo: itemsAdded.bottomAnchor, constant: 10),
-            saveButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            saveButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            saveButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            saveButton.heightAnchor.constraint(equalToConstant: 45)
+            saveButton.heightAnchor.constraint(equalToConstant: 45),
         ])
     }
 }
 
 extension CategoryItemListView {
     private func addLayout() {
+        addStackView()
+        addBodyStackView()
         addTableView()
-        addItemsAdded()
+        addBottomStackView()
         addItemsQuantity()
         addSaveButton()
-        backgroundColor = SuperMarketColor.blue_BDD1DE
+        backgroundColor = SMColor.blue_BDD1DE
     }
 }

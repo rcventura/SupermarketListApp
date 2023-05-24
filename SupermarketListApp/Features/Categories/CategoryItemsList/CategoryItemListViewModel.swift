@@ -20,7 +20,6 @@ final class CategoryItemListViewModel {
     var service: ApiService
     var itemsCategory: [String] = []
     var itemsAdd: [String] = []
-    
     init(service: ApiService = ApiService()) {
         self.service = service
     }
@@ -41,6 +40,11 @@ final class CategoryItemListViewModel {
 // Coordinations Calls
 extension CategoryItemListViewModel {
     func openCategory() {
-        coordinator?.openCategoriesController()
+        coordinator?.navigationController.popViewController(animated: false)
+        coordinator?.start()
+    }
+    
+    func openDetailItem(itemSelectedIndex: IndexPath, itemSelectedName: String) {
+        coordinator?.openItemDetal(itemSelectedIndex: itemSelectedIndex, itemSelectedName: itemSelectedName)
     }
 }

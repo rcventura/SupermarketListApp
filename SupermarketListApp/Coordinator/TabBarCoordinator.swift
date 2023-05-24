@@ -30,8 +30,8 @@ class TabBarCoordinator: Coordinator {
         tabBarController.setViewControllers(self.navigationController, animated: true)
         tabBarController.selectedIndex = TabBarItems.home.rawValue
         tabBarController.tabBar.isTranslucent = false
-        tabBarController.tabBar.backgroundColor = SuperMarketColor.blue_E4EBF0
-        tabBarController.tabBar.tintColor = SuperMarketColor.blue_4180AB
+        tabBarController.tabBar.backgroundColor = SMColor.blue_E4EBF0
+        tabBarController.tabBar.tintColor = SMColor.blue_4180AB
     }
       
     private func getTabController(_ page: TabBarItems) -> UINavigationController  {

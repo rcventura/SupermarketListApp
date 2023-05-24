@@ -23,9 +23,10 @@ final class HomeCoordinator: Coordinator {
         self.navigationController.setViewControllers([controller], animated: false)
     }
     
-    func newSuperMarketList(listTitle: String) {
+    func newSuperMarketList(listTitle: String, placeOfCreation: Bool) {
         let shoppingCoordinator = ShoppingListCoordinator(navigationController: navigationController)
         shoppingCoordinator.listTitle = listTitle
+        shoppingCoordinator.placeOfCreation = placeOfCreation
         childCoordinators.append(shoppingCoordinator)
         shoppingCoordinator.start()
     }

@@ -14,7 +14,7 @@ final class HomeView: UIView {
     private let emptyView = UIView()
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
-    let createNewMarketListButton = SuperMarketButton()
+    let createNewMarketListButton = SMButton()
     
     init() {
         super.init(frame: .zero)
@@ -77,7 +77,7 @@ extension HomeView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.backgroundColor = .white
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HomeViewCell")
         tableView.backgroundView = emptyView
         
         NSLayoutConstraint.activate([
@@ -91,7 +91,7 @@ extension HomeView {
 
 extension HomeView {
     private func addLayout() {
-        backgroundColor =  SuperMarketColor.blue_BDD1DE
+        backgroundColor =  SMColor.blue_BDD1DE
         addTableView()
     }
 }

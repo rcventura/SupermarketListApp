@@ -10,6 +10,7 @@ import UIKit
 class CategoriesCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    var placeOfCreation = Bool()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -17,23 +18,28 @@ class CategoriesCoordinator: Coordinator {
     
     func start() {
         let viewModel = CategoriesViewModel()
-        let controller = UINavigationController(rootViewController: CategoriesViewController(viewModel: viewModel))
+        let controller = UINavigationController(rootViewController: CategoriesViewController(viewModel: viewModel, placeOfCreation: self.placeOfCreation))
         viewModel.coordinator = self
         controller.hidesBottomBarWhenPushed = true
         self.navigationController.present(controller, animated: true)
     }
     
-    func CategoriesCoordinator(categoryId: Int) {
-        let controller = CategoryItemListViewController(categoryId: categoryId)
+    func CategoriesCoordinator(categoryId: Int, placeOfCreation: Bool) {
+        let controller = CategoryItemListViewController(categoryId: categoryId, placeOfCreation: placeOfCreation)
+        let viewModel = CategoryItemListViewModel()
+        controller.viewModel = viewModel
+        viewModel.coordinator = self
         self.navigationController.pushViewController(controller, animated: true)
     }
     
     func openCategoriesController() {
-        let viewModel = CategoryItemListViewModel()
         navigationController.popViewController(animated: false)
         let coordinator = self
-        viewModel.coordinator = self
-        childCoordinators.append(coordinator)
         coordinator.start()
+    }
+    
+    func openItemDetal(itemSelectedIndex: IndexPath, itemSelectedName: String) {
+        let controller = CategoryItemDetailViewController(itemSelectedIndex: itemSelectedIndex, itemSelectedName: itemSelectedName)
+        self.navigationController.pushViewController(controller, animated: true)
     }
 }

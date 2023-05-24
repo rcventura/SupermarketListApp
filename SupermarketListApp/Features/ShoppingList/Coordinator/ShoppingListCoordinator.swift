@@ -11,13 +11,14 @@ final class ShoppingListCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     var listTitle = String()
+    var placeOfCreation = Bool()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        let controller = ShoppingListViewController(listTitle: listTitle)
+        let controller = ShoppingListViewController(listTitle: listTitle, placeOfCreation: self.placeOfCreation)
         let shoppingViewModel = ShoppingListViewModel()
         controller.hidesBottomBarWhenPushed = true
         controller.viewModel = shoppingViewModel
@@ -27,6 +28,7 @@ final class ShoppingListCoordinator: Coordinator {
     
     func openCategoriesController() {
         let coordinator = CategoriesCoordinator(navigationController: navigationController)
+        coordinator.placeOfCreation = self.placeOfCreation
         childCoordinators.append(coordinator)
         coordinator.start()
     }
