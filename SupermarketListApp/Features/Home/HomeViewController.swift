@@ -84,9 +84,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewCell", for: indexPath)
-        let titleLists = Array(Helper.shared.listCreated.keys)
+        let titleLists = Array(Helper.shared.listCreated)
         if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = titleLists[indexPath.row]
+            cell.textLabel?.text = titleLists[indexPath.row].nomeList
         }
         return cell
     }

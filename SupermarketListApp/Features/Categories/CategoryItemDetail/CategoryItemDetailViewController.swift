@@ -40,7 +40,8 @@ extension CategoryItemDetailViewController {
         guard let title = mainView.itemTitleLabel.text else { return }
         guard let brand = mainView.brandTextField.text else { return }
         
-        Helper.shared.itemsAdded[title] = ["\(brand)"]
+        Helper.shared.itemsAdded.append((ItemDataModel.init(itemTitle: title, itemDetal: [itemDetail.init(itemBrand: brand)])))
+        print("Item adicionado: \(Helper.shared.itemsAdded)")
         self.navigationController?.popViewController(animated: true)
     }
 }

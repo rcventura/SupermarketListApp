@@ -9,5 +9,5 @@ import Foundation
 
 struct ItemDetailModel {
     var title: String
-    var value: [String]
+//    var value: [String]
 }

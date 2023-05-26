@@ -55,12 +55,11 @@ extension ShoppingListViewController {
         let keyDictionary = Helper.shared.itemsAdded
         var itemsArray = [ItemDetailModel]()
         
-        for (title, value) in keyDictionary {
-            itemsArray.append(ItemDetailModel(title: title,
-                                              value: value))
-        }
+//        for (title, value) in keyDictionary {
+//            itemsArray.append(ItemDetailModel(title: title))
+//        }
         // REVER ESSE FLUXO DE CIMA
-        Helper.shared.listCreated[title] = itemsArray
+//        Helper.shared.listCreated[title] = itemsArray
         Helper.shared.itemsAdded.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
@@ -104,10 +103,10 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoopingListViewCell", for: indexPath)
-        var titleItemList = Array(Helper.shared.itemsAdded.keys)
-        
+        let itemTitle = Helper.shared.itemsAdded[indexPath.row].itemTitle
+
         if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = titleItemList[indexPath.row]
+            cell.textLabel?.text = itemTitle
             cell.accessoryType = .disclosureIndicator
         }
         return cell

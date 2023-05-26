@@ -62,8 +62,10 @@ extension CategoryItemListViewController {
     
     @objc private func addItems() {
         viewModel.itemsAdd.forEach { item in
-            Helper.shared.itemsAdded[item] = [""]
+            Helper.shared.itemsAdded.append((ItemDataModel.init(itemTitle: item)))
         }
+        
+        print("AAAAAAAAAA \(Helper.shared.itemsAdded)")
         self.navigationController?.popViewController(animated: true)
     }
     

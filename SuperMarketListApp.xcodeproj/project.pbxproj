@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		85395E5E2A20CE2C005A6B55 /* ItemDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85395E5D2A20CE2C005A6B55 /* ItemDataModel.swift */; };
 		854A21B529D3FC5400B17653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854A21B429D3FC5400B17653 /* AppDelegate.swift */; };
 		854A21B729D3FC5400B17653 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854A21B629D3FC5400B17653 /* SceneDelegate.swift */; };
 		854A21B929D3FC5400B17653 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854A21B829D3FC5400B17653 /* LoginViewController.swift */; };
@@ -85,6 +86,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		85395E5D2A20CE2C005A6B55 /* ItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDataModel.swift; sourceTree = "<group>"; };
 		854A21B129D3FC5400B17653 /* SupermarketListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupermarketListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		854A21B429D3FC5400B17653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		854A21B629D3FC5400B17653 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 			children = (
 				85918A442A1254A400905261 /* CategoryModel.swift */,
 				85DBCD6D2A1984C4001C8503 /* ItemDetailModel.swift */,
+				85395E5D2A20CE2C005A6B55 /* ItemDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -649,6 +652,7 @@
 				854A21EA29D3FD1500B17653 /* BaseCoordinator.swift in Sources */,
 				854A220629D3FE5800B17653 /* Service.swift in Sources */,
 				854A21B929D3FC5400B17653 /* LoginViewController.swift in Sources */,
+				85395E5E2A20CE2C005A6B55 /* ItemDataModel.swift in Sources */,
 				854A220829D3FE5800B17653 /* UIViewController+Extension.swift in Sources */,
 				854A220529D3FE5800B17653 /* BaseTabBar.swift in Sources */,
 				85918A4B2A1255B400905261 /* ApiService.swift in Sources */,

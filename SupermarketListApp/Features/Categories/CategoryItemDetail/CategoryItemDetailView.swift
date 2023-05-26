@@ -13,8 +13,10 @@ final class CategoryItemDetailView: UIView {
     let containerView = UIView()
     let itemSelectedTitleLabel = UILabel()
     let itemTitleLabel  = UILabel()
-    let saveButton = SMButton(title: "Adicionar", enabledBackgroundColor: SMColor.gray_AFAFAF, disabledBackgroundColor: SMColor.gray_6F737E)
+    let stackView = UIStackView()
     let brandTextField = SMTextField(placeholder: "Marca")
+    let saveButton = SMButton(title: "Adicionar", enabledBackgroundColor: SMColor.gray_AFAFAF, disabledBackgroundColor: SMColor.gray_6F737E)
+    
     
     init() {
         super.init(frame: .zero)
@@ -56,6 +58,13 @@ extension CategoryItemDetailView {
             itemSelectedTitleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
             itemSelectedTitleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20)
         ])
+    }
+    
+    private func addStackView() {
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+//        NSLayoutConstraint.ac
         
     }
     
