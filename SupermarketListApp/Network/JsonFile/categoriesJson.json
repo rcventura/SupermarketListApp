@@ -3,6 +3,7 @@
         {
             "id": 1,
             "title": "Bebidas",
+            "image": "bebidas",
             "item": [
                 { "itemTitle": "Água" },
                 { "itemTitle": "Leite" },
@@ -15,6 +16,7 @@
         {
             "id": 2,
             "title": "Carne/Frios",
+            "image": "carne&frios",
             "item": [
                 { "itemTitle": "Bife bovino" },
                 { "itemTitle": "Bisteca suína" },
@@ -34,6 +36,7 @@
         {
             "id": 3,
             "title": "Limpeza/Utilidades",
+            "image": "limpeza",
             "item": [
                 { "itemTitle": "Sabão em pó" },
                 { "itemTitle": "Papel higiênico" },
@@ -63,6 +66,7 @@
         {
             "id": 4,
             "title": "Padaria",
+            "image": "padaria",
             "item": [
                 { "itemTitle": "Café" },
                 { "itemTitle": "Cereais" },

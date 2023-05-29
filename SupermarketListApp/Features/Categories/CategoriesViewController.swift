@@ -57,8 +57,10 @@ extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.reuseId, for: indexPath)
         let categoryName = viewModel.category[indexPath.row].title
+        let categoryImage = viewModel.category[indexPath.row].image
         
         if let cell = cell as? CategoriesCollectionViewCell {
+            cell.categoryImage.image = UIImage(named: categoryImage ?? "")
             cell.categoryTitle.text = categoryName
         }
         return cell

@@ -27,7 +27,6 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         
         categoryImage.contentMode = .scaleAspectFill
         categoryImage.translatesAutoresizingMaskIntoConstraints = false
-        categoryImage.image = UIImage(named: "imageteste")
         
         NSLayoutConstraint.activate([
             categoryImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),

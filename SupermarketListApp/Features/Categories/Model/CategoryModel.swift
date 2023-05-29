@@ -5,7 +5,7 @@
 //  Created by Rodrigo Ventura on 15/05/23.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - CategoryList
 struct CategoryList: Codable {
@@ -16,6 +16,7 @@ struct CategoryList: Codable {
 struct Category: Codable {
     let id: Int?
     let title: String?
+    let image: String?
     let item: [Item]?
 }
 

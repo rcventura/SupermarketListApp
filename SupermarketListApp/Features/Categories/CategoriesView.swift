@@ -23,13 +23,13 @@ final class CategoriesView: UIView {
     }
     
     private func addCollectionView() {
-        collectionViewLayout.itemSize = CGSize(width: 90, height: 90)
-        collectionViewLayout.minimumLineSpacing = 40
+        collectionViewLayout.itemSize = CGSize(width: 85, height: 85)
+        collectionViewLayout.minimumLineSpacing = 60
         
         addSubview(collectionView)
         
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 50, left: 20, bottom: 0, right: 20)
+        collectionView.contentInset = UIEdgeInsets(top: 50, left: 30, bottom: 0, right: 30)
         collectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: CategoriesCollectionViewCell.reuseId)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
