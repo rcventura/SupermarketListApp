@@ -7,11 +7,11 @@
 
 import UIKit
 
-public class SuperMarketColor {
+public class SMColor {
     public init() {}
 }
 
-public extension SuperMarketColor {
+public extension SMColor {
     
     // MARK: - Colors | Black
     static let black = UIColor(hexString: "#000000")
@@ -24,6 +24,8 @@ public extension SuperMarketColor {
     // MARK: - Colors | Gray
     static let gray_AFAFAF = UIColor(hexString: "#295264")
     static let gray_949494 = UIColor(hexString: "#949494")
+    static let gray_6F737E = UIColor(hexString: "#6F737E")
+
     
     // MARK: - Colors | Red
     static let red_B3130F = UIColor(hexString: "#B3130F")

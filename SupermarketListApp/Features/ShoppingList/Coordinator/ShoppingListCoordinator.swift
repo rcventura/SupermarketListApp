@@ -10,16 +10,26 @@ import UIKit
 final class ShoppingListCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    var listTitle = String()
+    var placeOfCreation = Bool()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
-    func start() {}
+    func start() {
+        let controller = ShoppingListViewController(listTitle: listTitle, listCreationPlace: self.placeOfCreation)
+        let shoppingViewModel = ShoppingListViewModel()
+        controller.hidesBottomBarWhenPushed = true
+        controller.viewModel = shoppingViewModel
+        shoppingViewModel.coordinator = self
+        self.navigationController.pushViewController(controller, animated: true)
+    }
     
     func openCategoriesController() {
-        let controller = UINavigationController(rootViewController: CategoriesViewController())
-        controller.hidesBottomBarWhenPushed = true
-        self.navigationController.present(controller, animated: true)
+        let coordinator = CategoriesCoordinator(navigationController: navigationController)
+        coordinator.placeOfCreation = self.placeOfCreation
+        childCoordinators.append(coordinator)
+        coordinator.start()
     }
 }

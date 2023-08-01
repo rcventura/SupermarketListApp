@@ -6,18 +6,15 @@
 //
 
 import UIKit
-import GoogleSignIn
-import GoogleSignInSwift
 
 final class LoginView: UIView {
     
-    let emailTextField = SuperMarketTextField(placeholder: "E-mail")
-    let passwordTextField = SuperMarketTextField(placeholder: "Password")
+    let emailTextField = SMTextField(placeholder: "E-mail")
+    let passwordTextField = SMTextField(placeholder: "Password")
     private let stackView =  UIStackView()
-    let loginButton = SuperMarketButton(title: "Entrar", backgroundColor: SuperMarketColor.blue_066699)
-    let newUserButton = SuperMarketButton(title: "Novo Usuário", backgroundColor: SuperMarketColor.blue_066699)
-    private let loginWithSocialLabel = UILabel()
-    let googleSignInButton = GIDSignInButton()
+    let loginButton = SMButton(title: "Entrar", enabledBackgroundColor: SMColor.gray_AFAFAF)
+    let newUserButton = SMButton(title: "Novo Usuário", enabledBackgroundColor: SMColor.gray_AFAFAF)
+    let forgotPasswordButton = SMButton(title: "Esqueci a senha")
     
     init() {
         super.init(frame: .zero)
@@ -34,7 +31,7 @@ extension LoginView {
         addSubview(emailTextField)
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         
-        emailTextField.backgroundColor = SuperMarketColor.white_f3f6f5
+        emailTextField.backgroundColor = SMColor.white_f3f6f5
         emailTextField.text = "rcvanalista@gmail.com"
         
         NSLayoutConstraint.activate([
@@ -45,12 +42,13 @@ extension LoginView {
         ])
         
     }
+    
     private func addPasswordTextField() {
         addSubview(passwordTextField)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         
         passwordTextField.setSecureField()
-        passwordTextField.backgroundColor = SuperMarketColor.white_f3f6f5
+        passwordTextField.backgroundColor = SMColor.white_f3f6f5
         passwordTextField.text = "123456"
         
         NSLayoutConstraint.activate([
@@ -95,45 +93,28 @@ extension LoginView {
         ])
     }
     
-    private func addLoginWithSocialLabel() {
-        addSubview(loginWithSocialLabel)
-        loginWithSocialLabel.translatesAutoresizingMaskIntoConstraints = false
-        loginWithSocialLabel.text = "Ou: "
-        loginWithSocialLabel.font = UIFont.systemFont(ofSize: 13)
+    private func addForgotPasswordButton() {
+        addSubview(forgotPasswordButton)
+        forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        forgotPasswordButton.setTitleColor(.black, for: .normal)
         
         NSLayoutConstraint.activate([
-            loginWithSocialLabel.topAnchor.constraint(equalTo: newUserButton.bottomAnchor, constant: 40),
-            loginWithSocialLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            loginWithSocialLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            loginWithSocialLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        ])
-    }
-    
-    private func addGoogleSignInButton() {
-        addSubview(googleSignInButton)
-        googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        googleSignInButton.layer.cornerRadius = 5
-        googleSignInButton.backgroundColor = SuperMarketColor.white_f3f6f5
-        
-        NSLayoutConstraint.activate([
-            googleSignInButton.topAnchor.constraint(equalTo: loginWithSocialLabel.bottomAnchor, constant: 10),
-            googleSignInButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            googleSignInButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            googleSignInButton.heightAnchor.constraint(equalToConstant: 40)
+            forgotPasswordButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 30),
+            forgotPasswordButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            forgotPasswordButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }
 
 extension LoginView {
     private func setupLayout() {
-        backgroundColor = SuperMarketColor.white
+        backgroundColor = SMColor.white
         addEmailTextField()
         addPasswordTextField()
         addStackView()
         addLoginButton()
         addNewUserButton()
-        addLoginWithSocialLabel()
-        addGoogleSignInButton()
+        addForgotPasswordButton()
     }
 }

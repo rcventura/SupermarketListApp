@@ -10,8 +10,11 @@ import UIKit
 final class AccountCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    var rootViewController: UIViewController?
+    let window: UIWindow
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, window: UIWindow) {
+        self.window = window
         self.navigationController = navigationController
     }
     
@@ -20,12 +23,23 @@ final class AccountCoordinator: Coordinator {
         let loginViewModel = LoginViewModel()
         loginViewModel.coordinator = self
         controller.viewModel = loginViewModel
-        self.navigationController.setViewControllers([controller], animated: false)
+        self.navigationController.pushViewController(controller, animated: false)
     }
     
-    func openHomeViewController() {
-        let startTabBar = TabBarCoordinator(navigationController: navigationController)
-        childCoordinators.append(startTabBar)
-        startTabBar.start()
+    func showHomeViewController() {
+        rootViewController = UITabBarController()
+        window.rootViewController = rootViewController
+        
+        let tabCoordinator = TabBarCoordinator(tabBarController: rootViewController as! UITabBarController)
+        childCoordinators.append(tabCoordinator)
+        tabCoordinator.start()
+    }
+    
+    func showCreateNewUser() {
+        let controller = CreateNewUserViewController()
+        let createNewUserViewModel = CreateNewUserViewModel()
+        createNewUserViewModel.coordinator = self
+        controller.viewModel = createNewUserViewModel
+        self.navigationController.present(controller, animated: true)
     }
 }

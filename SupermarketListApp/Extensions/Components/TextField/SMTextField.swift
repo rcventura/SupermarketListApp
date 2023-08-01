@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SuperMarketTextField: UITextField {
+class SMTextField: UITextField {
     let textFieldPadding = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
     
     private let secureEyeButton = UIButton()
@@ -29,17 +29,19 @@ class SuperMarketTextField: UITextField {
         self.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         self.layer.cornerRadius = 5
         self.autocapitalizationType = .none
+        self.layer.borderColor = SMColor.blue_BDD1DE.cgColor
+        self.layer.borderWidth = 1
     }
 }
 
-extension SuperMarketTextField {
+extension SMTextField {
     public func setSecureField() {
         self.rightView = secureEyeButton
         self.isSecureTextEntry = true
         self.rightViewMode = .always
-        self.rightView?.tintColor = SuperMarketColor.gray_AFAFAF
+        self.rightView?.tintColor = SMColor.gray_AFAFAF
         secureEyeButton.translatesAutoresizingMaskIntoConstraints = false
-        secureEyeButton.setImage(SuperMarketImage.closedEyeIcon?.withRenderingMode(.alwaysTemplate) , for: .normal)
+        secureEyeButton.setImage(SMImage.closedEyeIcon?.withRenderingMode(.alwaysTemplate) , for: .normal)
         secureEyeButton.addTarget(self, action: #selector(secureEyeButtonPressed), for: .touchUpInside)
         NSLayoutConstraint.activate([
             secureEyeButton.widthAnchor.constraint(equalToConstant: 45)
@@ -49,27 +51,27 @@ extension SuperMarketTextField {
     @objc private func secureEyeButtonPressed() {
         if self.isSecureTextEntry {
             self.isSecureTextEntry = false
-            secureEyeButton.setImage(SuperMarketImage.openEyeIcon?.withRenderingMode(.alwaysTemplate), for: .normal)
+            secureEyeButton.setImage(SMImage.openEyeIcon?.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
             self.isSecureTextEntry = true
-            secureEyeButton.setImage(SuperMarketImage.closedEyeIcon?.withRenderingMode(.alwaysTemplate), for: .normal)
+            secureEyeButton.setImage(SMImage.closedEyeIcon?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
     
 }
 
-extension SuperMarketTextField {
+extension SMTextField {
     private func addLayout() {
-        self.backgroundColor = SuperMarketColor.white
+        self.backgroundColor = SMColor.white
         addTextField()
     }
     
     func setup(field: UIView) {
-        self.backgroundColor = SuperMarketColor.white
+        self.backgroundColor = SMColor.white
     }
 }
 
-extension SuperMarketTextField: UITextFieldDelegate {
+extension SMTextField: UITextFieldDelegate {
     override public func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: textFieldPadding)
     }

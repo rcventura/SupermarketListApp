@@ -11,13 +11,16 @@ class ShoppingListView: UIView {
 
     let nameCategoryLabel = UILabel()
     let categoryTitle = UILabel()
+    let newOthersItems = SMButton(title: "Novo Item", enabledBackgroundColor: .clear)
     var tableView = UITableView()
-    private var listascriadas: [String] = [] // MODIFICAR PARA VIEWMODEL NO FUTURO
-    private let emptyView = UIView()
-    private let titleLabel = UILabel()
-    private let messageLabel = UILabel()
-    let openCategotyList = SuperMarketButton()
-    let saveListButton = SuperMarketButton(title: "Salvar Lista", backgroundColor: SuperMarketColor.blue_4180AB)
+    let emptyView = EmptyTableView(titleLabel: "Nenhum item na sua lista de compras", messageLabel: "Adicione seu primeiro item.", isHideNewButton: false)
+
+    let saveButton = SMButton(title: "Salvar Lista", enabledBackgroundColor: SMColor.gray_AFAFAF, disabledBackgroundColor: SMColor.gray_6F737E)
+    let stackView = UIStackView()
+    let infoElementsStackView = UIStackView()
+    let lastElementStackView = UIStackView()
+    let listItemsCount = SMLabel(title: "Total de items: ")
+    let listTotalValue = SMLabel(title: "Valor total: ")
     
     init() {
         super.init(frame: .zero)
@@ -33,11 +36,12 @@ class ShoppingListView: UIView {
 extension ShoppingListView {
     private func addNameCategoryLabel() {
         addSubview(nameCategoryLabel)
+        nameCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
         
         nameCategoryLabel.text = "Nome da lista"
-        nameCategoryLabel.font = UIFont(name: "Arial", size: 15)
-        nameCategoryLabel.textColor = SuperMarketColor.gray_AFAFAF
-        nameCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameCategoryLabel.font = UIFont(name: "Arial", size: 17)
+        nameCategoryLabel.textColor = SMColor.gray_AFAFAF
+        
         
         NSLayoutConstraint.activate([
             nameCategoryLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -46,113 +50,106 @@ extension ShoppingListView {
         ])
         
     }
+    
     private func addCategoryTitle() {
         addSubview(categoryTitle)
         categoryTitle.translatesAutoresizingMaskIntoConstraints = false
         
+        categoryTitle.font = UIFont(name: "Arial", size: 14)
         categoryTitle.numberOfLines = 0
         
         NSLayoutConstraint.activate([
             categoryTitle.topAnchor.constraint(equalTo: nameCategoryLabel.bottomAnchor, constant: 5),
             categoryTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            categoryTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
+            categoryTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120)
         ])
     }
     
-    func addEmptyTitle() {
-        emptyView.addSubview(titleLabel)
+    private func addNewOthersItems() {
+        addSubview(newOthersItems)
+        newOthersItems.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-        titleLabel.text = "Nenhum item na sua lista de compras"
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
-        ])
-    }
-    
-    func addEmptyMessage() {
-        emptyView.addSubview(messageLabel)
-        
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.textColor = UIColor.lightGray
-        messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.text = "Adicione seu primeiro item."
-        
-        NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            messageLabel.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor)
-        ])
-    }
-    
-    func addOpenCategotyList() {
-        emptyView.addSubview(openCategotyList)
-        openCategotyList.translatesAutoresizingMaskIntoConstraints = false
-        let config = UIImage.SymbolConfiguration(textStyle: .largeTitle)
-        
-        openCategotyList.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
-        
-        NSLayoutConstraint.activate([
-            openCategotyList.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 20),
-            openCategotyList.centerXAnchor.constraint(equalTo: messageLabel.centerXAnchor),
+        newOthersItems.titleLabel?.font = UIFont(name: "Arial", size: 14)
+        newOthersItems.layer.borderColor = SMColor.gray_AFAFAF.withAlphaComponent(0.5).cgColor
+        newOthersItems.setTitleColor(SMColor.gray_AFAFAF, for: .normal)
+        newOthersItems.isHidden = true
+        newOthersItems.layer.borderWidth = 1
 
+        NSLayoutConstraint.activate([
+            newOthersItems.topAnchor.constraint(equalTo: nameCategoryLabel.topAnchor),
+            newOthersItems.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            newOthersItems.heightAnchor.constraint(equalToConstant: 30),
+            newOthersItems.widthAnchor.constraint(equalToConstant: 80)
         ])
     }
     
     private func addTableView() {
         addSubview(tableView)
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        tableView.backgroundView = emptyView
+        tableView.backgroundColor = .white
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ShoopingListViewCell")
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: categoryTitle.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
         ])
     }
     
-    private func addSaveList() {
-        addSubview(saveListButton)
-        saveListButton.translatesAutoresizingMaskIntoConstraints = false
+    private func addStackView() {
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.distribution = .equalSpacing
         
         NSLayoutConstraint.activate([
-            saveListButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
-            saveListButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            saveListButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            saveListButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            saveListButton.heightAnchor.constraint(equalToConstant: 45)
+            stackView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
-}
-
-extension ShoppingListView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if listascriadas.count == 0 {
-            addEmptyTitle()
-            addEmptyMessage()
-            addOpenCategotyList()
-            
-        }
-        return listascriadas.count
+    
+    private func addInfoElementStackView() {
+        stackView.addArrangedSubview(infoElementsStackView)
+        
+        infoElementsStackView.axis = .vertical
+        infoElementsStackView.spacing = 1
+        infoElementsStackView.distribution = .equalSpacing
+        
+        NSLayoutConstraint.activate([
+            infoElementsStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+        ])
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+    private func addLastElementStackView() {
+        stackView.addArrangedSubview(lastElementStackView)
         
-        if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = "oi"
-        }
-        return cell
+        NSLayoutConstraint.activate([
+            lastElementStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+        ])
+    }
+    
+    private func addListItemsCount() {
+        infoElementsStackView.addArrangedSubview(listItemsCount)
+    }
+    
+    private func addListTotalValue() {
+        infoElementsStackView.addArrangedSubview(listTotalValue)
+        
+        listTotalValue.titleValueLabel.text = "R$ 0.00"
+    }
+    
+    private func addSaveButton() {
+        lastElementStackView.addArrangedSubview(saveButton)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            saveButton.heightAnchor.constraint(equalToConstant: 45)
+        ])
     }
 }
 
@@ -160,9 +157,14 @@ extension ShoppingListView {
     private func addLayout() {
         addNameCategoryLabel()
         addCategoryTitle()
+        addNewOthersItems()
         addTableView()
-        addSaveList()
-        
-        backgroundColor =  SuperMarketColor.blue_BDD1DE
+        addStackView()
+        addInfoElementStackView()
+        addLastElementStackView()
+        addListItemsCount()
+        addListTotalValue()
+        addSaveButton()
+        backgroundColor =  SMColor.blue_BDD1DE
     }
 }

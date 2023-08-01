@@ -32,16 +32,18 @@ extension UIColor {
         return String(format: "#%02x%02x%02x%02x", Int(rgba.red * 255), Int(rgba.green * 255), Int(rgba.blue * 255), Int(rgba.alpha * 255) )
     }
     
-    convenience public init(hexString: String, alpha: CGFloat = 1.0) {
-        var hexInt: UInt32 = 0
-        let scanner = Scanner(string: hexString)
-        scanner.charactersToBeSkipped = CharacterSet(charactersIn: "#")
-        scanner.scanHexInt32(&hexInt)
-        
-        let red = CGFloat((hexInt & 0xff0000) >> 16) / 255.0
-        let green = CGFloat((hexInt & 0xff00) >> 8) / 255.0
-        let blue = CGFloat((hexInt & 0xff) >> 0) / 255.0
-        
-        self.init(red: red, green: green, blue: blue, alpha: alpha)
+    convenience init(hexString: String, alpha: CGFloat = 1.0) {
+        var hexFormatted: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+
+        if hexFormatted.hasPrefix("#") {
+            hexFormatted = String(hexFormatted.dropFirst())
+        }
+        assert(hexFormatted.count == 6, "Invalid hex code used.")
+        var rgbValue: UInt64 = 0
+        Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
+        self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+                  green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+                  blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+                  alpha: alpha)
     }
 }

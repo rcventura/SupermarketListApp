@@ -11,19 +11,20 @@ extension UIViewController {
     func showSimpleAlert(title: String,
                          message: String?,
                          customTitle: String = "OK",
-                         customHandler: ((UIAlertAction) -> Void)? = nil,
+                         customHandler: ((UIAlertAction, _ placeOfCreation: Bool ) -> Void)? = nil,
                          cancelTitle: String? = nil,
-                         cancelHandler: ((UIAlertAction) -> Void)? = nil) {
+                         cancelHandler: ((UIAlertAction, _ placeOfCreation: Bool ) -> Void)? = nil,
+                         cancelTitleStyle: (UIAlertAction.Style) = .destructive) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okBt = UIAlertAction(title: customTitle, style: .default) { (alertAction) in
             alert.dismiss(animated: true, completion: nil)
-            customHandler?(alertAction)
+            customHandler?(alertAction, true)
         }
         alert.addAction(okBt)
         if let cancelTitle = cancelTitle {
-            let cancelBt = UIAlertAction(title: cancelTitle, style: .destructive) { (alertAction) in
+            let cancelBt = UIAlertAction(title: cancelTitle, style: cancelTitleStyle) { (alertAction) in
                 alert.dismiss(animated: true, completion: nil)
-                cancelHandler?(alertAction)
+                cancelHandler?(alertAction, false)
             }
             alert.addAction(cancelBt)
         }
@@ -41,21 +42,17 @@ extension UIViewController {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addTextField { (textField) in
-            textField.translatesAutoresizingMaskIntoConstraints = false
             textField.placeholder = textFieldPlaceholder
             textField.keyboardType = inputKeyboardType
         }
         alert.addAction(UIAlertAction(title: cancelTitle, style: .destructive, handler: cancelHandler))
         alert.addAction(UIAlertAction(title: customTitle, style: .default, handler: { (action:UIAlertAction) in
             guard let textField =  alert.textFields?.first else {
-                
                 actionHandler?(nil)
                 return
             }
-            
             actionHandler?(textField.text)
         }))
-        
         self.present(alert, animated: true, completion: nil)
     }
 }

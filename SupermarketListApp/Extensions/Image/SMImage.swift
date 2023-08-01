@@ -7,8 +7,8 @@
 
 import UIKit
 
-fileprivate let bundle: Bundle = Bundle(for: SuperMarketImage.self)
-public class SuperMarketImage {
+fileprivate let bundle: Bundle = Bundle(for: SMImage.self)
+public class SMImage {
     
     public static let openEyeIcon: UIImage? = UIImage(named: "openEyeIcon", in: bundle, compatibleWith: nil)
     public static let closedEyeIcon: UIImage? = UIImage(named: "closedEyeIcon", in: bundle, compatibleWith: nil)

@@ -7,57 +7,49 @@
 
 import UIKit
 
-final class TabBarCoordinator: Coordinator {
+class TabBarCoordinator: Coordinator {
+    var tabBarController: UITabBarController
     var childCoordinators: [Coordinator] = []
-    var navigationController: UINavigationController
-    var tabBarController = UITabBarController()
+    var navigationController: [UINavigationController] = []
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-
-    func start() {
-        let pages: [TabBarNames] = [.home, .favorite, .account]
-        let controllers: [UINavigationController] = pages.map({ getTabController($0) })
-        prepareTabBarController(withTabControllers: controllers)
+    init(tabBarController: UITabBarController) {
+        self.tabBarController = tabBarController
     }
     
     deinit {
         print("TabCoordinator deinit")
     }
     
-    private func prepareTabBarController(withTabControllers tabControllers: [UIViewController]) {
-        tabBarController.setViewControllers(tabControllers, animated: true)
-        tabBarController.selectedIndex = TabBarNames.home.rawValue
+    func start() {
+        let pages: [TabBarItems] = [.home, .favorite, .profile]
+        self.navigationController = pages.map({ getTabController($0) })
+        configTabBarController()
+    }
+    
+    private func configTabBarController() {
+        tabBarController.setViewControllers(self.navigationController, animated: true)
+        tabBarController.selectedIndex = TabBarItems.home.rawValue
         tabBarController.tabBar.isTranslucent = false
-        tabBarController.tabBar.backgroundColor = SuperMarketColor.blue_E4EBF0
-        tabBarController.tabBar.tintColor = SuperMarketColor.blue_4180AB
-        navigationController.viewControllers = [tabBarController]
+        tabBarController.tabBar.backgroundColor = SMColor.blue_E4EBF0
+        tabBarController.tabBar.tintColor = SMColor.blue_4180AB
     }
       
-    private func getTabController(_ page: TabBarNames) -> UINavigationController {
+    private func getTabController(_ page: TabBarItems) -> UINavigationController  {
         let navController = UINavigationController()
+        let coordinator: Coordinator
         navController.tabBarItem = UITabBarItem.init(title: page.setTabBarItemsTitle(),
                                                      image: page.setTabBarItemsImage(),
                                                      tag: page.pageOrderNumber())
         switch page {
         case .home:
-            let homeCoordinator = HomeCoordinator(navigationController: navigationController)
-            let controller = HomeViewController()
-            let homeViewModel = HomeViewModel()
-            homeViewModel.coordinator = homeCoordinator
-            controller.viewModel = homeViewModel
-            childCoordinators.append(homeCoordinator)
-            navController.pushViewController(controller, animated: true)
-            
+            coordinator = HomeCoordinator(navigationController: navController)
         case .favorite:
-            let controller = FavoriteViewController()
-            navController.pushViewController(controller, animated: true)
-            
-        case .account:
-            let controller = ProfileViewController()
-            navController.pushViewController(controller, animated: true)
+            coordinator = FavoriteCoordinator(navigationController: navController)
+        case .profile:
+            coordinator = ProfileCoordinator(navigationController: navController)
         }
+        childCoordinators.append(coordinator)
+        coordinator.start()
         return navController
     }
 }

@@ -7,13 +7,11 @@
 
 import UIKit
 
+
 final class HomeView: UIView {
     
     lazy var tableView = UITableView()
-    private var listascriadas: [String] = [] // MODIFICAR PARA VIEWMODEL NO FUTURO
-    private let emptyView = UIView()
-    private let titleLabel = UILabel()
-    private let messageLabel = UILabel()
+    let emptyView = EmptyTableView(titleLabel: "Você não tem nenhuma lista criada", messageLabel: "Crie sua primeira lista de compras.", isHideNewButton: false)
     
     init() {
         super.init(frame: .zero)
@@ -26,50 +24,13 @@ final class HomeView: UIView {
 }
 
 extension HomeView {
-    
-    func addEmptyTitle() {
-        emptyView.addSubview(titleLabel)
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-        titleLabel.text = "Você não tem nenhuma lista criada"
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
-        ])
-    }
-    
-    func addEmptyMessage() {
-        emptyView.addSubview(messageLabel)
-        
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.textColor = UIColor.lightGray
-        messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.text = "Crie sua primeira lista de compras."
-        
-        NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            messageLabel.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor)
-        ])
-    }
-    
-    
-    private func addTableView() {
+       
+    func addTableView() {
         addSubview(tableView)
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        tableView.backgroundView = emptyView
-        tableView.separatorStyle = .none
-        tableView.isScrollEnabled = false
+        tableView.backgroundColor = .white
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HomeViewCell")
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -80,29 +41,9 @@ extension HomeView {
     }
 }
 
-extension HomeView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if listascriadas.count == 0 {
-            addEmptyTitle()
-            addEmptyMessage()
-        }
-        return listascriadas.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = "oi"
-        }
-        return cell
-    }
-}
-
 extension HomeView {
     private func addLayout() {
-        backgroundColor =  SuperMarketColor.blue_BDD1DE
-        
+        backgroundColor =  SMColor.blue_BDD1DE
         addTableView()
     }
 }

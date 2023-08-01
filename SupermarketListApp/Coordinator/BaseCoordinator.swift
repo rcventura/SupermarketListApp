@@ -20,7 +20,7 @@ final class BaseCoordinator: Coordinator {
     }
     
     func start() {
-        let accountCoordinator = AccountCoordinator(navigationController: navigationController)
+        let accountCoordinator = AccountCoordinator(navigationController: navigationController, window: window)
         self.childCoordinators.append(accountCoordinator)
         accountCoordinator.start()
         self.window.rootViewController = navigationController

@@ -9,12 +9,11 @@ import Foundation
 
 final class ShoppingListViewModel {
     weak var coordinator: ShoppingListCoordinator?
-    
+    var listascriadas: [String] = []
 }
 
 extension ShoppingListViewModel {
     func openCategoryList() {
-        print("dsdsdsdsd")
         coordinator?.openCategoriesController()
     }
 }
