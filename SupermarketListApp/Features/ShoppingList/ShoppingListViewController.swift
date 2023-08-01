@@ -11,11 +11,11 @@ class ShoppingListViewController: UIViewController {
     
     let mainView: ShoppingListView = .init()
     var viewModel = ShoppingListViewModel()
-    let placeOfCreation: Bool
+    let listCreationPlace: Bool
     
-    init(listTitle: String?, placeOfCreation: Bool) {
+    init(listTitle: String?, listCreationPlace: Bool) {
         mainView.categoryTitle.text = listTitle?.firstUppercased
-        self.placeOfCreation = placeOfCreation
+        self.listCreationPlace = listCreationPlace
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,7 +41,7 @@ class ShoppingListViewController: UIViewController {
 
 extension ShoppingListViewController {
     private func actionComponentsView() {
-        mainView.categoryListButton.addTarget(self, action: #selector(openCategoriesController), for: .touchUpInside)
+        mainView.emptyView.newButton.addTarget(self, action: #selector(openCategoriesController), for: .touchUpInside)
         mainView.newOthersItems.addTarget(self, action: #selector(openCategoriesController), for: .touchUpInside)
         mainView.saveButton.addTarget(self, action: #selector(saveList), for: .touchUpInside)
     }
@@ -52,14 +52,10 @@ extension ShoppingListViewController {
     
     @objc private func saveList() {
         guard let title = mainView.categoryTitle.text else { return }
-        let keyDictionary = Helper.shared.itemsAdded
-        var itemsArray = [ItemDetailModel]()
+        let listItems = Helper.shared.itemsAdded
         
-//        for (title, value) in keyDictionary {
-//            itemsArray.append(ItemDetailModel(title: title))
-//        }
-        // REVER ESSE FLUXO DE CIMA
-//        Helper.shared.listCreated[title] = itemsArray
+        Helper.shared.listCreated.append((nomeList: title, itemsList: listItems))
+        print("AAAAAAAAAA \(Helper.shared.listCreated)")
         Helper.shared.itemsAdded.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
@@ -74,6 +70,7 @@ extension ShoppingListViewController {
         mainView.newOthersItems.isHidden = Helper.shared.itemsAdded.count == 0
         mainView.infoElementsStackView.isHidden = Helper.shared.itemsAdded.count == 0
         mainView.listItemsCount.titleValueLabel.text = "\(Helper.shared.itemsAdded.count)"
+        mainView.listTotalValue.isHidden = self.listCreationPlace
     }
 }
 
@@ -92,9 +89,8 @@ extension ShoppingListViewController {
 extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if Helper.shared.itemsAdded.count == 0 {
-            mainView.addEmptyTitle()
-            mainView.addEmptyMessage()
-            mainView.addCategoryListButton()
+            self.mainView.tableView.backgroundView = self.mainView.emptyView
+            self.mainView.tableView.isScrollEnabled = false
         } else {
             mainView.tableView.backgroundView = .none
         }
@@ -104,16 +100,14 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoopingListViewCell", for: indexPath)
         let itemTitle = Helper.shared.itemsAdded[indexPath.row].itemTitle
-
-        if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = itemTitle
-            cell.accessoryType = .disclosureIndicator
-        }
+        
+        cell.textLabel?.text = itemTitle
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        viewModel.openDetailItem()
+        //        viewModel.openDetailItem()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

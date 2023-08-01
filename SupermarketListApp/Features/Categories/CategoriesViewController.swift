@@ -12,6 +12,11 @@ class CategoriesViewController: UIViewController {
     let mainView: CategoriesView = .init()
     var viewModel: CategoriesViewModel
     var placeOfCreation: Bool
+    var categoriesList: [ListCategoriesModel] = [] {
+        didSet {
+            mainView.collectionView.reloadData()
+        }
+    }
     
     init(viewModel: CategoriesViewModel, placeOfCreation: Bool) {
         self.viewModel = viewModel
@@ -40,12 +45,23 @@ class CategoriesViewController: UIViewController {
 
 extension CategoriesViewController {
     private func delegates() {
+        viewModel.delegate = self
         mainView.collectionView.delegate = self
         mainView.collectionView.dataSource = self
     }
     
     @objc private func backViewController() {
         dismiss(animated: true)
+    }
+}
+
+extension CategoriesViewController: CategoriesViewModelDelegate {
+    func didFetchData() {
+        self.categoriesList = viewModel.category
+    }
+    
+    func didError(message: String) {
+        showSimpleAlert(title: "Atenção", message: message)
     }
 }
 
@@ -56,18 +72,18 @@ extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.reuseId, for: indexPath)
-        let categoryName = viewModel.category[indexPath.row].title
+        let categoryName = viewModel.category[indexPath.row].nameCategories
         let categoryImage = viewModel.category[indexPath.row].image
         
         if let cell = cell as? CategoriesCollectionViewCell {
-            cell.categoryImage.image = UIImage(named: categoryImage ?? "")
+            cell.categoryImage.image = UIImage(named: categoryImage )
             cell.categoryTitle.text = categoryName
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let categoryId = viewModel.category[indexPath.item].id else { return }
+        let categoryId = viewModel.category[indexPath.item].id
         self.dismiss(animated: false)
         self.viewModel.openCategoryItemList(categoryId: categoryId, placeOfCreation: self.placeOfCreation)
     }

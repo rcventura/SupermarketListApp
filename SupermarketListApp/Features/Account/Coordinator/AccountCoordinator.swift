@@ -26,13 +26,20 @@ final class AccountCoordinator: Coordinator {
         self.navigationController.pushViewController(controller, animated: false)
     }
     
-    func openHomeViewController() {
+    func showHomeViewController() {
         rootViewController = UITabBarController()
         window.rootViewController = rootViewController
         
         let tabCoordinator = TabBarCoordinator(tabBarController: rootViewController as! UITabBarController)
         childCoordinators.append(tabCoordinator)
         tabCoordinator.start()
-        
+    }
+    
+    func showCreateNewUser() {
+        let controller = CreateNewUserViewController()
+        let createNewUserViewModel = CreateNewUserViewModel()
+        createNewUserViewModel.coordinator = self
+        controller.viewModel = createNewUserViewModel
+        self.navigationController.present(controller, animated: true)
     }
 }

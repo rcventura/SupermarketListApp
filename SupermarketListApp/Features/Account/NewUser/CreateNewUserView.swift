@@ -1,5 +1,5 @@
 //
-//  NewUserView.swift
+//  CreateNewUserView.swift
 //  SupermarketListApp
 //
 //  Created by Rodrigo Ventura on 28/07/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NewUserView: UIView {
+final class CreateNewUserView: UIView {
     
     let fullNameTextFiel = SMTextField(placeholder: "Nome completo")
     let emailTextField = SMTextField(placeholder: "E-mail")
@@ -24,13 +24,14 @@ final class NewUserView: UIView {
     }
 }
 
-extension NewUserView {
+extension CreateNewUserView {
     
     private func addFullName() {
         addSubview(fullNameTextFiel)
         fullNameTextFiel.translatesAutoresizingMaskIntoConstraints = false
         
         fullNameTextFiel.backgroundColor = SMColor.white_f3f6f5
+        fullNameTextFiel.text = "Rodrigo Ventura"
         
         NSLayoutConstraint.activate([
             fullNameTextFiel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
@@ -45,6 +46,7 @@ extension NewUserView {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         
         emailTextField.backgroundColor = SMColor.white_f3f6f5
+        emailTextField.text = "rcvanalista@gmail.com"
         
         NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: fullNameTextFiel.bottomAnchor, constant: 10),
@@ -60,6 +62,7 @@ extension NewUserView {
         
         passwordTextField.setSecureField()
         passwordTextField.backgroundColor = SMColor.white_f3f6f5
+        passwordTextField.text = "SuperMan1985@"
         
         NSLayoutConstraint.activate([
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
@@ -77,12 +80,13 @@ extension NewUserView {
         NSLayoutConstraint.activate([
             createButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
             createButton.leadingAnchor.constraint(equalTo: fullNameTextFiel.leadingAnchor),
-            createButton.trailingAnchor.constraint(equalTo: fullNameTextFiel.trailingAnchor)
+            createButton.trailingAnchor.constraint(equalTo: fullNameTextFiel.trailingAnchor),
+            createButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }
 
-extension NewUserView {
+extension CreateNewUserView {
     private func setupLayout() {
         backgroundColor = SMColor.white
         addFullName()

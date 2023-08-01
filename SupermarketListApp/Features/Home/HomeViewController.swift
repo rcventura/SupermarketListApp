@@ -31,7 +31,7 @@ final class HomeViewController: UIViewController {
 extension HomeViewController {
     
     private func actionComponentsView() {
-        mainView.createNewMarketListButton.addTarget(self, action: #selector(createNewMarketList), for: .touchUpInside)
+        mainView.emptyView.newButton.addTarget(self, action: #selector(createNewMarketList), for: .touchUpInside)
     }
     
     @objc func createNewMarketList() {
@@ -72,9 +72,8 @@ extension HomeViewController {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if Helper.shared.listCreated.count == 0 {
-            self.mainView.addEmptyTitle()
-            self.mainView.addEmptyMessage()
-            self.mainView.addNewListButton()
+            self.mainView.tableView.backgroundView = self.mainView.emptyView
+            self.mainView.tableView.isScrollEnabled = false
         }
         else {
             mainView.tableView.backgroundView = .none
@@ -85,9 +84,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewCell", for: indexPath)
         let titleLists = Array(Helper.shared.listCreated)
-        if let cell = cell as? UITableViewCell {
-            cell.textLabel?.text = titleLists[indexPath.row].nomeList
-        }
+        
+        cell.textLabel?.text = titleLists[indexPath.row].nomeList
         return cell
     }
 }

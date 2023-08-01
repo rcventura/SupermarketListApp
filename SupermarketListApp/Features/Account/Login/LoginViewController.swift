@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: LoginViewModelDelegate {
-    func didErrorOccurred(message: String) {
+    func didError(message: String) {
         showSimpleAlert(title: "Atenção", message: message)
     }
 }
@@ -32,7 +32,7 @@ extension LoginViewController: LoginViewModelDelegate {
 extension LoginViewController {
     func addComponentsActions() {
         mainView.loginButton.addTarget(self, action: #selector(didSuccessLogin(button: )), for: .touchUpInside)
-        mainView.googleSignInButton.addTarget(self, action: #selector(didSuccessLogin(button: )), for: .touchUpInside)
+        mainView.newUserButton.addTarget(self, action: #selector(didSuccessLogin(button: )), for: .touchUpInside)
     }
 }
 
@@ -41,12 +41,12 @@ extension LoginViewController {
         guard let email = mainView.emailTextField.text,
               let password = mainView.passwordTextField.text
         else { return }
-        
+
         switch button {
-        case mainView.googleSignInButton:
-            viewModel.authWithGoogle(controller: self)
+        case mainView.newUserButton:
+            viewModel.showCreateNewUser()
         default:
-            viewModel.authLogin(email: email, password: password)
+            viewModel.authLoginWithEmail(email: email, password: password)
         }
     }
 }

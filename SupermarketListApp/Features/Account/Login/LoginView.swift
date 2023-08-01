@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import GoogleSignIn
-import GoogleSignInSwift
 
 final class LoginView: UIView {
     
@@ -16,8 +14,7 @@ final class LoginView: UIView {
     private let stackView =  UIStackView()
     let loginButton = SMButton(title: "Entrar", enabledBackgroundColor: SMColor.gray_AFAFAF)
     let newUserButton = SMButton(title: "Novo Usuário", enabledBackgroundColor: SMColor.gray_AFAFAF)
-    private let loginWithSocialLabel = UILabel()
-    let googleSignInButton = GIDSignInButton()
+    let forgotPasswordButton = SMButton(title: "Esqueci a senha")
     
     init() {
         super.init(frame: .zero)
@@ -45,6 +42,7 @@ extension LoginView {
         ])
         
     }
+    
     private func addPasswordTextField() {
         addSubview(passwordTextField)
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -95,33 +93,16 @@ extension LoginView {
         ])
     }
     
-    private func addLoginWithSocialLabel() {
-        addSubview(loginWithSocialLabel)
-        loginWithSocialLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func addForgotPasswordButton() {
+        addSubview(forgotPasswordButton)
+        forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         
-        loginWithSocialLabel.text = "Ou: "
-        loginWithSocialLabel.font = UIFont.systemFont(ofSize: 13)
-        
-        NSLayoutConstraint.activate([
-            loginWithSocialLabel.topAnchor.constraint(equalTo: newUserButton.bottomAnchor, constant: 40),
-            loginWithSocialLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            loginWithSocialLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            loginWithSocialLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        ])
-    }
-    
-    private func addGoogleSignInButton() {
-        addSubview(googleSignInButton)
-        googleSignInButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        googleSignInButton.layer.cornerRadius = 5
-        googleSignInButton.backgroundColor = SMColor.white_f3f6f5
+        forgotPasswordButton.setTitleColor(.black, for: .normal)
         
         NSLayoutConstraint.activate([
-            googleSignInButton.topAnchor.constraint(equalTo: loginWithSocialLabel.bottomAnchor, constant: 10),
-            googleSignInButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            googleSignInButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            googleSignInButton.heightAnchor.constraint(equalToConstant: 40)
+            forgotPasswordButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 30),
+            forgotPasswordButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            forgotPasswordButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }
@@ -134,7 +115,6 @@ extension LoginView {
         addStackView()
         addLoginButton()
         addNewUserButton()
-        addLoginWithSocialLabel()
-        addGoogleSignInButton()
+        addForgotPasswordButton()
     }
 }

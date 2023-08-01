@@ -18,7 +18,7 @@ final class ShoppingListCoordinator: Coordinator {
     }
     
     func start() {
-        let controller = ShoppingListViewController(listTitle: listTitle, placeOfCreation: self.placeOfCreation)
+        let controller = ShoppingListViewController(listTitle: listTitle, listCreationPlace: self.placeOfCreation)
         let shoppingViewModel = ShoppingListViewModel()
         controller.hidesBottomBarWhenPushed = true
         controller.viewModel = shoppingViewModel

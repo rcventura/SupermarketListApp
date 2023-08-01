@@ -33,7 +33,6 @@ final class SMLabel: UIView {
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-        
         ])
     }
     
@@ -46,8 +45,6 @@ final class SMLabel: UIView {
             titleValueLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5),
             titleValueLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             titleValueLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-        
         ])
     }
-    
 }

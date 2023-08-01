@@ -9,7 +9,7 @@ import Foundation
 
 struct ItemDataModel {
     var itemTitle: String
-    var itemDetal: [itemDetail]?
+    var itemDetal: [itemDetail]
 }
 
 struct itemDetail {
@@ -17,5 +17,4 @@ struct itemDetail {
     var itemPrice: Float?
     var itemQuantitity: Float?
     var itemType: String?
-    var dueDate: Date?
 }

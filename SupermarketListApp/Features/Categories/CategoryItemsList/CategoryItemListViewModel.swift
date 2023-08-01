@@ -7,10 +7,9 @@
 
 import Foundation
 
-
-@objc protocol CategoryItemListViewModelDelegate: AnyObject {
-    @objc optional func didSelectCategory()
-    @objc optional func itemsSelecteds()
+protocol CategoryItemListViewModelDelegate: AnyObject {
+    func didFetchData()
+    func didError(message: String)
 }
 
 final class CategoryItemListViewModel {
@@ -18,22 +17,22 @@ final class CategoryItemListViewModel {
     var coordinator: CategoriesCoordinator?
     weak var delegate: CategoryItemListViewModelDelegate?
     var service: ApiService
-    var itemsCategory: [String] = []
     var itemsAdd: [String] = []
+    var categoryItemsList: ListItemCategory?
     init(service: ApiService = ApiService()) {
         self.service = service
     }
     
     func getCategoryItems(categoryID: Int) {
-        service.getItemsCategory(categoryID: categoryID)
-    }
-    
-    func itemsByCategory() {
-        self.delegate?.didSelectCategory?()
-    }
-    
-    func passArray() {
-        self.delegate?.itemsSelecteds?()
+        service.getItemsCategory(categoryID: categoryID, completion: { (result) in
+            switch result {
+            case .success(let result):
+                self.categoryItemsList = result
+                self.delegate?.didFetchData()
+            case .failure(let error):
+                self.delegate?.didError(message: error.localizedDescription)
+            }
+        })
     }
 }
 

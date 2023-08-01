@@ -13,10 +13,8 @@ class ShoppingListView: UIView {
     let categoryTitle = UILabel()
     let newOthersItems = SMButton(title: "Novo Item", enabledBackgroundColor: .clear)
     var tableView = UITableView()
-    private let emptyView = UIView()
-    private let titleLabel = UILabel()
-    private let messageLabel = UILabel()
-    let categoryListButton = SMButton()
+    let emptyView = EmptyTableView(titleLabel: "Nenhum item na sua lista de compras", messageLabel: "Adicione seu primeiro item.", isHideNewButton: false)
+
     let saveButton = SMButton(title: "Salvar Lista", enabledBackgroundColor: SMColor.gray_AFAFAF, disabledBackgroundColor: SMColor.gray_6F737E)
     let stackView = UIStackView()
     let infoElementsStackView = UIStackView()
@@ -85,56 +83,12 @@ extension ShoppingListView {
         ])
     }
     
-    func addEmptyTitle() {
-        emptyView.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-        titleLabel.text = "Nenhum item na sua lista de compras"
-        titleLabel.textColor = UIColor.black
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
-        ])
-    }
-    
-    func addEmptyMessage() {
-        emptyView.addSubview(messageLabel)
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
-        messageLabel.text = "Adicione seu primeiro item."
-        messageLabel.textColor = UIColor.lightGray
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        
-        NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            messageLabel.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor)
-        ])
-    }
-    
-    func addCategoryListButton() {
-        emptyView.addSubview(categoryListButton)
-        categoryListButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        let config = UIImage.SymbolConfiguration(textStyle: .largeTitle)
-        categoryListButton.setImage(UIImage(systemName: "plus.circle", withConfiguration: config), for: .normal)
-        
-        NSLayoutConstraint.activate([
-            categoryListButton.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 20),
-            categoryListButton.centerXAnchor.constraint(equalTo: messageLabel.centerXAnchor)
-        ])
-    }
-    
     private func addTableView() {
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.backgroundColor = .white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ShoopingListViewCell")
-        tableView.backgroundView = emptyView
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: categoryTitle.bottomAnchor, constant: 10),

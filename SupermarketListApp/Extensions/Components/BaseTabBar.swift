@@ -61,6 +61,4 @@ enum TabBarItems: Int {
     }
 }
 
-class BaseTabBar: UITabBarController, UITabBarControllerDelegate {
-    
-}
+class BaseTabBar: UITabBarController, UITabBarControllerDelegate {}

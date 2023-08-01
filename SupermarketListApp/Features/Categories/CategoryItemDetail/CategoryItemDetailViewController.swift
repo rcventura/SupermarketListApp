@@ -36,13 +36,48 @@ extension CategoryItemDetailViewController {
         mainView.saveButton.addTarget(self, action: #selector(saveList), for: .touchUpInside)
     }
     
+    private func delegates() {
+        mainView.unitPickerView.delegate = self
+        mainView.unitPickerView.dataSource = self
+        mainView.unitTextField.delegate = self
+    }
+    
     @objc private func saveList() {
-        guard let title = mainView.itemTitleLabel.text else { return }
-        guard let brand = mainView.brandTextField.text else { return }
+        guard let title = mainView.itemTitleLabel.text,
+              let brand = mainView.brandTextField.text,
+              let quantity = mainView.quantityTextField.text,
+              let itemType = mainView.unitTextField.text,
+              let itemPrice = mainView.princeTextField.text else { return }
         
-        Helper.shared.itemsAdded.append((ItemDataModel.init(itemTitle: title, itemDetal: [itemDetail.init(itemBrand: brand)])))
-        print("Item adicionado: \(Helper.shared.itemsAdded)")
+        Helper.shared.itemsAdded.append((ItemDataModel.init(itemTitle: title,
+                                                            itemDetal: [itemDetail.init(itemBrand: brand,
+                                                                                        itemPrice: Float(itemPrice),
+                                                                                        itemQuantitity: Float(quantity),
+                                                                                        itemType: itemType)])))
         self.navigationController?.popViewController(animated: true)
+    }
+}
+extension CategoryItemDetailViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        mainView.unitTextField.text = mainView.unitMeasure[0]
+    }
+}
+
+extension CategoryItemDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return mainView.unitMeasure.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        mainView.unitMeasure[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        mainView.unitTextField.text = mainView.unitMeasure[row]
     }
 }
 
@@ -50,5 +85,6 @@ extension CategoryItemDetailViewController {
     private func addLayout() {
         title = "Dados do item"
         actionComponentsView()
+        delegates()
     }
 }
