@@ -69,7 +69,7 @@ extension CategoryItemListViewController {
     
     @objc private func addItems() {
         viewModel.itemsAdd.forEach { item in
-            Helper.shared.itemsAdded.append((ItemDataModel.init(itemTitle: item, itemDetal: [])))
+            Helper.shared.itemsAdded.append((ItemsList.init(itemTitle: item, itemDetal: [])))
         }
         self.navigationController?.popViewController(animated: true)
     }

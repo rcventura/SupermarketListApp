@@ -17,4 +17,5 @@ enum Endpoints: String {
     // Endpoints for categories
     case listCategories = "/categories"
     case listItemsByCategoryID = "/itemslists/itemslists_id?categories_id="
+    case saveList = "/createdlist"
 }

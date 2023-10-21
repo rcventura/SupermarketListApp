@@ -74,8 +74,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         if Helper.shared.listCreated.count == 0 {
             self.mainView.tableView.backgroundView = self.mainView.emptyView
             self.mainView.tableView.isScrollEnabled = false
-        }
-        else {
+        } else {
             mainView.tableView.backgroundView = .none
         }
         return Helper.shared.listCreated.count

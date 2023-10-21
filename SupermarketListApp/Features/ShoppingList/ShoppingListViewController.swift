@@ -52,10 +52,16 @@ extension ShoppingListViewController {
     
     @objc private func saveList() {
         guard let title = mainView.categoryTitle.text else { return }
-        let listItems = Helper.shared.itemsAdded
+        var itemName: [String] = []
         
-        Helper.shared.listCreated.append((nomeList: title, itemsList: listItems))
-        print("AAAAAAAAAA \(Helper.shared.listCreated)")
+        Helper.shared.itemsAdded.forEach({ name in
+            itemName.append(name.itemTitle)
+        })
+        print("Lista: \(Helper.shared.itemsAdded)")
+        
+        viewModel.saveList(listData: SaveListRequest(userID: 23,
+                                                     nameList: title,
+                                                     itemsList: [ItemsList(itemTitle: title, itemDetal: nil)]))
         Helper.shared.itemsAdded.removeAll()
         self.navigationController?.popViewController(animated: true)
     }

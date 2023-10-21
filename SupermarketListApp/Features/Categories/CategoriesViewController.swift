@@ -35,6 +35,7 @@ class CategoriesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addLayout()
+        viewModel.getCategory()
     }
     
     override func viewWillAppear(_ animated: Bool) {
