@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E6D17FB4-7792-4333-A853-3BC36F6091B6"
+            uuid = "8F6B223A-8FCB-4524-9B95-EDD30B0849BD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SupermarketListApp/Features/ShoppingList/ShoppingListViewModel.swift"
+            filePath = "SupermarketListApp/Network/ApiService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "saveList(listData:)"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "addNewList(userID:nameList:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BC36BA66-40B6-41DC-ABCA-DD73219264A2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SupermarketListApp/Network/ApiService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "addNewList(userID:nameList:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

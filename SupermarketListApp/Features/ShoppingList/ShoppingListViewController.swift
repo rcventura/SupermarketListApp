@@ -52,21 +52,13 @@ extension ShoppingListViewController {
     
     @objc private func saveList() {
         guard let title = mainView.categoryTitle.text else { return }
-        var itemName: [String] = []
-        
-        Helper.shared.itemsAdded.forEach({ name in
-            itemName.append(name.itemTitle)
-        })
-        print("Lista: \(Helper.shared.itemsAdded)")
-        
-        viewModel.saveList(listData: SaveListRequest(userID: 23,
-                                                     nameList: title,
-                                                     itemsList: [ItemsList(itemTitle: title, itemDetal: nil)]))
+        viewModel.saveList(userID: 23, nameList: title)
         Helper.shared.itemsAdded.removeAll()
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
     }
     
     private func delegates() {
+        viewModel.delegate = self
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
     }
@@ -118,6 +110,16 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45
+    }
+}
+
+extension ShoppingListViewController: ShoppingListViewModelDelegate {
+    func didSuccess() {
+        showSimpleAlert(title: "Atenção", message: "Sua lista foi criada com sucesso!")
+    }
+    
+    func didError(message: String) {
+        showSimpleAlert(title: "Atenção", message: message)
     }
 }
 

@@ -42,5 +42,9 @@ class SMButton: UIButton {
     
     private func setup() {
         backgroundColor = isEnabled ? enabledBackgroundColor : disabledBackgroundColor
+        self.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: 45)
+        ])
     }
 }

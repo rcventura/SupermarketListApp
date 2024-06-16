@@ -11,7 +11,7 @@ class ApiService {
     
     private var dataTask: URLSessionDataTask?
     
-    func createNewUser(requestItems: CreateNewUserRequest, completion: @escaping ([String: Any]? ,Error?) -> Void) {
+    func addNewUser(requestItems: CreateNewUserRequest, completion: @escaping ([String: Any]? ,Error?) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.createUser.rawValue)"
         guard let url = URL(string: baseURL) else { return }
         let session = URLSession.shared
@@ -47,11 +47,10 @@ class ApiService {
         })
         task.resume()
     }
-    
-    func loginUser(requestItems: AuthLoginRequest, completion: @escaping ([String: Any]?, Error?) -> Void) {
+
+    func loginUser(requestItems: AuthLoginRequest, completion: @escaping (Result<AuthLoginResponse, Error>) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.loginUser.rawValue)"
         guard let url = URL(string: baseURL) else { return }
-        let session = URLSession.shared
         var request = URLRequest(url: url)
         let parameters = ["email": requestItems.email, "password": requestItems.password]
         
@@ -62,33 +61,45 @@ class ApiService {
             request.httpBody = bodyData
         } catch let error {
             print(error.localizedDescription)
-            completion(nil, error)
+            completion(.failure(error))
         }
         
-        let task = session.dataTask(with: request, completionHandler: { data, response, error in
-            guard error == nil else {
-                completion(nil, error)
+        dataTask = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+            if let error = error {
+                completion(.failure(error))
                 return
             }
-            
-            guard let data = data else { return }
+            guard response is HTTPURLResponse else { return print("Empty Response")  }
+            guard let data = data else { return print("Empty Data")  }
+
             DispatchQueue.main.async {
                 do {
-                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
-                    completion(json, nil)
+                    let data = try JSONDecoder().decode(AuthLoginResponse.self, from: data)
+                    Helper.shared.authToken = data.authToken
+//                    try KeyChainManager.saveToKeyChain(authToken: data.authToken)
+                    completion(.success(data))
+                    
                 } catch let error {
-                    print(error.localizedDescription)
-                    completion(nil, error)
+                    print(error)
+                    completion(.failure(error))
                 }
             }
         })
-        task.resume()
+        dataTask?.resume()
     }
     
     func getCategories(completion: @escaping (Result<[ListCategoriesModel], Error>) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.listCategories.rawValue)"
         guard let url = URL(string: baseURL) else { return }
-        dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        var request = URLRequest(url: url)
+        do {
+            request.setValue("application/json", forHTTPHeaderField: "accept")
+            request.setValue( "Bearer \(Helper.shared.authToken)", forHTTPHeaderField: "Authorization")
+        } catch let error {
+            completion(.failure(error))
+        }
+        
+        dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
                 print("DataTask error \(error.localizedDescription)")
@@ -115,17 +126,20 @@ class ApiService {
         let parameters = ["categories_id": categoryID]
         var request = URLRequest(url: url)
         
-        do  {
-            let bodyData = try JSONSerialization.data(withJSONObject: parameters, options: [])
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "GET"
-            request.httpBody = bodyData
-        } catch let error {
-            print(error.localizedDescription)
-            completion(.failure(error))
+        DispatchQueue.main.async {
+            do  {
+                let bodyData = try JSONSerialization.data(withJSONObject: parameters, options: [])
+                request.setValue("application/json", forHTTPHeaderField: "accept")
+                request.setValue( "Bearer \(Helper.shared.authToken)", forHTTPHeaderField: "Authorization")
+                request.httpMethod = "GET"
+                request.httpBody = bodyData
+            } catch let error {
+                print(error.localizedDescription)
+                completion(.failure(error))
+            }
         }
         
-        dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
                 print("DataTask error \(error.localizedDescription)")
@@ -156,162 +170,63 @@ class ApiService {
         dataTask?.resume()
     }
     
-    func saveList(listData: [SaveListRequest], completion: @escaping ([SaveListRequest]? ,Error?) -> Void) {
+    func addNewList(userID: Int, nameList: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+//        Helper.shared.itemsAdded.forEach({ name in
+//            itemName = name.itemTitle
+//            
+//            name.itemDetal?.forEach { detail in
+//                itemBrand = detail.itemBrand ?? ""
+//                itemPrice = detail.itemPrice ?? 0
+//                itemQuantitity = detail.itemQuantitity ?? 0
+//                itemType = detail.itemType ?? ""
+//            }
+//        })
+        
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.saveList.rawValue)"
         guard let url = URL(string: baseURL) else { return }
-        
-        var listDataCreate: SaveListRequest?
-        var userID = Int()
-        var nameList = String()
-        var itemTitle = (String)()
-        var itemBrand = String()
-        var itemPrice = Double()
-        var itemQuantitity = Double()
-        var itemType = String()
-        
-        
-        listData.forEach { item in
-            Helper.shared.itemsAdded.forEach { itemList in
-                itemList.itemDetal?.forEach { detailIte  in
-                    listDataCreate = (SaveListRequest(userID: item.userID,
-                                                          nameList: item.nameList,
-                                                          itemsList: [ItemsList(itemTitle: itemList.itemTitle,
-                                                                                itemDetal: [ItemDetail(itemBrand: detailIte.itemBrand,
-                                                                                                       itemPrice: detailIte.itemPrice,
-                                                                                                       itemQuantitity: detailIte.itemQuantitity,
-                                                                                                       itemType: detailIte.itemType)])]))
-                    print("PRECO: \(detailIte.itemPrice ?? 55.0)")
-                }}}
-    
-    print("LISTDATACREATE: \(listDataCreate)")
-    print("HELPER: \(Helper.shared.itemsAdded)")
-    print("LISTDATA: \(listData)")
-    
-    guard let jsonData = try? JSONEncoder().encode(listDataCreate) else {
-        print("Error: Trying to convert model to JSON data")
-        return
-    }
-    
-    print("JSONDATA: \(jsonData)")
-    
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.setValue("application/json", forHTTPHeaderField: "Accept")
-    request.httpBody = jsonData
-    
-    let session = URLSession.shared
-    
-    let task = session.dataTask(with: request, completionHandler: { data, response, error in
-        if let error = error {
-            completion(nil,error)
-            print("DataTask error \(error.localizedDescription)")
-            return
-        }
-        
-        guard let data = data else { return }
-        
+        var request = URLRequest(url: url)
+        let parameters: [String : Any] = ["user_id": userID,
+                                          "nameList": nameList,
+                                          "itemsList":  Helper.shared.itemsAdded.map({ item in
+                                                        [
+                                                        "itemTitle": item.itemTitle,
+                                                        "itemDetail": ""
+                                                        ]})]
         DispatchQueue.main.async {
-            do {
-                let jsonObject = try JSONDecoder().decode([SaveListRequest].self, from: data)
+            do  {
+                let bodyData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
                 
-                print("JSONOBJECT: \(jsonObject)")
-                guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
-                    print("Error: Cannot convert JSON object to Pretty JSON data")
-                    return
-                }
-                guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8) else {
-                    print("Error: Couldn't print JSON in String")
-                    return
-                }
-                completion(jsonObject, nil)
+                request.httpBody = bodyData
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.setValue("application/json", forHTTPHeaderField: "Accept")
+                request.setValue( "Bearer \(Helper.shared.authToken)", forHTTPHeaderField: "Authorization")
                 
+                self.dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    if let error = error {
+                        completion(.failure(error))
+                        print("DataTask error \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let data = data else { return }
+                    DispatchQueue.main.async {
+                    do {
+                        let json = try JSONDecoder().decode(String.self, from: data)
+                        print("asasasasasas \(json)")
+                        completion(.success(json))
+                    } catch let error {
+                        print(error)
+                        completion(.failure(error))
+                    }
+                }
+                }
+                self.dataTask?.resume()
             } catch let error {
-                completion(nil,error)
+                print(error.localizedDescription)
+                completion(.failure(error))
             }
         }
-    })
-    task.resume()
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    func saveList(userID: Int, nameList: String, itemDetail: [String], completion: @escaping ([String: Any]? ,Error?) -> Void) {
-//        let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.saveList.rawValue)"
-//        guard let url = URL(string: baseURL) else { return }
-//        let session = URLSession.shared
-//        var request = URLRequest(url: url)
-//        let parameters: [String : Any] = ["user_id": userID,
-//                                          "nameList": nameList,
-//                                          "itemsList": [
-//                                            ["itemTitle": itemDetail]
-//                                          ]]
-//        print("PARA: \(parameters)")
-//        let check = JSONSerialization.isValidJSONObject(parameters)
-//        print("CHECK: \(check)")
-//
-//        do  {
-//            let bodyData = try JSONSerialization.data(withJSONObject: parameters, options: [])
-//            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//            request.httpMethod = "POST"
-//            request.httpBody = bodyData
-//        } catch let error {
-//            print(error.localizedDescription)
-//            completion(nil, error)
-//        }
-//
-//        let task = session.dataTask(with: request, completionHandler: { data, response, error in
-//            if let error = error {
-//                completion(nil,error)
-//                print("DataTask error \(error.localizedDescription)")
-//                return
-//            }
-//
-//            guard let data = data else { return }
-//                        DispatchQueue.main.async {
-//                do {
-//                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
-//                    completion(json, nil)
-//
-//                } catch let error {
-//                    completion(nil,error)
-//                }
-//            }
-//            print(data)
-//        })
-//        task.resume()
-//    }
+    }
 }

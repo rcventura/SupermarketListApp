@@ -8,7 +8,7 @@
 import UIKit
 
 class SMTextField: UITextField {
-    let textFieldPadding = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+    let textFieldPadding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
     
     private let secureEyeButton = UIButton()
     
@@ -27,25 +27,31 @@ class SMTextField: UITextField {
     private func addTextField() {
         self.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         self.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = 8
         self.autocapitalizationType = .none
         self.layer.borderColor = SMColor.blue_BDD1DE.cgColor
         self.layer.borderWidth = 1
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: 45)
+        ])
     }
 }
 
 extension SMTextField {
     public func setSecureField() {
+        secureEyeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        if #available(iOS 15.0, *) {
+            secureEyeButton.configuration?.buttonSize = .mini
+        } else {
+            // Fallback on earlier versions
+        }
         self.rightView = secureEyeButton
         self.isSecureTextEntry = true
         self.rightViewMode = .always
         self.rightView?.tintColor = SMColor.gray_AFAFAF
         secureEyeButton.translatesAutoresizingMaskIntoConstraints = false
-        secureEyeButton.setImage(SMImage.closedEyeIcon?.withRenderingMode(.alwaysTemplate) , for: .normal)
+        secureEyeButton.setImage(SMImage.closedEyeIcon?.withRenderingMode(.alwaysTemplate), for: .normal)
         secureEyeButton.addTarget(self, action: #selector(secureEyeButtonPressed), for: .touchUpInside)
-        NSLayoutConstraint.activate([
-            secureEyeButton.widthAnchor.constraint(equalToConstant: 45)
-            ])
     }
     
     @objc private func secureEyeButtonPressed() {

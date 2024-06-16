@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct SaveListRequest: Codable {
+struct SaveListResponse: Codable {
     let userID: Int
     let nameList: String
-    let itemsList: [ItemsList]
+    var itemsList: [ItemsList]
     
     enum CodingKeys: String, CodingKey {
         case userID = "user_id"

@@ -14,6 +14,8 @@
 		014431242A73885F00FA4DD5 /* CreateNewUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014431232A73885F00FA4DD5 /* CreateNewUserViewModel.swift */; };
 		014431282A739BD700FA4DD5 /* CreateNewUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014431272A739BD700FA4DD5 /* CreateNewUserRequest.swift */; };
 		0171236D2A66C392002EE839 /* EmptyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171236C2A66C392002EE839 /* EmptyTableView.swift */; };
+		01AA7F4E2C1883D900C639F9 /* AuthLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7F4D2C1883D900C639F9 /* AuthLoginResponse.swift */; };
+		01B4EF882C18C31900558735 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B4EF872C18C31900558735 /* KeyChainManager.swift */; };
 		01CB07262A73B47500F80667 /* AuthLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB07252A73B47500F80667 /* AuthLoginRequest.swift */; };
 		01CB07282A73CDCE00F80667 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB07272A73CDCE00F80667 /* Endpoints.swift */; };
 		01CB072B2A73D2B200F80667 /* ListCategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB072A2A73D2B200F80667 /* ListCategoriesModel.swift */; };
@@ -99,6 +101,8 @@
 		014431232A73885F00FA4DD5 /* CreateNewUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewUserViewModel.swift; sourceTree = "<group>"; };
 		014431272A739BD700FA4DD5 /* CreateNewUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewUserRequest.swift; sourceTree = "<group>"; };
 		0171236C2A66C392002EE839 /* EmptyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableView.swift; sourceTree = "<group>"; };
+		01AA7F4D2C1883D900C639F9 /* AuthLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginResponse.swift; sourceTree = "<group>"; };
+		01B4EF872C18C31900558735 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		01CB07252A73B47500F80667 /* AuthLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginRequest.swift; sourceTree = "<group>"; };
 		01CB07272A73CDCE00F80667 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		01CB072A2A73D2B200F80667 /* ListCategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCategoriesModel.swift; sourceTree = "<group>"; };
@@ -211,6 +215,7 @@
 			children = (
 				014431272A739BD700FA4DD5 /* CreateNewUserRequest.swift */,
 				01CB07252A73B47500F80667 /* AuthLoginRequest.swift */,
+				01AA7F4D2C1883D900C639F9 /* AuthLoginResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				854A21F429D3FE5800B17653 /* Image */,
 				854A21F729D3FE5800B17653 /* Components */,
 				85C07B3D2A15723C00B3CEC4 /* Helper.swift */,
+				01B4EF872C18C31900558735 /* KeyChainManager.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -609,7 +615,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					854A21B029D3FC5400B17653 = {
 						CreatedOnToolsVersion = 14.1;
@@ -690,6 +696,7 @@
 				85918A4B2A1255B400905261 /* ApiService.swift in Sources */,
 				858E163A29D4721100E2DBDE /* HomeViewModel.swift in Sources */,
 				85ADBA5B29E4C67A00CED171 /* ShoppingListViewController.swift in Sources */,
+				01AA7F4E2C1883D900C639F9 /* AuthLoginResponse.swift in Sources */,
 				85C07B352A129DF500B3CEC4 /* CategoriesCoordinator.swift in Sources */,
 				85C07B3E2A15723C00B3CEC4 /* Helper.swift in Sources */,
 				014431222A73885500FA4DD5 /* CreateNewUserViewController.swift in Sources */,
@@ -717,6 +724,7 @@
 				01CB072B2A73D2B200F80667 /* ListCategoriesModel.swift in Sources */,
 				858E163429D4706A00E2DBDE /* HomeView.swift in Sources */,
 				85918A4D2A126AD500905261 /* CategoriesViewModel.swift in Sources */,
+				01B4EF882C18C31900558735 /* KeyChainManager.swift in Sources */,
 				01CB07262A73B47500F80667 /* AuthLoginRequest.swift in Sources */,
 				01CB07282A73CDCE00F80667 /* Endpoints.swift in Sources */,
 				85DBCD6C2A18775C001C8503 /* CategoryItemDetailView.swift in Sources */,
@@ -820,6 +828,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -834,7 +843,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -880,6 +889,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -888,7 +898,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -908,10 +918,11 @@
 				DEVELOPMENT_TEAM = LQH55VZR78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SupermarketListApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Lista de Compras";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -936,10 +947,11 @@
 				DEVELOPMENT_TEAM = LQH55VZR78;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SupermarketListApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Lista de Compras";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
