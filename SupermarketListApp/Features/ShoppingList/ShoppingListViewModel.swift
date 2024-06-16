@@ -31,7 +31,6 @@ extension ShoppingListViewModel {
                          nameList: nameList){ (result) in
             switch result {
             case .success(let result):
-                print("xxxxxxxx: \(result)")
                 self.delegate?.didSuccess()
             case .failure(let error):
                 self.delegate?.didError(message: error.localizedDescription)

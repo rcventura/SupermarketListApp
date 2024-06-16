@@ -54,7 +54,7 @@ extension ShoppingListViewController {
         guard let title = mainView.categoryTitle.text else { return }
         viewModel.saveList(userID: 23, nameList: title)
         Helper.shared.itemsAdded.removeAll()
-//        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func delegates() {

@@ -214,7 +214,6 @@ class ApiService {
                     DispatchQueue.main.async {
                     do {
                         let json = try JSONDecoder().decode(String.self, from: data)
-                        print("asasasasasas \(json)")
                         completion(.success(json))
                     } catch let error {
                         print(error)
