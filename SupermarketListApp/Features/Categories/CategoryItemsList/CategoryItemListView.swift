@@ -68,23 +68,13 @@ extension CategoryItemListView {
         stackView.addArrangedSubview(bottomStackView)
         bottomStackView.isLayoutMarginsRelativeArrangement = true
         
+        bottomStackView.addArrangedSubview(itemsquantity)
+        bottomStackView.addArrangedSubview(saveButton)
+        
         bottomStackView.axis = .vertical
         bottomStackView.distribution = .equalCentering
         bottomStackView.spacing = 10
         bottomStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
-    }
-    
-    private func addItemsQuantity() {
-        bottomStackView.addArrangedSubview(itemsquantity)
-    }
-    
-    private func addSaveButton() {
-        bottomStackView.addArrangedSubview(saveButton)
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            saveButton.heightAnchor.constraint(equalToConstant: 45),
-        ])
     }
 }
 
@@ -94,8 +84,6 @@ extension CategoryItemListView {
         addBodyStackView()
         addTableView()
         addBottomStackView()
-        addItemsQuantity()
-        addSaveButton()
         backgroundColor = SMColor.blue_BDD1DE
     }
 }

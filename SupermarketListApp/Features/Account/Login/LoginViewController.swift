@@ -23,12 +23,6 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController: LoginViewModelDelegate {
-    func didError(message: String) {
-        showSimpleAlert(title: "Atenção", message: message)
-    }
-}
-
 extension LoginViewController {
     func addComponentsActions() {
         mainView.loginButton.addTarget(self, action: #selector(didSuccessLogin(button: )), for: .touchUpInside)
@@ -54,5 +48,11 @@ extension LoginViewController {
 extension LoginViewController {
     private func addLayout() {
         addComponentsActions()
+    }
+}
+
+extension LoginViewController: LoginViewModelDelegate {
+    func didError(message: String) {
+        showSimpleAlert(title: "Atenção", message: message)
     }
 }

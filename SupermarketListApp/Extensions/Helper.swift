@@ -8,10 +8,9 @@
 import Foundation
 
 final class Helper {
-        
     static var shared = Helper()
-    
-    var itemsAdded: [(ItemDataModel)] = []
-    var listCreated: [(nomeList: String, itemsList: [ItemDataModel])] = []
-    
+    var itemsAdded: [ItemsList] = []
+    var listCreated: [SaveListResponse] = []
+    var authToken = String()
+    var userID = Int()
 }

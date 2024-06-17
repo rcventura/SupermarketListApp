@@ -40,6 +40,6 @@ final class AccountCoordinator: Coordinator {
         let createNewUserViewModel = CreateNewUserViewModel()
         createNewUserViewModel.coordinator = self
         controller.viewModel = createNewUserViewModel
-        self.navigationController.present(controller, animated: true)
+        self.navigationController.pushViewController(controller, animated: true)
     }
 }

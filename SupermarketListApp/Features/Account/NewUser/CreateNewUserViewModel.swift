@@ -25,7 +25,7 @@ final class CreateNewUserViewModel {
 
 extension CreateNewUserViewModel {
     func createNewUser(name: String, email: String, password: String) {
-        service.createNewUser(requestItems: CreateNewUserRequest.init(name: name, email: email, password: password))  { (result, error) in
+        service.addNewUser(requestItems: CreateNewUserRequest.init(name: name, email: email, password: password)) { (result, error) in
             if result != nil {
                 self.delegate?.didSuccess()
             } else if let error = error {

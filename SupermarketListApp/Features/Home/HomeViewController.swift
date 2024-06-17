@@ -10,7 +10,7 @@ import UIKit
 final class HomeViewController: UIViewController {
     
     private let mainView: HomeView = .init()
-    var viewModel =  HomeViewModel()
+    var viewModel = HomeViewModel()
     
     override func loadView() {
         view = mainView
@@ -18,13 +18,9 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addLayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        mainView.tableView.reloadData()
+        viewModel.getCreatedList()
         addNavigationRightItem()
+        addLayout()
     }
 }
 
@@ -64,6 +60,7 @@ extension HomeViewController {
 
 extension HomeViewController {
     private func delegates() {
+        viewModel.delegate = self
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
     }
@@ -74,8 +71,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         if Helper.shared.listCreated.count == 0 {
             self.mainView.tableView.backgroundView = self.mainView.emptyView
             self.mainView.tableView.isScrollEnabled = false
-        }
-        else {
+        } else {
             mainView.tableView.backgroundView = .none
         }
         return Helper.shared.listCreated.count
@@ -83,11 +79,23 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewCell", for: indexPath)
-        let titleLists = Array(Helper.shared.listCreated)
+        let listaTitle = Helper.shared.listCreated[indexPath.row].nameList
         
-        cell.textLabel?.text = titleLists[indexPath.row].nomeList
+        cell.textLabel?.text = listaTitle
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
+}
+
+extension HomeViewController: HomeViewModelDelegate {
+    func didSuccess(data: [SaveListResponse]) {
+        Helper.shared.listCreated = data
+        mainView.tableView.reloadData()
+    }
+    
+    func didError(message: String) {
+        showSimpleAlert(title: "Atenção", message: "Erro ao carregar as listas de compras, tente novamente!")
+    }    
 }
 
 extension HomeViewController {

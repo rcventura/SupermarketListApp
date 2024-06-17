@@ -12,9 +12,11 @@ enum Endpoints: String {
     case baseURL = "https://x8ki-letl-twmt.n7.xano.io/api:H1NcPhNd"
     // Endpoits for authentication
     case loginUser = "/auth/login"
-    case createUser = "/auth/signup"
-    
+    case addUser = "/auth/signup"
+    case getUserData = "/auth/me"
     // Endpoints for categories
     case listCategories = "/categories"
     case listItemsByCategoryID = "/itemslists/itemslists_id?categories_id="
+    case addList = "/createdlist"
+    case getCreatedList = "/createdlist?user_id="
 }

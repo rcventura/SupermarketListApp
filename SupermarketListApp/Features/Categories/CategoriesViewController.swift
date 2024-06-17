@@ -35,6 +35,7 @@ class CategoriesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addLayout()
+        viewModel.getCategory()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,7 +74,7 @@ extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.reuseId, for: indexPath)
         let categoryName = viewModel.category[indexPath.row].nameCategories
-        let categoryImage = viewModel.category[indexPath.row].image
+        let categoryImage = viewModel.category[indexPath.row].image.name
         
         if let cell = cell as? CategoriesCollectionViewCell {
             cell.categoryImage.image = UIImage(named: categoryImage )

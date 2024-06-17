@@ -7,9 +7,28 @@
 
 import Foundation
 
+protocol ShoppingListViewModelDelegate: AnyObject {
+    func didSuccess()
+    func didError(message: String)
+}
+
 final class ShoppingListViewModel {
     weak var coordinator: ShoppingListCoordinator?
-    var listascriadas: [String] = []
+    weak var delegate: ShoppingListViewModelDelegate?
+    let service: ApiService = .init()
+}
+
+extension ShoppingListViewModel {
+    func saveList(nameList: String) {
+        service.addNewList(nameList: nameList){ (result) in
+            switch result {
+            case .success(_):
+                self.delegate?.didSuccess()
+            case .failure(let error):
+                self.delegate?.didError(message: error.localizedDescription)
+            }
+        }
+    }
 }
 
 extension ShoppingListViewModel {

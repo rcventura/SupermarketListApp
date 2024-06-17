@@ -38,7 +38,6 @@ extension LoginView {
             emailTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             emailTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             emailTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            emailTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
         
     }
@@ -55,54 +54,33 @@ extension LoginView {
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
             passwordTextField.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor),
-            passwordTextField.heightAnchor.constraint(equalTo: emailTextField.heightAnchor)
-        ])
-    }
-    
-    private func addStackView() {
-        addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.spacing = 5
-        stackView.distribution = .fillEqually
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
-            stackView.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor)
-        ])
-    }
-    
-    private func addLoginButton() {
-        stackView.addArrangedSubview(loginButton)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            loginButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
-    private func addNewUserButton() {
-        stackView.addArrangedSubview(newUserButton)
-        newUserButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            newUserButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
     private func addForgotPasswordButton() {
         addSubview(forgotPasswordButton)
         forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
-        
         forgotPasswordButton.setTitleColor(.black, for: .normal)
+        NSLayoutConstraint.activate([
+            forgotPasswordButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
+            forgotPasswordButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+        ])
+    }
+    
+    private func addStackView() {
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        stackView.addArrangedSubview(loginButton)
+        stackView.addArrangedSubview(newUserButton)
         
         NSLayoutConstraint.activate([
-            forgotPasswordButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 30),
-            forgotPasswordButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            forgotPasswordButton.heightAnchor.constraint(equalToConstant: 40)
+            stackView.topAnchor.constraint(equalTo: forgotPasswordButton.bottomAnchor, constant: 30),
+            stackView.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor)
         ])
     }
 }
@@ -112,9 +90,8 @@ extension LoginView {
         backgroundColor = SMColor.white
         addEmailTextField()
         addPasswordTextField()
-        addStackView()
-        addLoginButton()
-        addNewUserButton()
         addForgotPasswordButton()
+        addStackView()
+        
     }
 }

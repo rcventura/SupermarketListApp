@@ -49,11 +49,11 @@ extension CategoryItemDetailViewController {
               let itemType = mainView.unitTextField.text,
               let itemPrice = mainView.princeTextField.text else { return }
         
-        Helper.shared.itemsAdded.append((ItemDataModel.init(itemTitle: title,
-                                                            itemDetal: [itemDetail.init(itemBrand: brand,
-                                                                                        itemPrice: Float(itemPrice),
-                                                                                        itemQuantitity: Float(quantity),
-                                                                                        itemType: itemType)])))
+        Helper.shared.itemsAdded.append((ItemsList.init(itemTitle: title,
+                                                        itemDetal: ItemDetail.init(itemBrand: brand,
+                                                                                    itemPrice: Double(itemPrice) ?? 0,
+                                                                                    itemQuantitity: Double(quantity) ?? 0,
+                                                                                    itemType: itemType))))
         self.navigationController?.popViewController(animated: true)
     }
 }

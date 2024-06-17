@@ -20,13 +20,14 @@ final class LoginViewModel {
 extension LoginViewModel {
     
     func authLoginWithEmail(email: String, password: String) {
-        service.loginUser(requestItems: AuthLoginRequest.init(email: email, password: password))  { (result, error) in
-            self.showHomeViewController()
-            if let error = error {
+        service.loginUser(requestItems: AuthLoginRequest(email: email, password: password), completion: { (result) in
+            switch result {
+            case .success(_):
+                self.showHomeViewController()
+            case .failure(let error):
                 self.delegate?.didError(message: error.localizedDescription)
-                
             }
-        }
+        })
     }
 }
 

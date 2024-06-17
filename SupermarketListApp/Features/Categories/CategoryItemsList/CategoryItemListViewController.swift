@@ -69,7 +69,7 @@ extension CategoryItemListViewController {
     
     @objc private func addItems() {
         viewModel.itemsAdd.forEach { item in
-            Helper.shared.itemsAdded.append((ItemDataModel.init(itemTitle: item, itemDetal: [])))
+            Helper.shared.itemsAdded.append((ItemsList.init(itemTitle: item, itemDetal: nil )))
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -121,17 +121,16 @@ extension CategoryItemListViewController: UITableViewDelegate, UITableViewDataSo
             mainView.tableView.allowsMultipleSelection = false
             viewModel.openDetailItem(itemSelectedIndex: indexPath , itemSelectedName: self.itemsByID?.itemTitle[indexPath.row].itemTitle ?? "")
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         switch self.placeOfCreation {
         case true:
-//            if let index = viewModel.itemsAdd.firstIndex(of: viewModel.itemsCategory[indexPath.row]) {
-//                viewModel.itemsAdd.remove(at: index)
-//                updateLayout()
-//            }
+            if let index = viewModel.itemsAdd.firstIndex(of: self.itemsByID?.itemTitle[indexPath.row].itemTitle ?? "") {
+                viewModel.itemsAdd.remove(at: index)
+                updateLayout()
+            }
             cell?.accessoryType = .none
         default:
             break
