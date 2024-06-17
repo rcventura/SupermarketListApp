@@ -8,5 +8,13 @@
 import Foundation
 
 struct AuthLoginResponse: Codable {
-    var authToken: String
+    let authToken: String
+    let user: User
+
+    // MARK: - User
+    struct User: Codable {
+        let id: Int
+        let name: String
+        let email: String
+    }
 }

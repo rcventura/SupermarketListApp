@@ -10,6 +10,7 @@ import Foundation
 final class Helper {
     static var shared = Helper()
     var itemsAdded: [ItemsList] = []
-    var listCreated: [(nomeList: String, itemsList: [ItemsList])] = []
-    var authToken: String = ""
+    var listCreated: [SaveListResponse] = []
+    var authToken = String()
+    var userID = Int()
 }

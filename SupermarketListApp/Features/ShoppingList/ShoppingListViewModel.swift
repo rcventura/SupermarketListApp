@@ -16,21 +16,13 @@ final class ShoppingListViewModel {
     weak var coordinator: ShoppingListCoordinator?
     weak var delegate: ShoppingListViewModelDelegate?
     let service: ApiService = .init()
-    
-    var itemName = (String)()
-    var itemBrand = String()
-    var itemPrice = Double()
-    var itemQuantitity = Double()
-    var itemType = String()
-    
 }
 
 extension ShoppingListViewModel {
-    func saveList(userID: Int, nameList: String) {
-        service.addNewList(userID: userID,
-                         nameList: nameList){ (result) in
+    func saveList(nameList: String) {
+        service.addNewList(nameList: nameList){ (result) in
             switch result {
-            case .success(let result):
+            case .success(_):
                 self.delegate?.didSuccess()
             case .failure(let error):
                 self.delegate?.didError(message: error.localizedDescription)

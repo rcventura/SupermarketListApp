@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01203BFE2A7924D5008523C1 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01203BFD2A7924D5008523C1 /* LoadingView.swift */; };
-		01203C012A809FE0008523C1 /* SaveListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01203C002A809FE0008523C1 /* SaveListRequest.swift */; };
+		01203C012A809FE0008523C1 /* SaveListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01203C002A809FE0008523C1 /* SaveListResponse.swift */; };
 		014431202A73883F00FA4DD5 /* CreateNewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144311F2A73883F00FA4DD5 /* CreateNewUserView.swift */; };
 		014431222A73885500FA4DD5 /* CreateNewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014431212A73885500FA4DD5 /* CreateNewUserViewController.swift */; };
 		014431242A73885F00FA4DD5 /* CreateNewUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014431232A73885F00FA4DD5 /* CreateNewUserViewModel.swift */; };
@@ -16,6 +16,7 @@
 		0171236D2A66C392002EE839 /* EmptyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171236C2A66C392002EE839 /* EmptyTableView.swift */; };
 		01AA7F4E2C1883D900C639F9 /* AuthLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA7F4D2C1883D900C639F9 /* AuthLoginResponse.swift */; };
 		01B4EF882C18C31900558735 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B4EF872C18C31900558735 /* KeyChainManager.swift */; };
+		01B4EF8A2C1F60F600558735 /* UserDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B4EF892C1F60F600558735 /* UserDataResponse.swift */; };
 		01CB07262A73B47500F80667 /* AuthLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB07252A73B47500F80667 /* AuthLoginRequest.swift */; };
 		01CB07282A73CDCE00F80667 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB07272A73CDCE00F80667 /* Endpoints.swift */; };
 		01CB072B2A73D2B200F80667 /* ListCategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB072A2A73D2B200F80667 /* ListCategoriesModel.swift */; };
@@ -95,7 +96,7 @@
 
 /* Begin PBXFileReference section */
 		01203BFD2A7924D5008523C1 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		01203C002A809FE0008523C1 /* SaveListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveListRequest.swift; sourceTree = "<group>"; };
+		01203C002A809FE0008523C1 /* SaveListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveListResponse.swift; sourceTree = "<group>"; };
 		0144311F2A73883F00FA4DD5 /* CreateNewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewUserView.swift; sourceTree = "<group>"; };
 		014431212A73885500FA4DD5 /* CreateNewUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewUserViewController.swift; sourceTree = "<group>"; };
 		014431232A73885F00FA4DD5 /* CreateNewUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewUserViewModel.swift; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 		0171236C2A66C392002EE839 /* EmptyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableView.swift; sourceTree = "<group>"; };
 		01AA7F4D2C1883D900C639F9 /* AuthLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginResponse.swift; sourceTree = "<group>"; };
 		01B4EF872C18C31900558735 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		01B4EF892C1F60F600558735 /* UserDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataResponse.swift; sourceTree = "<group>"; };
 		01CB07252A73B47500F80667 /* AuthLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginRequest.swift; sourceTree = "<group>"; };
 		01CB07272A73CDCE00F80667 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		01CB072A2A73D2B200F80667 /* ListCategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCategoriesModel.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				014431272A739BD700FA4DD5 /* CreateNewUserRequest.swift */,
 				01CB07252A73B47500F80667 /* AuthLoginRequest.swift */,
 				01AA7F4D2C1883D900C639F9 /* AuthLoginResponse.swift */,
+				01B4EF892C1F60F600558735 /* UserDataResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -226,6 +229,21 @@
 				0171236C2A66C392002EE839 /* EmptyTableView.swift */,
 			);
 			path = TableView;
+			sourceTree = "<group>";
+		};
+		01B4EF8B2C1F847700558735 /* APICall */ = {
+			isa = PBXGroup;
+			children = (
+				01B4EF8C2C1F848800558735 /* Auth */,
+			);
+			path = APICall;
+			sourceTree = "<group>";
+		};
+		01B4EF8C2C1F848800558735 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		854A21A829D3FC5400B17653 = {
@@ -451,6 +469,7 @@
 		85918A412A12544A00905261 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				01B4EF8B2C1F847700558735 /* APICall */,
 				85918A4A2A1255B400905261 /* ApiService.swift */,
 				01CB07272A73CDCE00F80667 /* Endpoints.swift */,
 			);
@@ -460,7 +479,7 @@
 		85918A432A12548400905261 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				01203C002A809FE0008523C1 /* SaveListRequest.swift */,
+				01203C002A809FE0008523C1 /* SaveListResponse.swift */,
 				85918A442A1254A400905261 /* CategoryModel.swift */,
 				85DBCD6D2A1984C4001C8503 /* ItemDetailModel.swift */,
 				01CB072A2A73D2B200F80667 /* ListCategoriesModel.swift */,
@@ -708,7 +727,7 @@
 				854A220F29D3FF0500B17653 /* AccountCoordinator.swift in Sources */,
 				854A220429D3FE5800B17653 /* SMImage.swift in Sources */,
 				854A21EC29D3FD3100B17653 /* Coordinator.swift in Sources */,
-				01203C012A809FE0008523C1 /* SaveListRequest.swift in Sources */,
+				01203C012A809FE0008523C1 /* SaveListResponse.swift in Sources */,
 				854A220729D3FE5800B17653 /* SMTextField.swift in Sources */,
 				854A220229D3FE5800B17653 /* SMColor.swift in Sources */,
 				85918A402A0A227600905261 /* ProfileCoordinator.swift in Sources */,
@@ -734,6 +753,7 @@
 				01CB072D2A74179500F80667 /* ListItemsCategory.swift in Sources */,
 				858E162E29D46F8100E2DBDE /* LoginViewModel.swift in Sources */,
 				014431242A73885F00FA4DD5 /* CreateNewUserViewModel.swift in Sources */,
+				01B4EF8A2C1F60F600558735 /* UserDataResponse.swift in Sources */,
 				85918A3E2A0A170500905261 /* FavoriteCoordinator.swift in Sources */,
 				85FEE26929DCAC2E00099594 /* FavoriteViewController.swift in Sources */,
 				85FEE26729DCABE500099594 /* ProfileViewController.swift in Sources */,

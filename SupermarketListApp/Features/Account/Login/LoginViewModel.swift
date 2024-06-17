@@ -22,7 +22,7 @@ extension LoginViewModel {
     func authLoginWithEmail(email: String, password: String) {
         service.loginUser(requestItems: AuthLoginRequest(email: email, password: password), completion: { (result) in
             switch result {
-            case .success(let result):
+            case .success(_):
                 self.showHomeViewController()
             case .failure(let error):
                 self.delegate?.didError(message: error.localizedDescription)

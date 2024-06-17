@@ -52,7 +52,7 @@ extension ShoppingListViewController {
     
     @objc private func saveList() {
         guard let title = mainView.categoryTitle.text else { return }
-        viewModel.saveList(userID: 23, nameList: title)
+        viewModel.saveList(nameList: title)
         Helper.shared.itemsAdded.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
@@ -98,7 +98,11 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoopingListViewCell", for: indexPath)
         let itemTitle = Helper.shared.itemsAdded[indexPath.row].itemTitle
-        
+        var totalValue = Double()
+        Helper.shared.itemsAdded.forEach { value in
+            totalValue += value.itemDetal?.itemPrice ?? 0.0
+        }
+        mainView.listTotalValue.titleValueLabel.text = "\(totalValue)"
         cell.textLabel?.text = itemTitle
         cell.accessoryType = .disclosureIndicator
         return cell
