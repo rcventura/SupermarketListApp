@@ -12,7 +12,7 @@ class ApiService {
     private var dataTask: URLSessionDataTask?
     
     //MARK: APIs Auth
-    func addNewUser(requestItems: CreateNewUserRequest, completion: @escaping ([String: Any]? ,Error?) -> Void) {
+    func addUser(requestItems: AddUserRequest, completion: @escaping ([String: Any]? ,Error?) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.addUser.rawValue)"
         guard let url = URL(string: baseURL) else { return }
         let session = URLSession.shared
@@ -73,7 +73,7 @@ class ApiService {
             DispatchQueue.main.async {
                 do {
                     let data = try JSONDecoder().decode(AuthLoginResponse.self, from: data)
-                    Helper.shared.authToken = data.authToken
+                    Helper.shared.userAuthToken = data.authToken
                     Helper.shared.userID = data.user.id
                     completion(.success(data))
                     
@@ -86,13 +86,14 @@ class ApiService {
     }
     
     //MARK: APIs Categories
-    func getCategories(completion: @escaping (Result<[ListCategoriesModel], Error>) -> Void) {
+    func getCategories(completion: @escaping (Result<[CategoriesModel], Error>) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.listCategories.rawValue)"
         guard let url = URL(string: baseURL) else { return }
         var request = URLRequest(url: url)
         do {
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue( "Bearer \(Helper.shared.authToken)", forHTTPHeaderField: "Authorization")
+            request.setValue( "Bearer \(Helper.shared.userAuthToken)", forHTTPHeaderField: "Authorization")
+            request.httpMethod = "GET"
         } catch let error {
             completion(.failure(error))
         }
@@ -107,7 +108,7 @@ class ApiService {
             
             DispatchQueue.main.async {
                 do {
-                    let data = try JSONDecoder().decode([ListCategoriesModel].self, from: data)
+                    let data = try JSONDecoder().decode([CategoriesModel].self, from: data)
                     completion(.success(data))
                 } catch let error {
                     completion(.failure(error))
@@ -117,7 +118,7 @@ class ApiService {
         dataTask?.resume()
     }
     
-    func getItemsCategory(categoryID: Int, completion: @escaping (Result<ListItemCategory, Error>) -> Void) {
+    func getCategoryItems(categoryID: Int, completion: @escaping (Result<ItemCategoryModel, Error>) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.listItemsByCategoryID.rawValue)\(categoryID)"
         guard let url = URL(string: baseURL) else { return }
         let parameters = ["categories_id": categoryID]
@@ -127,7 +128,7 @@ class ApiService {
             do  {
                 let bodyData = try JSONSerialization.data(withJSONObject: parameters, options: [])
                 request.setValue("application/json", forHTTPHeaderField: "accept")
-                request.setValue( "Bearer \(Helper.shared.authToken)", forHTTPHeaderField: "Authorization")
+                request.setValue( "Bearer \(Helper.shared.userAuthToken)", forHTTPHeaderField: "Authorization")
                 request.httpMethod = "GET"
                 request.httpBody = bodyData
             } catch let error {
@@ -145,7 +146,7 @@ class ApiService {
             guard let data = data else { return print("Empty Data")  }
             DispatchQueue.main.async {
                 do {
-                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? ListItemCategory else { return }
+                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? ItemCategoryModel else { return }
                     completion(.success(json))
                     
                 } catch let error {
@@ -155,7 +156,7 @@ class ApiService {
             
             DispatchQueue.main.async {
                 do {
-                    let data = try JSONDecoder().decode(ListItemCategory.self, from: data)
+                    let data = try JSONDecoder().decode(ItemCategoryModel.self, from: data)
                     completion(.success(data))
                     
                 } catch let error {
@@ -166,15 +167,14 @@ class ApiService {
         dataTask?.resume()
     }
     
-    //MARK: APIs List
-    
-    func addNewList(nameList: String, completion: @escaping (Result<String, Error>) -> Void) {
+    //MARK: APIs Shopping List
+    func addList(nameList: String, completion: @escaping (Result<String, Error>) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.addList.rawValue)"
         guard let url = URL(string: baseURL) else { return }
         var request = URLRequest(url: url)
         let parameters: [String : Any] = ["user_id": Helper.shared.userID,
                                           "nameList": nameList,
-                                          "itemsList":  Helper.shared.itemsAdded.map({ item in
+                                          "itemsList":  Helper.shared.listItemAdded.map({ item in
                                             [
                                                 "itemTitle": item.itemTitle,
                                                 "itemDetail": [
@@ -190,7 +190,7 @@ class ApiService {
                 request.httpMethod = "POST"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.setValue("application/json", forHTTPHeaderField: "Accept")
-                request.setValue( "Bearer \(Helper.shared.authToken)", forHTTPHeaderField: "Authorization")
+                request.setValue( "Bearer \(Helper.shared.userAuthToken)", forHTTPHeaderField: "Authorization")
                 
                 self.dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
                     if let error = error {
@@ -219,14 +219,14 @@ class ApiService {
     func getCreatedLists(userID: Int, completion: @escaping(Result<[SaveListResponse], Error>) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.getCreatedList.rawValue)\(userID)"
         guard let url = URL(string: baseURL) else { return }
-        let parameters = ["user_id": 23]
+        let parameters = ["user_id": Helper.shared.userID]
         var request = URLRequest(url: url)
         
         DispatchQueue.main.async {
             do  {
                 let bodyData = try JSONSerialization.data(withJSONObject: parameters, options: [])
                 request.setValue("application/json", forHTTPHeaderField: "accept")
-                request.setValue( "Bearer \(Helper.shared.authToken)", forHTTPHeaderField: "Authorization")
+                request.setValue( "Bearer \(Helper.shared.userAuthToken)", forHTTPHeaderField: "Authorization")
                 request.httpMethod = "GET"
                 request.httpBody = bodyData
             } catch let error {

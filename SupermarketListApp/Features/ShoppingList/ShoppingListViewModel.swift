@@ -20,7 +20,7 @@ final class ShoppingListViewModel {
 
 extension ShoppingListViewModel {
     func saveList(nameList: String) {
-        service.addNewList(nameList: nameList){ (result) in
+        service.addList(nameList: nameList){ (result) in
             switch result {
             case .success(_):
                 self.delegate?.didSuccess()
@@ -34,5 +34,9 @@ extension ShoppingListViewModel {
 extension ShoppingListViewModel {
     func openCategoryList() {
         coordinator?.openCategoriesController()
+    }
+    
+    func openHome() {
+        coordinator?.openHomeViewController()
     }
 }

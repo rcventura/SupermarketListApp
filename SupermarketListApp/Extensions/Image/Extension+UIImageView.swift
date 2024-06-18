@@ -1,6 +1,6 @@
 //
 //  Extension+UIImageView.swift
-//  CineFlix
+//  SupermarketListApp
 //
 //  Created by Rodrigo Ventura on 29/03/2023.
 //

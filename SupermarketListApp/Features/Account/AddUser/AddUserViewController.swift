@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class CreateNewUserViewController: UIViewController {
+final class AddUserViewController: UIViewController {
     
-    private let mainView: CreateNewUserView = .init()
-    var viewModel = CreateNewUserViewModel()
+    private let mainView: AddUserView = .init()
+    var viewModel = AddUserViewModel()
     
     override func loadView() {
         view = mainView
@@ -19,12 +19,11 @@ final class CreateNewUserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addLayout()
-        
-        self.viewModel.delegate = self
+        viewModel.delegate = self
     }
 }
 
-extension CreateNewUserViewController {
+extension AddUserViewController {
     func addComponentsActions() {
         mainView.createButton.addTarget(self, action: #selector(createNewUser), for: .touchUpInside)
     }
@@ -37,7 +36,7 @@ extension CreateNewUserViewController {
     }
 }
 
-extension CreateNewUserViewController: CreatenewUserViewModelDelegate {
+extension AddUserViewController: AddUserViewModelDelegate {
     func didSuccess() {
         showSimpleAlert(title: "Sucesso", message: "Usuário criado com sucesso!", customHandler: { _,_ in
             self.dismiss(animated: true)
@@ -49,7 +48,7 @@ extension CreateNewUserViewController: CreatenewUserViewModelDelegate {
     }
 }
 
-extension CreateNewUserViewController {
+extension AddUserViewController {
     private func addLayout() {
         addComponentsActions()
     }

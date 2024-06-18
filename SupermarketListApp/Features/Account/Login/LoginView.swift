@@ -12,8 +12,8 @@ final class LoginView: UIView {
     let emailTextField = SMTextField(placeholder: "E-mail")
     let passwordTextField = SMTextField(placeholder: "Password")
     private let stackView =  UIStackView()
-    let loginButton = SMButton(title: "Entrar", enabledBackgroundColor: SMColor.gray_AFAFAF)
-    let newUserButton = SMButton(title: "Novo Usuário", enabledBackgroundColor: SMColor.gray_AFAFAF)
+    let loginButton = SMButton(title: "Entrar", enabledBackgroundColor: SMColor.gray_295264)
+    let newUserButton = SMButton(title: "Novo Usuário", enabledBackgroundColor: SMColor.gray_295264)
     let forgotPasswordButton = SMButton(title: "Esqueci a senha")
     
     init() {
@@ -31,8 +31,8 @@ extension LoginView {
         addSubview(emailTextField)
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         
-        emailTextField.backgroundColor = SMColor.white_f3f6f5
         emailTextField.text = "rcvanalista@gmail.com"
+        emailTextField.inputAccessoryView = emailTextField.toolbarTextField()
         
         NSLayoutConstraint.activate([
             emailTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor),
@@ -47,7 +47,6 @@ extension LoginView {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         
         passwordTextField.setSecureField()
-        passwordTextField.backgroundColor = SMColor.white_f3f6f5
         passwordTextField.text = "123456"
         
         NSLayoutConstraint.activate([
@@ -60,7 +59,9 @@ extension LoginView {
     private func addForgotPasswordButton() {
         addSubview(forgotPasswordButton)
         forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
+        
         forgotPasswordButton.setTitleColor(.black, for: .normal)
+        
         NSLayoutConstraint.activate([
             forgotPasswordButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
             forgotPasswordButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),

@@ -15,16 +15,16 @@ class ShoppingListView: UIView {
     var tableView = UITableView()
     let emptyView = EmptyTableView(titleLabel: "Nenhum item na sua lista de compras", messageLabel: "Adicione seu primeiro item.", isHideNewButton: false)
 
-    let saveButton = SMButton(title: "Salvar Lista", enabledBackgroundColor: SMColor.gray_AFAFAF, disabledBackgroundColor: SMColor.gray_6F737E)
+    let saveButton = SMButton(title: "Salvar Lista", enabledBackgroundColor: SMColor.gray_295264, disabledBackgroundColor: SMColor.gray_6F737E)
     let stackView = UIStackView()
-    let infoElementsStackView = UIStackView()
-    let lastElementStackView = UIStackView()
-    let listItemsCount = SMLabel(title: "Total de items: ")
-    let listTotalValue = SMLabel(title: "Valor total: ")
+    let infotStackView = UIStackView()
+    let buttomStackView = UIStackView()
+    let quantityItemsLabel = SMLabel(title: "Total de items: ")
+    let totalValueLabel = SMLabel(title: "Valor total: ")
     
     init() {
         super.init(frame: .zero)
-        listTotalValue.titleValueLabel.text = "R$ 0.00"
+        totalValueLabel.titleValueLabel.text = "R$ 0.00"
         addLayout()
     }
     
@@ -41,7 +41,7 @@ extension ShoppingListView {
         
         nameCategoryLabel.text = "Nome da lista"
         nameCategoryLabel.font = UIFont(name: "Arial", size: 17)
-        nameCategoryLabel.textColor = SMColor.gray_AFAFAF
+        nameCategoryLabel.textColor = SMColor.gray_295264
         
         NSLayoutConstraint.activate([
             nameCategoryLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -61,7 +61,6 @@ extension ShoppingListView {
         NSLayoutConstraint.activate([
             categoryTitle.topAnchor.constraint(equalTo: nameCategoryLabel.bottomAnchor, constant: 5),
             categoryTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            categoryTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120)
         ])
     }
     
@@ -70,8 +69,8 @@ extension ShoppingListView {
         newOthersItems.translatesAutoresizingMaskIntoConstraints = false
         
         newOthersItems.titleLabel?.font = UIFont(name: "Arial", size: 14)
-        newOthersItems.layer.borderColor = SMColor.gray_AFAFAF.withAlphaComponent(0.5).cgColor
-        newOthersItems.setTitleColor(SMColor.gray_AFAFAF, for: .normal)
+        newOthersItems.layer.borderColor = SMColor.gray_295264.withAlphaComponent(0.5).cgColor
+        newOthersItems.setTitleColor(SMColor.gray_295264, for: .normal)
         newOthersItems.isHidden = true
         newOthersItems.layer.borderWidth = 1
 
@@ -102,36 +101,28 @@ extension ShoppingListView {
         
         stackView.axis = .vertical
         stackView.spacing = 20
-        stackView.distribution = .equalSpacing
-        
+                
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
     
     private func addInfoElementStackView() {
-        stackView.addArrangedSubview(infoElementsStackView)
-        
-        infoElementsStackView.axis = .vertical
-        infoElementsStackView.spacing = 1
-        infoElementsStackView.distribution = .equalSpacing
-        infoElementsStackView.addArrangedSubview(listTotalValue)
-        infoElementsStackView.addArrangedSubview(listItemsCount)
-        
-        NSLayoutConstraint.activate([
-            infoElementsStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-        ])
+        stackView.addArrangedSubview(infotStackView)
+
+        infotStackView.axis = .vertical
+        infotStackView.spacing = 1
+
+        infotStackView.addArrangedSubview(quantityItemsLabel)
+        infotStackView.addArrangedSubview(totalValueLabel)
     }
     
-    private func addLastElementStackView() {
-        stackView.addArrangedSubview(lastElementStackView)
-        lastElementStackView.addArrangedSubview(saveButton)
-        NSLayoutConstraint.activate([
-            lastElementStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-        ])
+    private func addSaveButtom() {
+        stackView.addArrangedSubview(buttomStackView)
+        buttomStackView.addArrangedSubview(saveButton)
     }
 }
 
@@ -143,7 +134,7 @@ extension ShoppingListView {
         addTableView()
         addStackView()
         addInfoElementStackView()
-        addLastElementStackView()
+        addSaveButtom()
         backgroundColor =  SMColor.blue_BDD1DE
     }
 }

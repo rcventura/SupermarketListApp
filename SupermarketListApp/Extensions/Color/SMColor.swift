@@ -1,6 +1,6 @@
 //
 //  SuperMarketColor.swift
-//  CineFlix
+//  SupermarketListApp
 //
 //  Created by Rodrigo Ventura on 29/03/2023.
 //
@@ -19,10 +19,10 @@ public extension SMColor {
     
     // MARK: - Colors | White
     static let white = UIColor(hexString: "#FFFFFF")
-    static let white_f3f6f5 = UIColor(hexString: "#edf3fa")
+    
 
     // MARK: - Colors | Gray
-    static let gray_AFAFAF = UIColor(hexString: "#295264")
+    static let gray_295264 = UIColor(hexString: "#295264")
     static let gray_949494 = UIColor(hexString: "#949494")
     static let gray_6F737E = UIColor(hexString: "#6F737E")
 
@@ -36,4 +36,5 @@ public extension SMColor {
     static let blue_E4EBF0 = UIColor(hexString: "#E4EBF0")
     static let blue_4180AB = UIColor(hexString: "#4180AB")
     static let blue_BDD1DE = UIColor(hexString: "#BDD1DE")
+    static let blue_EDF3FA = UIColor(hexString: "#EDF3FA")
 }

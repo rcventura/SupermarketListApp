@@ -24,7 +24,7 @@ class CategoriesCoordinator: Coordinator {
         self.navigationController.present(controller, animated: true)
     }
     
-    func CategoriesCoordinator(categoryId: Int, placeOfCreation: Bool) {
+    func categoriesCoordinator(categoryId: Int, placeOfCreation: Bool) {
         let viewModel = CategoryItemListViewModel()
         let controller = CategoryItemListViewController(viewModel: viewModel, categoryId: categoryId, placeOfCreation: placeOfCreation)
         

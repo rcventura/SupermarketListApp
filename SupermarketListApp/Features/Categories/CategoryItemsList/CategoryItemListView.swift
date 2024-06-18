@@ -13,7 +13,7 @@ final class CategoryItemListView: UIView {
     let stackView = UIStackView()
     let bodyStackView = UIStackView()
     let bottomStackView = UIStackView()
-    let saveButton = SMButton(title: "Adicionar", enabledBackgroundColor: SMColor.gray_AFAFAF, disabledBackgroundColor: SMColor.gray_6F737E)
+    let saveButton = SMButton(title: "Adicionar", enabledBackgroundColor: SMColor.gray_295264, disabledBackgroundColor: SMColor.gray_6F737E)
     let itemsquantity = SMLabel(title: "")
     
     init() {

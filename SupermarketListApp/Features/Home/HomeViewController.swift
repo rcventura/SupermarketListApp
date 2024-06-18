@@ -18,14 +18,16 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.getCreatedList()
-        addNavigationRightItem()
         addLayout()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.getCreatedList()
     }
 }
 
 extension HomeViewController {
-    
     private func actionComponentsView() {
         mainView.emptyView.newButton.addTarget(self, action: #selector(createNewMarketList), for: .touchUpInside)
     }
@@ -68,19 +70,19 @@ extension HomeViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if Helper.shared.listCreated.count == 0 {
+        if Helper.shared.userShoppingList.count == 0 {
             self.mainView.tableView.backgroundView = self.mainView.emptyView
             self.mainView.tableView.isScrollEnabled = false
         } else {
             mainView.tableView.backgroundView = .none
         }
-        return Helper.shared.listCreated.count
+        return Helper.shared.userShoppingList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeViewCell", for: indexPath)
-        let listaTitle = Helper.shared.listCreated[indexPath.row].nameList
-        
+        let listaTitle = Helper.shared.userShoppingList[indexPath.row].nameList
+        addIconNavigation()
         cell.textLabel?.text = listaTitle
         cell.accessoryType = .disclosureIndicator
         return cell
@@ -88,8 +90,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeViewController: HomeViewModelDelegate {
-    func didSuccess(data: [SaveListResponse]) {
-        Helper.shared.listCreated = data
+    func didSuccess() {
         mainView.tableView.reloadData()
     }
     
@@ -102,17 +103,19 @@ extension HomeViewController {
     private func addLayout() {
         delegates()
         actionComponentsView()
-        title = "Principal"
+        
+        title = "Suas Listas"
         navigationItem.hidesBackButton = true
+        
     }
     
-    private func addNavigationRightItem() {
+    private func addIconNavigation() {
         let iconImage = UIImage(systemName: "plus.circle")?.withRenderingMode(.alwaysTemplate)
         let trashIcon = UIBarButtonItem(image: iconImage, style: .plain, target: self, action: #selector(createNewMarketList))
-        navigationItem.rightBarButtonItem = trashIcon
-        navigationController?.navigationBar.tintColor = .blue.withAlphaComponent(0.5)
+            navigationItem.rightBarButtonItem = trashIcon
+            navigationController?.navigationBar.tintColor = .blue.withAlphaComponent(0.5)
         if #available(iOS 16.0, *) {
-            navigationItem.rightBarButtonItem?.isHidden = Helper.shared.listCreated.count == 0 ? true : false
+                navigationItem.rightBarButtonItem?.isHidden = Helper.shared.userShoppingList.count == 0 ? true : false
         }
     }
 }

@@ -8,12 +8,11 @@
 import Foundation
 
 protocol HomeViewModelDelegate: AnyObject {
-    func didSuccess(data: [SaveListResponse])
+    func didSuccess()
     func didError(message: String)
 }
 
 final class HomeViewModel {
-    
     weak var coordinator: HomeCoordinator?
     weak var delegate: HomeViewModelDelegate?
     let service: ApiService = .init()
@@ -24,7 +23,8 @@ extension HomeViewModel {
         service.getCreatedLists(userID: Helper.shared.userID, completion: {(result) in
             switch result {
             case .success(let result):
-                self.delegate?.didSuccess(data: result)
+                Helper.shared.userShoppingList = result
+                self.delegate?.didSuccess()
             case .failure(let error):
                 self.delegate?.didError(message: error.localizedDescription)
             }

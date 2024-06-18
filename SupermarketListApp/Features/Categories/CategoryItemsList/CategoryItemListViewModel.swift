@@ -14,17 +14,14 @@ protocol CategoryItemListViewModelDelegate: AnyObject {
 
 final class CategoryItemListViewModel {
     
-    var coordinator: CategoriesCoordinator?
+    weak var coordinator: CategoriesCoordinator?
     weak var delegate: CategoryItemListViewModelDelegate?
-    var service: ApiService
-    var itemsAdd: [String] = []
-    var categoryItemsList: ListItemCategory?
-    init(service: ApiService = ApiService()) {
-        self.service = service
-    }
+    var service: ApiService = .init()
+    var itemSelected: [String] = []
+    var categoryItemsList: ItemCategoryModel?
     
     func getCategoryItems(categoryID: Int) {
-        service.getItemsCategory(categoryID: categoryID, completion: { (result) in
+        service.getCategoryItems(categoryID: categoryID, completion: { (result) in
             switch result {
             case .success(let result):
                 self.categoryItemsList = result

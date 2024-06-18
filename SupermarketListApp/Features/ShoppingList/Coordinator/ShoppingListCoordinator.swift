@@ -32,4 +32,11 @@ final class ShoppingListCoordinator: Coordinator {
         childCoordinators.append(coordinator)
         coordinator.start()
     }
+    
+    func openHomeViewController() {
+        let controller = HomeViewController()
+        let homeViewModel = HomeViewModel()
+        controller.viewModel = homeViewModel
+        self.navigationController.pushViewController(controller, animated: true)
+    }
 }

@@ -12,7 +12,7 @@ class CategoriesViewController: UIViewController {
     let mainView: CategoriesView = .init()
     var viewModel: CategoriesViewModel
     var placeOfCreation: Bool
-    var categoriesList: [ListCategoriesModel] = [] {
+    var categoriesList: [CategoriesModel] = [] {
         didSet {
             mainView.collectionView.reloadData()
         }
@@ -77,7 +77,7 @@ extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDa
         let categoryImage = viewModel.category[indexPath.row].image.name
         
         if let cell = cell as? CategoriesCollectionViewCell {
-            cell.categoryImage.image = UIImage(named: categoryImage )
+            cell.categoryImage.image = UIImage(named: categoryImage)
             cell.categoryTitle.text = categoryName
         }
         return cell

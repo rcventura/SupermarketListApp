@@ -10,24 +10,18 @@ import UIKit
 final class CategoryItemDetailView: UIView {
     
     let unitMeasure = ["Caixa", "Gramas", "Litros" , "Unidade", "Kilos"]
-    
     let headerView = UIView()
     let containerView = UIView()
     let itemSelectedTitleLabel = UILabel()
     let itemTitleLabel  = UILabel()
-    
     let stackView = UIStackView()
     let brandTextField = SMTextField(placeholder: "Marca")
-    
-    let priceStackView = UIStackView()
     let quantityTextField = SMTextField(placeholder: "Quantidade")
     let unitTextField = SMTextField(placeholder: "Unidade")
     var unitPickerView = UIPickerView()
     let princeTextField = SMTextField(placeholder: "Preço")
     let totalValueTextField = UILabel()
-    
-    let saveButton = SMButton(title: "Adicionar", enabledBackgroundColor: SMColor.gray_AFAFAF, disabledBackgroundColor: SMColor.gray_6F737E)
-    
+    let saveButton = SMButton(title: "Adicionar", enabledBackgroundColor: SMColor.gray_295264, disabledBackgroundColor: SMColor.gray_6F737E)
     private var pickerToolbar = UIToolbar()
 
     override init(frame: CGRect) {
@@ -38,18 +32,12 @@ final class CategoryItemDetailView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc private func okButtonPressed(sender: UIBarButtonItem) {
-        unitTextField.endEditing(true)
-    }
-    
 }
+
 extension CategoryItemDetailView {
-    
     private func addHeaderView() {
         addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        
         headerView.backgroundColor = SMColor.blue_BDD1DE
         
         NSLayoutConstraint.activate([
@@ -66,7 +54,7 @@ extension CategoryItemDetailView {
         
         itemSelectedTitleLabel.text = "Item selecionado"
         itemSelectedTitleLabel.font = UIFont(name: "Arial", size: 17)
-        itemSelectedTitleLabel.textColor = SMColor.gray_AFAFAF
+        itemSelectedTitleLabel.textColor = SMColor.gray_295264
         
         NSLayoutConstraint.activate([
             itemSelectedTitleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
@@ -94,6 +82,7 @@ extension CategoryItemDetailView {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
         containerView.backgroundColor = .white
+        containerView.layer.borderColor = SMColor.black.cgColor
         
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
@@ -102,83 +91,55 @@ extension CategoryItemDetailView {
         ])
     }
     
+    private func addBrandItemTitleTextField() {
+        containerView.addSubview(brandTextField)
+        brandTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        brandTextField.inputAccessoryView = brandTextField.toolbarTextField()
+        
+        NSLayoutConstraint.activate([
+            brandTextField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            brandTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            brandTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+        ])
+    }
+    
     private func addStackView() {
         containerView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.isLayoutMarginsRelativeArrangement = true
         
-        stackView.axis = .vertical
-        stackView.alignment = .fill
+        stackView.axis = .horizontal
         stackView.spacing = 10
-        stackView.distribution = .equalSpacing
-        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20)
-
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
-        ])
-    }
-    
-    private func addBrandItemTitleTextField() {
-        stackView.addArrangedSubview(brandTextField)
-        brandTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        brandTextField.backgroundColor = SMColor.white_f3f6f5
+        stackView.distribution = .fillEqually
         
         NSLayoutConstraint.activate([
-            brandTextField.heightAnchor.constraint(equalToConstant: 40)
+            stackView.topAnchor.constraint(equalTo: brandTextField.bottomAnchor, constant: 10),
+            stackView.leadingAnchor.constraint(equalTo: brandTextField.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: brandTextField.trailingAnchor)
         ])
     }
-    
-    private func addPriceStackView() {
-        stackView.addArrangedSubview(priceStackView)
         
-        priceStackView.axis = .horizontal
-        priceStackView.distribution = .fillEqually
-        priceStackView.spacing = 10
-    }
-    
     private func addQuantityTextField() {
-        priceStackView.addArrangedSubview(quantityTextField)
-        quantityTextField.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(quantityTextField)
         
-        quantityTextField.backgroundColor = SMColor.white_f3f6f5
         quantityTextField.keyboardType = .decimalPad
-        
-        NSLayoutConstraint.activate([
-            quantityTextField.heightAnchor.constraint(equalToConstant: 40)
-        ])
+        quantityTextField.inputAccessoryView = quantityTextField.toolbarTextField()
     }
-
+    
     private func addUnitTextField() {
-        priceStackView.addArrangedSubview(unitTextField)
+        stackView.addArrangedSubview(unitTextField)
         unitTextField.translatesAutoresizingMaskIntoConstraints = false
         
-        unitTextField.backgroundColor = SMColor.white_f3f6f5
         unitTextField.inputView = unitPickerView
-        
-        
-        let toolbar = UIToolbar()
-        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let nextButtonItem = UIBarButtonItem(title: "OK",
-                                             style: .plain,
-                                             target: nil,
-                                             action: #selector(okButtonPressed))
-        toolbar.items = [flexibleButton, nextButtonItem]
-        toolbar.barStyle = .default
-        toolbar.isTranslucent = false
-        toolbar.sizeToFit()
-
-        unitTextField.inputAccessoryView = toolbar
+        unitTextField.inputAccessoryView = unitTextField.toolbarTextField()
     }
     
     private func addPriceTextField() {
-        priceStackView.addArrangedSubview(princeTextField)
+        stackView.addArrangedSubview(princeTextField)
         
-        princeTextField.backgroundColor = SMColor.white_f3f6f5
         princeTextField.keyboardType = .decimalPad
-
+        princeTextField.inputAccessoryView = princeTextField.toolbarTextField()
     }
 
     private func addSaveButton() {
@@ -190,7 +151,6 @@ extension CategoryItemDetailView {
             saveButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             saveButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
             saveButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            saveButton.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
 }
@@ -202,9 +162,8 @@ extension CategoryItemDetailView {
         addItemSelectedTitleLabel()
         addItemTitle()
         addContainerView()
-        addStackView()
         addBrandItemTitleTextField()
-        addPriceStackView()
+        addStackView()
         addQuantityTextField()
         addUnitTextField()
         addPriceTextField()

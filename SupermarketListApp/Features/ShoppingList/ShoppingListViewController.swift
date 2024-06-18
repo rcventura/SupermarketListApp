@@ -53,8 +53,8 @@ extension ShoppingListViewController {
     @objc private func saveList() {
         guard let title = mainView.categoryTitle.text else { return }
         viewModel.saveList(nameList: title)
-        Helper.shared.itemsAdded.removeAll()
-        self.navigationController?.popViewController(animated: true)
+        Helper.shared.listItemAdded.removeAll()
+        viewModel.openHome()
     }
     
     private func delegates() {
@@ -64,11 +64,13 @@ extension ShoppingListViewController {
     }
     
     private func updateLayout() {
-        mainView.saveButton.isEnabled = !(Helper.shared.itemsAdded.count == 0)
-        mainView.newOthersItems.isHidden = Helper.shared.itemsAdded.count == 0
-        mainView.infoElementsStackView.isHidden = Helper.shared.itemsAdded.count == 0
-        mainView.listItemsCount.titleValueLabel.text = "\(Helper.shared.itemsAdded.count)"
-        mainView.listTotalValue.isHidden = self.listCreationPlace
+        mainView.saveButton.isEnabled = !(Helper.shared.listItemAdded.count == 0)
+        mainView.newOthersItems.isHidden = Helper.shared.listItemAdded.count == 0
+        mainView.infotStackView.isHidden = Helper.shared.listItemAdded.count == 0
+        mainView.buttomStackView.isHidden = Helper.shared.listItemAdded.count == 0
+        mainView.stackView.isHidden = Helper.shared.listItemAdded.count == 0
+        mainView.quantityItemsLabel.titleValueLabel.text = "\(Helper.shared.listItemAdded.count)"
+        mainView.totalValueLabel.isHidden = self.listCreationPlace
     }
 }
 
@@ -78,7 +80,7 @@ extension ShoppingListViewController {
                         message: "Deseja realmente excluir sua lista?",
                         customTitle: "Cancelar",
                         cancelTitle: "Sim") { _,_ in
-            Helper.shared.itemsAdded.removeAll()
+            Helper.shared.listItemAdded.removeAll()
             self.navigationController?.popViewController(animated: false)
         }
     }
@@ -86,23 +88,23 @@ extension ShoppingListViewController {
 
 extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if Helper.shared.itemsAdded.count == 0 {
+        if Helper.shared.listItemAdded.count == 0 {
             self.mainView.tableView.backgroundView = self.mainView.emptyView
             self.mainView.tableView.isScrollEnabled = false
         } else {
             mainView.tableView.backgroundView = .none
         }
-        return Helper.shared.itemsAdded.count
+        return Helper.shared.listItemAdded.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoopingListViewCell", for: indexPath)
-        let itemTitle = Helper.shared.itemsAdded[indexPath.row].itemTitle
+        let itemTitle = Helper.shared.listItemAdded[indexPath.row].itemTitle
         var totalValue = Double()
-        Helper.shared.itemsAdded.forEach { value in
+        Helper.shared.listItemAdded.forEach { value in
             totalValue += value.itemDetal?.itemPrice ?? 0.0
         }
-        mainView.listTotalValue.titleValueLabel.text = "\(totalValue)"
+        mainView.totalValueLabel.titleValueLabel.text = "R$ \(totalValue)"
         cell.textLabel?.text = itemTitle
         cell.accessoryType = .disclosureIndicator
         return cell
@@ -129,9 +131,10 @@ extension ShoppingListViewController: ShoppingListViewModelDelegate {
 
 extension ShoppingListViewController {
     private func addLayout() {
+        delegates()
         updateLayout()
         actionComponentsView()
-        delegates()
+        
         title = "Lista de Compras"
         navigationItem.hidesBackButton = true
         let iconImage = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate)

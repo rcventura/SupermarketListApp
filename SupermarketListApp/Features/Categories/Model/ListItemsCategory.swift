@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ListItemCategory: Codable {
+struct ItemCategoryModel: Codable {
     let id: Int
     let createdAt: Int
     let categoriesID: Int

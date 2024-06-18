@@ -36,8 +36,8 @@ final class AccountCoordinator: Coordinator {
     }
     
     func showCreateNewUser() {
-        let controller = CreateNewUserViewController()
-        let createNewUserViewModel = CreateNewUserViewModel()
+        let controller = AddUserViewController()
+        let createNewUserViewModel = AddUserViewModel()
         createNewUserViewModel.coordinator = self
         controller.viewModel = createNewUserViewModel
         self.navigationController.pushViewController(controller, animated: true)

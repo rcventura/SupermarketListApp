@@ -1,13 +1,13 @@
 //
-//  CreateNewUserRequest.swift
+//  AddUserRequest.swift
 //  SupermarketListApp
 //
-//  Created by Rodrigo Ventura on 28/07/23.
+//  Created by Rodrigo Ventura on 18/06/24.
 //
 
 import Foundation
 
-struct CreateNewUserRequest: Codable {
+struct AddUserRequest: Codable {
     let name: String
     let email: String
     let password: String

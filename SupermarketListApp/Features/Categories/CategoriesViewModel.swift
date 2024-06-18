@@ -16,12 +16,8 @@ final class CategoriesViewModel {
     
     weak var delegate: CategoriesViewModelDelegate?
     weak var coordinator: CategoriesCoordinator?
-    let service: ApiService
-    var category: [ListCategoriesModel] = []
-    
-    init(service: ApiService = ApiService()) {
-        self.service = service
-    }
+    let service: ApiService = .init()
+    var category: [CategoriesModel] = []
     
     func getCategory() {
         service.getCategories(completion: { (result) in
@@ -36,6 +32,6 @@ final class CategoriesViewModel {
     }
     
     func openCategoryItemList(categoryId: Int, placeOfCreation: Bool) {
-        self.coordinator?.CategoriesCoordinator(categoryId: categoryId, placeOfCreation: placeOfCreation)
+        self.coordinator?.categoriesCoordinator(categoryId: categoryId, placeOfCreation: placeOfCreation)
     }
 }

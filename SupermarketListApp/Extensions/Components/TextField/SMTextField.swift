@@ -1,6 +1,6 @@
 //
 //  SuperMarketTextField.swift
-//  CineFlix
+//  SupermarketListApp
 //
 //  Created by Rodrigo Ventura on 29/03/2023.
 //
@@ -31,6 +31,7 @@ class SMTextField: UITextField {
         self.autocapitalizationType = .none
         self.layer.borderColor = SMColor.blue_BDD1DE.cgColor
         self.layer.borderWidth = 1
+        self.keyboardType = .asciiCapable
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: 45)
         ])
@@ -40,15 +41,10 @@ class SMTextField: UITextField {
 extension SMTextField {
     public func setSecureField() {
         secureEyeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
-        if #available(iOS 15.0, *) {
-            secureEyeButton.configuration?.buttonSize = .mini
-        } else {
-            // Fallback on earlier versions
-        }
         self.rightView = secureEyeButton
         self.isSecureTextEntry = true
         self.rightViewMode = .always
-        self.rightView?.tintColor = SMColor.gray_AFAFAF
+        self.rightView?.tintColor = SMColor.gray_295264
         secureEyeButton.translatesAutoresizingMaskIntoConstraints = false
         secureEyeButton.setImage(SMImage.closedEyeIcon?.withRenderingMode(.alwaysTemplate), for: .normal)
         secureEyeButton.addTarget(self, action: #selector(secureEyeButtonPressed), for: .touchUpInside)
@@ -64,11 +60,29 @@ extension SMTextField {
         }
     }
     
+    @objc private func okButtonPressed(sender: UIBarButtonItem) {
+        self.endEditing(true)
+    }
+    
+    public func toolbarTextField() -> UIView {
+        let toolbar = UIToolbar()
+        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let nextButtonItem = UIBarButtonItem(title: "OK",
+                                             style: .plain,
+                                             target: nil,
+                                             action: #selector(okButtonPressed))
+        toolbar.items = [flexibleButton, nextButtonItem]
+        toolbar.barStyle = .default
+        toolbar.isTranslucent = true
+        toolbar.tintColor = SMColor.blue_066699
+        toolbar.sizeToFit()
+        return toolbar
+    }
 }
 
 extension SMTextField {
     private func addLayout() {
-        self.backgroundColor = SMColor.white
+        self.backgroundColor = SMColor.blue_EDF3FA
         addTextField()
     }
     

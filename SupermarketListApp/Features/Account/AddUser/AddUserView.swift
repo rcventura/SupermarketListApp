@@ -1,5 +1,5 @@
 //
-//  CreateNewUserView.swift
+//  AddUserView.swift
 //  SupermarketListApp
 //
 //  Created by Rodrigo Ventura on 28/07/23.
@@ -7,12 +7,11 @@
 
 import UIKit
 
-final class CreateNewUserView: UIView {
-    
+final class AddUserView: UIView {
     let fullNameTextFiel = SMTextField(placeholder: "Nome completo")
     let emailTextField = SMTextField(placeholder: "E-mail")
     let passwordTextField = SMTextField(placeholder: "Password")
-    let createButton = SMButton(title: "Cadastrar", enabledBackgroundColor: SMColor.gray_AFAFAF)
+    let createButton = SMButton(title: "Cadastrar", enabledBackgroundColor: SMColor.gray_295264)
     
     init() {
         super.init(frame: .zero)
@@ -24,14 +23,11 @@ final class CreateNewUserView: UIView {
     }
 }
 
-extension CreateNewUserView {
+extension AddUserView {
     
     private func addFullName() {
         addSubview(fullNameTextFiel)
         fullNameTextFiel.translatesAutoresizingMaskIntoConstraints = false
-        
-        fullNameTextFiel.backgroundColor = SMColor.white_f3f6f5
-        fullNameTextFiel.text = "Rodrigo Ventura"
         
         NSLayoutConstraint.activate([
             fullNameTextFiel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
@@ -43,9 +39,6 @@ extension CreateNewUserView {
     private func addEmailTextField() {
         addSubview(emailTextField)
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        emailTextField.backgroundColor = SMColor.white_f3f6f5
-        emailTextField.text = "rcvanalista@gmail.com"
         
         NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: fullNameTextFiel.bottomAnchor, constant: 10),
@@ -59,8 +52,6 @@ extension CreateNewUserView {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         
         passwordTextField.setSecureField()
-        passwordTextField.backgroundColor = SMColor.white_f3f6f5
-        passwordTextField.text = "SuperMan1985@"
         
         NSLayoutConstraint.activate([
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
@@ -71,7 +62,6 @@ extension CreateNewUserView {
     
     private func addCreateButton() {
         addSubview(createButton)
-
         createButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -82,7 +72,7 @@ extension CreateNewUserView {
     }
 }
 
-extension CreateNewUserView {
+extension AddUserView {
     private func setupLayout() {
         backgroundColor = SMColor.white
         addFullName()

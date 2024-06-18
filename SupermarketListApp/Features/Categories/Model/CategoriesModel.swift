@@ -1,5 +1,5 @@
 //
-//  ListCategoriesModel.swift
+//  CategoriesModel.swift
 //  SupermarketListApp
 //
 //  Created by Rodrigo Ventura on 28/07/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ListCategoriesModel: Codable {
+struct CategoriesModel: Codable {
     let id: Int
     let nameCategories: String
     let image: Image
