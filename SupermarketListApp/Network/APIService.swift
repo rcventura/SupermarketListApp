@@ -216,7 +216,7 @@ class ApiService {
         }
     }
     
-    func getCreatedLists(userID: Int, completion: @escaping(Result<[SaveListResponse], Error>) -> Void) {
+    func getCreatedLists(userID: Int, completion: @escaping(Result<[AddListResponse], Error>) -> Void) {
         let baseURL = "\(Endpoints.baseURL.rawValue)\(Endpoints.getCreatedList.rawValue)\(userID)"
         guard let url = URL(string: baseURL) else { return }
         let parameters = ["user_id": Helper.shared.userID]
@@ -245,7 +245,7 @@ class ApiService {
 
             DispatchQueue.main.async {
                 do {
-                    let data = try JSONDecoder().decode([SaveListResponse].self, from: data)
+                    let data = try JSONDecoder().decode([AddListResponse].self, from: data)
                     completion(.success(data))                    
                 } catch let error {
                     completion(.failure(error))

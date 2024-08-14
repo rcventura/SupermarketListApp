@@ -137,10 +137,9 @@ extension ShoppingListViewController {
         
         title = "Lista de Compras"
         navigationItem.hidesBackButton = true
-        let iconImage = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate)
-        let trashIcon = UIBarButtonItem(image: iconImage, style: .plain, target: self, action: #selector(cancelList))
+        let trashIcon = UIBarButtonItem(image: SMImage.deleteIcon, style: .plain, target: self, action: #selector(cancelList))
         navigationItem.rightBarButtonItem = trashIcon
-        navigationController?.navigationBar.tintColor = .red.withAlphaComponent(0.5)
+        navigationController?.navigationBar.tintColor = .blue.withAlphaComponent(0.5)
     }
 }
 

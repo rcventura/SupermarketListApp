@@ -1,5 +1,5 @@
 //
-//  SaveListResponse.swift
+//  AddListResponse.swift
 //  SupermarketListApp
 //
 //  Created by Rodrigo Ventura on 07/08/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SaveListResponse: Codable {
+struct AddListResponse: Codable {
     let id: Int
     let createdAt: Int
     let userID: Int

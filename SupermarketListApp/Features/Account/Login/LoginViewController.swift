@@ -19,6 +19,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.delegate = self
+        self.mainView.emailTextField.delegate = self
         addLayout()
     }
 }
@@ -43,6 +44,10 @@ extension LoginViewController {
             viewModel.authLoginWithEmail(email: email, password: password)
         }
     }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    
 }
 
 extension LoginViewController {

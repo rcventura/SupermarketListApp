@@ -37,4 +37,9 @@ extension HomeViewModel {
     func createNewSuperMarketList(listTitle: String, placeOfCreation: Bool) {
         self.coordinator?.newSuperMarketList(listTitle: listTitle, placeOfCreation: placeOfCreation)
     }
+    
+    
+    func openAddShoopingList() {
+        coordinator?.openAddShoppingListViewController()
+    }
 }

@@ -93,8 +93,9 @@ extension CategoriesViewController: UICollectionViewDelegate, UICollectionViewDa
 extension CategoriesViewController {
     private func addLayout() {
         delegates()
+        
         title = "Categorias"
-        navigationController?.navigationBar.backgroundColor = SMColor.blue_BDD1DE
+        navigationController?.navigationBar.tintColor = .blue.withAlphaComponent(0.5)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Fechar", style: .plain, target: self, action: #selector(backViewController))
     }
 }

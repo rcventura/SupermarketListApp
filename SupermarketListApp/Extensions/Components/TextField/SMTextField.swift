@@ -11,6 +11,7 @@ class SMTextField: UITextField {
     let textFieldPadding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
     
     private let secureEyeButton = UIButton()
+    var shouldReturnKey: (() -> Bool)?
     
     init(placeholder: String = "") {
         super.init(frame: .zero)
@@ -59,25 +60,6 @@ extension SMTextField {
             secureEyeButton.setImage(SMImage.closedEyeIcon?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
     }
-    
-    @objc private func okButtonPressed(sender: UIBarButtonItem) {
-        self.endEditing(true)
-    }
-    
-    public func toolbarTextField() -> UIView {
-        let toolbar = UIToolbar()
-        let flexibleButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let nextButtonItem = UIBarButtonItem(title: "OK",
-                                             style: .plain,
-                                             target: nil,
-                                             action: #selector(okButtonPressed))
-        toolbar.items = [flexibleButton, nextButtonItem]
-        toolbar.barStyle = .default
-        toolbar.isTranslucent = true
-        toolbar.tintColor = SMColor.blue_066699
-        toolbar.sizeToFit()
-        return toolbar
-    }
 }
 
 extension SMTextField {
@@ -102,5 +84,9 @@ extension SMTextField: UITextFieldDelegate {
     
     override public func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: textFieldPadding)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return shouldReturnKey?() ?? false
     }
 }

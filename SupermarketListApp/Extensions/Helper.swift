@@ -11,7 +11,7 @@ final class Helper {
     static var shared = Helper()
     
     var listItemAdded: [ItemsList] = []
-    var userShoppingList: [SaveListResponse] = []
+    var userShoppingList: [AddListResponse] = []
     var userAuthToken = String()
     var userID = Int()
 }

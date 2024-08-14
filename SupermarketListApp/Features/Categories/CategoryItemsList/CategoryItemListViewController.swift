@@ -138,7 +138,7 @@ extension CategoryItemListViewController {
         delegates()
         actionButton()
         title = "Items"
-        navigationController?.navigationBar.backgroundColor = SMColor.blue_BDD1DE
+        navigationController?.navigationBar.tintColor = .blue.withAlphaComponent(0.5)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Voltar", style: .plain, target: self, action: #selector(backViewController))
     }
 }

@@ -33,31 +33,32 @@ extension HomeViewController {
     }
     
     @objc func createNewMarketList() {
-        showAlertWithTextField(title: "Nova Lista",
-                               message: "Vamos dar um nome a sua nova lista de compras?",
-                               customTitle: "Criar",
-                               cancelTitle: "Cancelar",
-                               textFieldPlaceholder: "Nome da lista",
-                               inputKeyboardType: .asciiCapable,
-                               actionHandler:  { title in
-            guard let title = title else { return }
-            if title == ""{
-                self.showSimpleAlert(title: "Atenção", message: "É necessário inserir o nome da lista de compras", customHandler: { _,_  in
-                    self.createNewMarketList()
-                })
-            } else {
-                self.showSimpleAlert(title: "Atenção",
-                                     message: "Lista criada de casa?",
-                                     customTitle: "Sim",
-                                     customHandler: { _, placeOfCreation  in
-                    self.viewModel.createNewSuperMarketList(listTitle: title, placeOfCreation: placeOfCreation)
-                },
-                                     cancelTitle: "Não", cancelHandler: { _, placeOfCreation in
-                    self.viewModel.createNewSuperMarketList(listTitle: title, placeOfCreation: placeOfCreation)
-                },cancelTitleStyle: .default)
-            }
-        }
-    )}
+        viewModel.coordinator?.openAddShoppingListViewController()
+//        showAlertWithTextField(title: "Nova Lista",
+//                               message: "Vamos dar um nome a sua nova lista de compras?",
+//                               customTitle: "Criar",
+//                               cancelTitle: "Cancelar",
+//                               textFieldPlaceholder: "Nome da lista",
+//                               inputKeyboardType: .asciiCapable,
+//                               actionHandler:  { title in
+//            guard let title = title else { return }
+//            if title == ""{
+//                self.showSimpleAlert(title: "Atenção", message: "É necessário inserir o nome da lista de compras", customHandler: { _,_  in
+//                    self.createNewMarketList()
+//                })
+//            } else {
+//                self.showSimpleAlert(title: "Atenção",
+//                                     message: "Lista criada de casa?",
+//                                     customTitle: "Sim",
+//                                     customHandler: { _, placeOfCreation  in
+//                    self.viewModel.createNewSuperMarketList(listTitle: title, placeOfCreation: placeOfCreation)
+//                },
+//                                     cancelTitle: "Não", cancelHandler: { _, placeOfCreation in
+//                    self.viewModel.createNewSuperMarketList(listTitle: title, placeOfCreation: placeOfCreation)
+//                },cancelTitleStyle: .default)
+//            }
+//        })
+    }
 }
 
 extension HomeViewController {
@@ -104,16 +105,14 @@ extension HomeViewController {
         delegates()
         actionComponentsView()
         
-        title = "Suas Listas"
+        title = "Minhas listas de compras"
         navigationItem.hidesBackButton = true
-        
     }
     
     private func addIconNavigation() {
-        let iconImage = UIImage(systemName: "plus.circle")?.withRenderingMode(.alwaysTemplate)
-        let trashIcon = UIBarButtonItem(image: iconImage, style: .plain, target: self, action: #selector(createNewMarketList))
-            navigationItem.rightBarButtonItem = trashIcon
-            navigationController?.navigationBar.tintColor = .blue.withAlphaComponent(0.5)
+        let deleteIcon = UIBarButtonItem(image: SMImage.addIcon, style: .plain, target: self, action: #selector(createNewMarketList))
+            navigationItem.rightBarButtonItem = deleteIcon
+        
         if #available(iOS 16.0, *) {
                 navigationItem.rightBarButtonItem?.isHidden = Helper.shared.userShoppingList.count == 0 ? true : false
         }
