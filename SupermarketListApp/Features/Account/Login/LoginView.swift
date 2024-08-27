@@ -38,9 +38,6 @@ extension LoginView {
         scrollView.showsVerticalScrollIndicator = true
         scrollView.backgroundColor = .blue
         scrollView.contentSize = self.frame.size
-//        scrollView.layer.borderWidth = 1
-//        scrollView.layer.borderColor = SMColor.red_B3130F.cgColor
-        
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
@@ -72,9 +69,6 @@ extension LoginView {
         
         emailTextField.text = "rcvanalista@gmail.com"
         emailTextField.keyboardType = .emailAddress
-        emailTextField.layer.borderWidth = 1
-        emailTextField.layer.borderColor = SMColor.black.cgColor
-        
         
         NSLayoutConstraint.activate([
             emailTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
@@ -89,8 +83,6 @@ extension LoginView {
         
         passwordTextField.setSecureField()
         passwordTextField.text = "123456"
-        passwordTextField.layer.borderWidth = 1
-        passwordTextField.layer.borderColor = SMColor.red_B3130F.cgColor
         
         NSLayoutConstraint.activate([
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
@@ -104,8 +96,6 @@ extension LoginView {
         forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         
         forgotPasswordButton.setTitleColor(SMColor.blue_4180AB, for: .normal)
-        forgotPasswordButton.layer.borderWidth = 1
-        forgotPasswordButton.layer.borderColor = SMColor.red_B3130F.cgColor
         
         NSLayoutConstraint.activate([
             forgotPasswordButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
@@ -122,10 +112,6 @@ extension LoginView {
         stackView.distribution = .fillEqually
         stackView.addArrangedSubview(loginButton)
         stackView.addArrangedSubview(newUserButton)
-        
-        stackView.layer.borderWidth = 1
-        stackView.layer.borderColor = SMColor.red_B3130F.cgColor
-        
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: forgotPasswordButton.bottomAnchor, constant: 30),

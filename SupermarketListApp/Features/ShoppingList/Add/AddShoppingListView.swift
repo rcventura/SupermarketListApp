@@ -91,9 +91,6 @@ extension AddShoppingListView {
         titleDescriptionLabel.numberOfLines = 0
         titleDescriptionLabel.text = "Vamos dar nome a sua lista de compras?"
         
-        titleDescriptionLabel.layer.borderWidth = 1
-        titleDescriptionLabel.layer.borderColor = SMColor.blue_066699.cgColor
-        
         NSLayoutConstraint.activate([
             titleDescriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20),
             titleDescriptionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
@@ -104,9 +101,6 @@ extension AddShoppingListView {
     private func addNameListTextField() {
         containerView.addSubview(nameListTextField)
         nameListTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        nameListTextField.layer.borderWidth = 1
-        nameListTextField.layer.borderColor = SMColor.blue_066699.cgColor
         
         NSLayoutConstraint.activate([
             nameListTextField.topAnchor.constraint(equalTo: titleDescriptionLabel.bottomAnchor, constant: 10),
@@ -122,9 +116,6 @@ extension AddShoppingListView {
         listCreationLocation.font = UIFont(name: "Arial", size: 14)
         listCreationLocation.numberOfLines = 0
         listCreationLocation.text = "Agora informe o local de criação da lista"
-
-        listCreationLocation.layer.borderWidth = 1
-        listCreationLocation.layer.borderColor = SMColor.blue_066699.cgColor
         
         NSLayoutConstraint.activate([
             listCreationLocation.topAnchor.constraint(equalTo: nameListTextField.bottomAnchor, constant: 20),

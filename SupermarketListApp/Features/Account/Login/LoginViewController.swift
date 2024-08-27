@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel.delegate = self
         self.mainView.emailTextField.delegate = self
+        self.mainView.passwordTextField.delegate = self
         addLayout()
     }
 }
@@ -44,10 +45,21 @@ extension LoginViewController {
             viewModel.authLoginWithEmail(email: email, password: password)
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 extension LoginViewController: UITextFieldDelegate {
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case self.mainView.emailTextField:
+            self.mainView.passwordTextField.becomeFirstResponder()
+        default:
+            textField.resignFirstResponder()
+        }
+    }
 }
 
 extension LoginViewController {
